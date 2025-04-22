@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { useForm } from "../context/FormContext";
 import TemplateSimple from "../components/templates/TemplateSimple";
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import CvPdf from '../components/pdf/CvPdf';
 
 const CvPreview = () => {
   const componentRef = useRef();
@@ -25,12 +27,17 @@ const CvPreview = () => {
         >
           Geri Dön
         </button>
-        <button
-          onClick={handlePrint}
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        
+        <PDFDownloadLink
+          document={<CvPdf formData={formData} />}
+          fileName={`${formData.name || "PlaceHolder"}_CV.pdf`}
         >
-          PDF Olarak İndir
-        </button>
+          {({ loading }) => (
+            <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+              {loading ? "Hazırlanıyor..." : "PDF Olarak İndir"}
+            </button>
+          )}
+        </PDFDownloadLink>
       </div>
 
       {/* Sadece yazdırılacak içerik */}
