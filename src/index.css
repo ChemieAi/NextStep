@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --primary: #ff6b00;
+  --primary-dark: #e65c00;
+  --background: #fefefe;
+  --text: #2c2c2c;
+  --muted: #6b7280;
+  --input-bg: #f9fafb;
+  --input-border: #e5e7eb;
+  --radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Typography */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+p {
+  color: var(--muted);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Buttons */
+.btn {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  border: none;
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  padding: 10px 14px;
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  border-radius: var(--radius);
+  width: 100%;
+  font-size: 15px;
+  margin-bottom: 1rem;
+  transition: 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+/* Layout Helpers */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.center-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  text-align: center;
+}
+
+/* Utility */
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
