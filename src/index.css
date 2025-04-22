@@ -6,8 +6,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 :root {
-  --primary: #ff6b00;
-  --primary-dark: #e65c00;
+  --primary: #22c55e;        /* tailwind: green-500 */
+  --primary-dark: #16a34a;   /* tailwind: green-600 */
+  --button-hover: #16a34a;
+  --button-text: white;
   --background: #fefefe;
   --text: #2c2c2c;
   --muted: #6b7280;
@@ -107,4 +109,11 @@ textarea:focus {
 
 .text-center {
   text-align: center;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2); /* yeşil glow */
 }

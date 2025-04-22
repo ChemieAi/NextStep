@@ -39,7 +39,7 @@ const StepSocial = ({ data, setData }) => {
             />
             <button
               onClick={() => handleDelete(index)}
-              className="text-white bg-red-500 px-3 py-1 rounded hover:bg-red-600"
+              className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-600"
             >
               🗑️
             </button>
@@ -70,7 +70,7 @@ const StepSocial = ({ data, setData }) => {
       {/* Ekle butonu */}
       <button
         onClick={handleAdd}
-        className="mt-2 w-full border-2 border-orange-500 text-orange-500 py-2 rounded hover:bg-orange-50 font-semibold"
+        className="w-full border-2 border-green-500 text-green-500 py-2 rounded hover:bg-green-100 font-semibold"
       >
         EKLE
       </button>

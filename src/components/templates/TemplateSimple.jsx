@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 
 const TemplateSimple = forwardRef(({ data }, ref ) => {
     return (
-        <div ref={ref} className="bg-white text-black p-8 w-[794px] min-h-[1123px] text-sm leading-relaxed">
+        <div ref={ref} className=" bg-white text-black p-8 w-[820px] min-h-[1123px] text-sm leading-relaxed">
 
         {/* Header */}
         <div className="text-center mb-6">

@@ -4,6 +4,13 @@ const StepBasicInfo = ({ data, setData }) => {
   
     return (
       <div className="grid md:grid-cols-2 gap-4">
+
+        {/* Profil resmi placeholder */}
+        <div className="col-span-2 flex justify-center mt-4">
+          <div className="bg-green-400 text-white w-32 h-32 rounded-full flex items-center justify-center text-center text-sm">
+            Add Photo<br />(coming soon)
+          </div>
+        </div>
         <div>
           <label className="font-medium block mb-1">Full Name</label>
           <input
@@ -53,13 +60,6 @@ const StepBasicInfo = ({ data, setData }) => {
             onChange={handleChange}
             className="w-full p-3 border rounded bg-gray-50"
           />
-        </div>
-  
-        {/* Profil resmi placeholder */}
-        <div className="col-span-2 flex justify-center mt-4">
-          <div className="bg-orange-500 text-white w-32 h-32 rounded-full flex items-center justify-center text-center text-sm">
-            Add Photo<br />(coming soon)
-          </div>
         </div>
       </div>
     );

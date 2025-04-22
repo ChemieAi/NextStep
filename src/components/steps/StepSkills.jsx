@@ -39,15 +39,15 @@ const StepSkills = ({ data, setData }) => {
             placeholder="e.g. React, JavaScript"
             className="w-full p-2 border rounded bg-gray-50"
           />
-          <button onClick={addSkill} className="bg-orange-500 text-white px-4 rounded hover:bg-orange-600">
+          <button onClick={addSkill} className="bg-green-500 text-white px-4 rounded hover:bg-green-600">
             +
           </button>
         </div>
         <div className="flex flex-wrap gap-2">
           {(data.skills || []).map((s, i) => (
-            <div key={i} className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full flex items-center gap-2">
+            <div key={i} className="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center gap-2">
               {s}
-              <button onClick={() => removeSkill(i)} className="text-sm text-red-600">x</button>
+              <button onClick={() => removeSkill(i)} className="text-sm text-red-600">X</button>
             </div>
           ))}
         </div>
@@ -78,7 +78,7 @@ const StepSkills = ({ data, setData }) => {
             <option value="Native">Native</option>
           </select>
         </div>
-        <button onClick={addLang} className="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600">
+        <button onClick={addLang} className="border-2 border-green-500 text-green-500 px-4 py-1 rounded hover:bg-green-100 font-semibold">
           Add Language
         </button>
         <div className="mt-3 space-y-2">

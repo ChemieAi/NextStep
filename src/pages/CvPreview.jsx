@@ -21,21 +21,21 @@ const CvPreview = () => {
       <div className="flex justify-center mb-6">
         <button
           onClick={() => navigate("/cv-builder")}
-          className="border border-gray-400 text-gray-700 px-4 py-2 rounded mr-4"
+          className=" border border-gray-400 text-gray-700 px-4 py-2 rounded mr-4"
         >
           Geri Dön
         </button>
         <button
           onClick={handlePrint}
-          className="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600"
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
         >
           PDF Olarak İndir
         </button>
       </div>
 
       {/* Sadece yazdırılacak içerik */}
-      <div ref={componentRef}>
-        <TemplateSimple data={formData} />
+      <div className="flex justify-center">
+        <TemplateSimple  ref={componentRef} data={formData}/>
       </div>
     </div>
   );

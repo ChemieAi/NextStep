@@ -41,9 +41,9 @@ const StepProjects = ({ data, setData }) => {
           )}
           <button
             onClick={() => handleDelete(i)}
-            className="absolute top-2 right-2 text-red-600 text-sm hover:underline"
+            className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-600 absolute top-2 right-2"
           >
-            Sil
+            🗑️
           </button>
         </div>
       ))}
@@ -75,7 +75,7 @@ const StepProjects = ({ data, setData }) => {
 
       <button
         onClick={handleAdd}
-        className="w-full border-2 border-orange-500 text-orange-500 py-2 rounded hover:bg-orange-50 font-semibold"
+        className="w-full border-2 border-green-500 text-green-500 py-2 rounded hover:bg-green-100 font-semibold"
       >
         EKLE
       </button>
