@@ -64,33 +64,33 @@ const StepExperience = ({ data, setData }) => {
 
       {/* Yeni giriş alanı */}
       <div className="grid md:grid-cols-2 gap-4">
-        <input name="company" value={exp.company} onChange={handleChange} placeholder="Company" className="p-3 border rounded bg-gray-50" />
-        <input name="position" value={exp.position} onChange={handleChange} placeholder="Position" className="p-3 border rounded bg-gray-50" />
+        <input name="company" value={exp.company} onChange={handleChange} placeholder="Şirket" className="p-3 border rounded bg-gray-50" />
+        <input name="position" value={exp.position} onChange={handleChange} placeholder="Pozisyon" className="p-3 border rounded bg-gray-50" />
 
         {/* Tarihler */}
         <div className="flex gap-2">
           <select name="startMonth" value={exp.startMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Month</option>
+            <option value="">Ay</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
           <select name="startYear" value={exp.startYear} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Year</option>
+            <option value="">Yıl</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
         <div className="flex gap-2">
           <select name="endMonth" value={exp.endMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Month</option>
+            <option value="">Ay</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
           <select name="endYear" value={exp.endYear} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Year</option>
+            <option value="">Yıl</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
 
         <div className="md:col-span-2">
-          <textarea name="description" value={exp.description} onChange={handleChange} placeholder="Job Description" className="w-full p-3 border rounded bg-gray-50" />
+          <textarea name="description" value={exp.description} onChange={handleChange} placeholder="İş Tanımı" className="w-full p-3 border rounded bg-gray-50" />
         </div>
       </div>
 

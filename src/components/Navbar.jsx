@@ -5,6 +5,7 @@ import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
   ArrowLeftOnRectangleIcon, // Çıkış ikonu
+  UserCircleIcon
 } from "@heroicons/react/24/solid";
 
 const Navbar = () => {
@@ -38,6 +39,10 @@ const Navbar = () => {
       label: "Kayıt Ol",
       show: !currentUser,
     },
+    { to: "/profile",
+      icon: <UserCircleIcon className="h-6 w-6" />,
+      label: "Profil",
+      show: currentUser },
   ];
 
   return (
@@ -63,7 +68,7 @@ const Navbar = () => {
           {currentUser && (
             <button
               onClick={handleLogout}
-              title="Çıkış"
+              title="Çıkış yap"
               className="text-red-300 hover:text-red-500 transition"
             >
               <ArrowLeftOnRectangleIcon className="h-6 w-6" />

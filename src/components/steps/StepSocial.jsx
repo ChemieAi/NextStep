@@ -54,7 +54,7 @@ const StepSocial = ({ data, setData }) => {
           name="name"
           value={social.name}
           onChange={handleChange}
-          placeholder="Link Name"
+          placeholder="Link Adı (e.g. LinkedIn)"
           className="w-full p-3 border rounded bg-gray-50"
         />
         <input
@@ -62,7 +62,7 @@ const StepSocial = ({ data, setData }) => {
           name="url"
           value={social.url}
           onChange={handleChange}
-          placeholder="Link URL"
+          placeholder="Link URL (e.g. https://linkedin.com/in/burak-kızılay)"
           className="w-full p-3 border rounded bg-gray-50"
         />
       </div>
