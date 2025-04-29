@@ -118,7 +118,7 @@ const CvBuilder = () => {
     setStep((prev) => Math.max(prev - 1, 0));
   };
   return (
-    <div className="min-h-screen bg-[#f0f0f0] flex justify-center items-center p-6">
+    <div className="min-h-screen bg-[#e5e5e5] flex justify-center items-center p-6">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-5xl p-6">
         {/* Step Navigation */}
         <div className="flex items-center justify-between mb-8 overflow-x-auto">
