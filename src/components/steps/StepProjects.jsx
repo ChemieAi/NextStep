@@ -54,21 +54,21 @@ const StepProjects = ({ data, setData }) => {
           name="title"
           value={project.title}
           onChange={handleChange}
-          placeholder="Project Title"
+          placeholder="Proje Başlığı"
           className="p-3 border rounded bg-gray-50"
         />
         <textarea
           name="description"
           value={project.description}
           onChange={handleChange}
-          placeholder="Description"
+          placeholder="Proje Açıklaması"
           className="p-3 border rounded bg-gray-50"
         />
         <input
           name="link"
           value={project.link}
           onChange={handleChange}
-          placeholder="Project Link (optional)"
+          placeholder="Proje Linki (isteğe bağlı)"
           className="p-3 border rounded bg-gray-50"
         />
       </div>

@@ -12,11 +12,13 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅
   const { resetForm } = useForm(); // 👈 logout'ta kullanılacak
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user || null);
+      setLoading(false); // ✅
     });
     return () => unsub();
   }, []);
@@ -36,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ currentUser, login, register, logout }}>
-      {children}
+      {!loading && children} {/* ✅ sadece kullanıcı kontrolü bitince göster */}
     </AuthContext.Provider>
   );
 };

@@ -61,21 +61,21 @@ const StepEducation = ({ data, setData }) => {
 
       {/* Yeni giriş alanları */}
       <div className="grid md:grid-cols-2 gap-4">
-        <input name="school" value={edu.school} onChange={handleChange} placeholder="School Name" className="p-3 border rounded bg-gray-50" />
-        <input name="country" value={edu.country} onChange={handleChange} placeholder="Country" className="p-3 border rounded bg-gray-50" />
+        <input name="school" value={edu.school} onChange={handleChange} placeholder="Okul Adı" className="p-3 border rounded bg-gray-50" />
+        <input name="country" value={edu.country} onChange={handleChange} placeholder="Şehir" className="p-3 border rounded bg-gray-50" />
 
         {/* Start Date */}
         <div className="flex gap-2 col-span-1">
           <select name="startDay" value={edu.startDay} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Day</option>
+            <option value="">Gün</option>
             {generateOptions(1, 31).map(d => <option key={d}>{d}</option>)}
           </select>
           <select name="startMonth" value={edu.startMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Month</option>
+            <option value="">Ay</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
           <select name="startYear" value={edu.startYear} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Year</option>
+            <option value="">Yıl</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
@@ -83,15 +83,15 @@ const StepEducation = ({ data, setData }) => {
         {/* End Date */}
         <div className="flex gap-2 col-span-1">
           <select name="endDay" value={edu.endDay} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Day</option>
+            <option value="">Gün</option>
             {generateOptions(1, 31).map(d => <option key={d}>{d}</option>)}
           </select>
           <select name="endMonth" value={edu.endMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Month</option>
+            <option value="">Ay</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
           <select name="endYear" value={edu.endYear} onChange={handleChange} className="p-2 border rounded bg-gray-50">
-            <option value="">Year</option>
+            <option value="">Yıl</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>

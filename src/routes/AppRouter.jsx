@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import CvBuilder from "../pages/CvBuilder";
 import CvPreview from "../pages/CvPreview";
+import Profile from "../pages/Profile";
 
 const AppRouter = () => {
   return (
@@ -14,6 +15,7 @@ const AppRouter = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/cv-builder" element={<CvBuilder />} />
       <Route path="/cv-preview" element={<CvPreview />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 };

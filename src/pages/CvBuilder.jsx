@@ -46,16 +46,20 @@ const CvBuilder = () => {
 
   useEffect(() => {
     let isMounted = true;
-
+  
     const fetchData = async () => {
       if (!currentUser || !isMounted) return;
-
+  
       try {
-        const docRef = doc(db, "users", currentUser.uid, "cvs", "main");
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setFormData(docSnap.data());
+        const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
+        const cvSnap = await getDoc(cvRef);
+  
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        const profileImage = userSnap.exists() ? userSnap.data().profileImage : "";
+  
+        if (cvSnap.exists()) {
+          setFormData({ ...cvSnap.data(), profileImage }); // ✅
         } else {
           setFormData({
             name: "",
@@ -69,18 +73,20 @@ const CvBuilder = () => {
             skills: [],
             languages: [],
             projects: [],
+            profileImage, // ✅
           });
         }
       } catch (err) {
         console.error("CV verisi alınamadı ❌", err);
       }
     };
-
+  
     fetchData();
     return () => {
       isMounted = false;
     };
   }, [currentUser, setFormData]);
+  
 
   const saveToFirebase = async () => {
     if (!currentUser) return;

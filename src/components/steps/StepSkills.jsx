@@ -30,7 +30,7 @@ const StepSkills = ({ data, setData }) => {
     <div className="space-y-6">
       {/* Skills */}
       <div>
-        <h3 className="text-lg font-semibold mb-2">Skills</h3>
+        <h3 className="text-lg font-semibold mb-2">Yetenekler</h3>
         <div className="flex gap-2 mb-3">
           <input
             type="text"
@@ -55,14 +55,14 @@ const StepSkills = ({ data, setData }) => {
 
       {/* Languages */}
       <div>
-        <h3 className="text-lg font-semibold mb-2">Languages</h3>
+        <h3 className="text-lg font-semibold mb-2">Dil</h3>
         <div className="grid md:grid-cols-2 gap-2 mb-3">
           <input
             type="text"
             name="name"
             value={lang.name}
             onChange={(e) => setLang({ ...lang, name: e.target.value })}
-            placeholder="Language (e.g. English)"
+            placeholder="Dil (e.g. English)"
             className="p-2 border rounded bg-gray-50"
           />
           <select
@@ -71,7 +71,7 @@ const StepSkills = ({ data, setData }) => {
             onChange={(e) => setLang({ ...lang, level: e.target.value })}
             className="p-2 border rounded bg-gray-50"
           >
-            <option value="">Level</option>
+            <option value="">Seviye</option>
             <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
@@ -79,7 +79,7 @@ const StepSkills = ({ data, setData }) => {
           </select>
         </div>
         <button onClick={addLang} className="border-2 border-green-500 text-green-500 px-4 py-1 rounded hover:bg-green-100 font-semibold">
-          Add Language
+          Dil Ekle
         </button>
         <div className="mt-3 space-y-2">
           {(data.languages || []).map((l, i) => (
