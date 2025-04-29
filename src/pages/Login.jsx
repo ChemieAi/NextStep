@@ -25,8 +25,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#e3e3e3] flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold mb-6">LOGO</h1>
+    <div className="min-h-screen bg-[#e3e3e3] flex flex-col justify-center items-center dark:bg-gray-900 dark:text-white">
+      <h1 className="text-4xl font-bold mb-6 dark:text-white">LOGO</h1>
 
       <form
         onSubmit={handleSubmit}

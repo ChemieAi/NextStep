@@ -47,9 +47,9 @@ const StepExperience = ({ data, setData }) => {
     <div className="space-y-6">
       {/* Mevcut deneyimler */}
       {(data.experience || []).map((item, index) => (
-        <div key={index} className="bg-gray-50 p-4 rounded-md border relative">
-          <p className="font-semibold">{item.company} – {item.position}</p>
-          <p className="text-sm text-gray-600">
+        <div key={index} className="bg-gray-50 p-4 rounded-md border relative dark:bg-gray-700 dark:text-white">
+          <p className="font-semibold  dark:text-white">{item.company} – {item.position}</p>
+          <p className="text-sm text-gray-600  dark:text-gray-300">
             {item.startMonth}/{item.startYear} - {item.endMonth}/{item.endYear}
           </p>
           <p className="text-sm mt-2 text-gray-700">{item.description}</p>
@@ -64,39 +64,41 @@ const StepExperience = ({ data, setData }) => {
 
       {/* Yeni giriş alanı */}
       <div className="grid md:grid-cols-2 gap-4">
-        <input name="company" value={exp.company} onChange={handleChange} placeholder="Şirket" className="p-3 border rounded bg-gray-50" />
-        <input name="position" value={exp.position} onChange={handleChange} placeholder="Pozisyon" className="p-3 border rounded bg-gray-50" />
+        <input name="company" value={exp.company} onChange={handleChange} placeholder="Şirket" className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
+        <input name="position" value={exp.position} onChange={handleChange} placeholder="Pozisyon" className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
 
         {/* Tarihler */}
         <div className="flex gap-2">
-          <select name="startMonth" value={exp.startMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50">
+          <p className="text-sm font-semibold dark:text-white">Başlangıç Tarihi</p>
+          <select name="startMonth" value={exp.startMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Ay</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
-          <select name="startYear" value={exp.startYear} onChange={handleChange} className="p-2 border rounded bg-gray-50">
+          <select name="startYear" value={exp.startYear} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Yıl</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
         <div className="flex gap-2">
-          <select name="endMonth" value={exp.endMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50">
+          <p className="text-sm font-semibold dark:text-white">Bitiş Tarihi</p>
+          <select name="endMonth" value={exp.endMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Ay</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
-          <select name="endYear" value={exp.endYear} onChange={handleChange} className="p-2 border rounded bg-gray-50">
+          <select name="endYear" value={exp.endYear} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Yıl</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
 
         <div className="md:col-span-2">
-          <textarea name="description" value={exp.description} onChange={handleChange} placeholder="İş Tanımı" className="w-full p-3 border rounded bg-gray-50" />
+          <textarea name="description" value={exp.description} onChange={handleChange} placeholder="İş Tanımı" className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
         </div>
       </div>
 
       <button
         onClick={handleAdd}
-        className="w-full border-2 border-green-500 text-green-500 py-2 rounded hover:bg-green-100 font-semibold"
+        className="w-full border-2 border-green-500 text-green-500 py-2 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600"
       >
         EKLE
       </button>

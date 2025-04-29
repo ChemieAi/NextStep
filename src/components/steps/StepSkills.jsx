@@ -30,20 +30,20 @@ const StepSkills = ({ data, setData }) => {
     <div className="space-y-6">
       {/* Skills */}
       <div>
-        <h3 className="text-lg font-semibold mb-2">Yetenekler</h3>
+        <h3 className="text-lg font-semibold mb-2 ">Yetenekler</h3>
         <div className="flex gap-2 mb-3">
           <input
             type="text"
             value={skillInput}
             onChange={(e) => setSkillInput(e.target.value)}
             placeholder="e.g. React, JavaScript"
-            className="w-full p-2 border rounded bg-gray-50"
+            className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           />
           <button onClick={addSkill} className="bg-green-500 text-white px-4 rounded hover:bg-green-600">
             +
           </button>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 ">
           {(data.skills || []).map((s, i) => (
             <div key={i} className="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center gap-2">
               {s}
@@ -63,13 +63,13 @@ const StepSkills = ({ data, setData }) => {
             value={lang.name}
             onChange={(e) => setLang({ ...lang, name: e.target.value })}
             placeholder="Dil (e.g. English)"
-            className="p-2 border rounded bg-gray-50"
+            className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           />
           <select
             name="level"
             value={lang.level}
             onChange={(e) => setLang({ ...lang, level: e.target.value })}
-            className="p-2 border rounded bg-gray-50"
+            className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           >
             <option value="">Seviye</option>
             <option value="Beginner">Beginner</option>
@@ -78,14 +78,14 @@ const StepSkills = ({ data, setData }) => {
             <option value="Native">Native</option>
           </select>
         </div>
-        <button onClick={addLang} className="border-2 border-green-500 text-green-500 px-4 py-1 rounded hover:bg-green-100 font-semibold">
+        <button onClick={addLang} className="border-2 border-green-500 text-green-500 px-4 py-1 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600">
           Dil Ekle
         </button>
         <div className="mt-3 space-y-2">
           {(data.languages || []).map((l, i) => (
-            <div key={i} className="flex items-center justify-between bg-gray-50 p-2 rounded border">
+            <div key={i} className="flex items-center justify-between bg-gray-50 p-2 rounded border dark:bg-gray-700 dark:text-white">
               <span>{l.name} – {l.level}</span>
-              <button onClick={() => removeLang(i)} className="text-sm text-red-600">Sil</button>
+              <button onClick={() => removeLang(i)} className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-500 absolute:right">🗑️</button>
             </div>
           ))}
         </div>

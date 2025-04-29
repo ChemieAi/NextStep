@@ -1,5 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import {
   HomeIcon,
   ArrowRightOnRectangleIcon,
@@ -11,6 +13,7 @@ import {
 const Navbar = () => {
   const location = useLocation();
   const { currentUser, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     try {
@@ -39,10 +42,12 @@ const Navbar = () => {
       label: "Kayıt Ol",
       show: !currentUser,
     },
-    { to: "/profile",
+    {
+      to: "/profile",
       icon: <UserCircleIcon className="h-6 w-6" />,
       label: "Profil",
-      show: currentUser },
+      show: currentUser
+    },
   ];
 
   return (
@@ -57,13 +62,15 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 title={link.label}
-                className={`transition hover:text-green-400 ${
-                  location.pathname === link.to ? "text-green-500" : ""
-                }`}
+                className={`transition hover:text-green-400 ${location.pathname === link.to ? "text-green-500" : ""
+                  }`}
               >
                 {link.icon}
               </Link>
             ))}
+          <button onClick={toggleTheme} className="ml-4 hover:text-green-400" title="Tema Değiştir">
+            {theme === "dark" ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
+          </button>
 
           {currentUser && (
             <button

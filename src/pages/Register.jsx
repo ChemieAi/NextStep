@@ -45,8 +45,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#e3e3e3] flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold mb-6">LOGO</h1>
+    <div className="min-h-screen bg-[#e3e3e3] flex flex-col justify-center items-center dark:bg-gray-900 dark:text-white">
+      <h1 className="text-4xl font-bold mb-6 dark:text-white">LOGO</h1>
 
       <form
         onSubmit={handleSubmit}
@@ -89,7 +89,7 @@ const Register = () => {
         <button type="submit" className="btn w-full">Üye Ol</button>
 
         <p className="text-center mt-4 text-sm text-white underline cursor-pointer">
-          Zaten hesabınız var mı? <a href="/login">Giriş yap</a>
+          <a href="/login">Zaten hesabınız var mı? Giriş yap</a>
         </p>
       </form>
     </div>

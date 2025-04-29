@@ -54,7 +54,7 @@ const StepBasicInfo = ({ data, setData }) => {
           type="file"
           accept="image/*"
           onChange={handlePhotoUpload}
-          className="text-sm mt-1"
+          className="text-sm mt-1 dark:bg-gray-700 dark:text-white"
           disabled={uploading}
         />
       </div>
@@ -67,7 +67,7 @@ const StepBasicInfo = ({ data, setData }) => {
           value={data.name}
           onChange={handleChange}
           placeholder="Örneğin: Burak Kızılay"
-          className="w-full p-3 border rounded bg-gray-50"
+          className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
       <div>
@@ -78,7 +78,7 @@ const StepBasicInfo = ({ data, setData }) => {
           value={data.title}
           onChange={handleChange}
           placeholder="Örneğin: Yazılım Mühendisi"
-          className="w-full p-3 border rounded bg-gray-50"
+          className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
       <div>
@@ -89,7 +89,7 @@ const StepBasicInfo = ({ data, setData }) => {
           value={data.email}
           onChange={handleChange}
           placeholder="Mail adresiniz"
-          className="w-full p-3 border rounded bg-gray-50"
+          className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
       <div>
@@ -100,7 +100,7 @@ const StepBasicInfo = ({ data, setData }) => {
           value={data.city}
           onChange={handleChange}
           placeholder="Örneğin: İstanbul"
-          className="w-full p-3 border rounded bg-gray-50"
+          className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
       <div>
@@ -111,7 +111,7 @@ const StepBasicInfo = ({ data, setData }) => {
           value={data.phone}
           onChange={handleChange}
           placeholder="Örneğin: +90 555 555 55 55"
-          className="w-full p-3 border rounded bg-gray-50"
+          className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
     </div>

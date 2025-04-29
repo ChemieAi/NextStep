@@ -70,9 +70,9 @@ const Profile = () => {
 
 
     return (
-        <div className="min-h-screen bg-[#e5e5e5] p-6">
-            <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow mt-8">
-                <h1 className="text-3xl font-bold text-center mb-6">Profilim</h1>
+        <div className="min-h-screen bg-[#e5e5e5] p-6 dark:bg-gray-900 ">
+            <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow mt-8 dark:bg-gray-800 dark:text-white">
+                <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">Profilim</h1>
 
                 <div className="flex flex-col items-center mb-6">
                     {formData.profileImage ? (
@@ -88,19 +88,19 @@ const Profile = () => {
                     )}
 
                     <label className="text-sm mb-2 font-medium">Fotoğrafı Değiştir</label>
-                    <input
+                    <input 
                         type="file"
                         accept="image/*"
                         onChange={handleUploadPhoto}
-                        className="text-sm"
+                        className="text-sm dark:bg-gray-700 dark:text-white"
                         disabled={uploading}
                     />
                 </div>
 
-                <div className="mb-6">
-                    <p><strong>Ad Soyad:</strong> {formData.name || "-"}</p>
-                    <p><strong>Ünvan:</strong> {formData.title || "-"}</p>
-                    <p><strong>Email:</strong> {currentUser.email}</p>
+                <div className="mb-6 dark:text-white">
+                    <p className="dark:text-white"><strong>Ad Soyad:</strong> {formData.name || "-"}</p>
+                    <p className="dark:text-white"><strong>Ünvan:</strong> {formData.title || "-"}</p>
+                    <p className="dark:text-white"><strong>Email:</strong> {currentUser.email}</p>
                 </div>
 
                 <div className="flex justify-center">

@@ -118,8 +118,8 @@ const CvBuilder = () => {
     setStep((prev) => Math.max(prev - 1, 0));
   };
   return (
-    <div className="min-h-screen bg-[#e5e5e5] flex justify-center items-center p-6">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-5xl p-6">
+    <div className="min-h-screen bg-[#e5e5e5] flex justify-center items-center p-6 dark:bg-gray-900 dark:text-white">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-5xl p-6">
         {/* Step Navigation */}
         <div className="flex items-center justify-between mb-8 overflow-x-auto">
           {stepsConfig.map((stepItem, index) => {
@@ -148,7 +148,7 @@ const CvBuilder = () => {
           <button
             onClick={handleBack}
             disabled={step === 0}
-            className="px-5 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-40"
+            className="px-5 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-40 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
           >
             Geri
           </button>

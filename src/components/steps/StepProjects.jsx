@@ -26,9 +26,9 @@ const StepProjects = ({ data, setData }) => {
     <div className="space-y-6">
       {/* Listelenmiş projeler */}
       {(data.projects || []).map((p, i) => (
-        <div key={i} className="bg-gray-50 p-4 rounded-md border relative">
-          <p className="font-semibold">{p.title}</p>
-          <p className="text-sm text-gray-700">{p.description}</p>
+        <div key={i} className="bg-gray-50 p-4 rounded-md border relative dark:bg-gray-700 dark:text-white">
+          <p className="font-semibold dark:text-white">{p.title}</p>
+          <p className="text-sm text-gray-700 dark:text-gray-300">{p.description}</p>
           {p.link && (
             <a
               href={p.link}
@@ -49,33 +49,33 @@ const StepProjects = ({ data, setData }) => {
       ))}
 
       {/* Yeni proje alanı */}
-      <div className="grid gap-4">
+      <div className="grid gap-4 ">
         <input
           name="title"
           value={project.title}
           onChange={handleChange}
           placeholder="Proje Başlığı"
-          className="p-3 border rounded bg-gray-50"
+          className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
         <textarea
           name="description"
           value={project.description}
           onChange={handleChange}
           placeholder="Proje Açıklaması"
-          className="p-3 border rounded bg-gray-50"
+          className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
         <input
           name="link"
           value={project.link}
           onChange={handleChange}
           placeholder="Proje Linki (isteğe bağlı)"
-          className="p-3 border rounded bg-gray-50"
+          className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
 
       <button
         onClick={handleAdd}
-        className="w-full border-2 border-green-500 text-green-500 py-2 rounded hover:bg-green-100 font-semibold"
+        className="w-full border-2 border-green-500 text-green-500 py-2 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600"
       >
         EKLE
       </button>
