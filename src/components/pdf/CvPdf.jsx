@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   Font,
+  Image,
 } from "@react-pdf/renderer";
 
 // Örnek bir font (gerekirse özel font da ekleyebiliriz)
@@ -87,6 +88,22 @@ const CvPDF = ({ formData }) => {
     <Document>
       <Page size="A4" style={styles.page}>
         {/* HEADER */}
+
+        {formData.showProfileImage && formData.profileImageBase64 && (
+          <Image
+          src={formData.profileImageBase64}
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: 40,
+            marginBottom: 10,
+            marginLeft: "auto",
+            marginRight: "auto", // 📌 Bu satır ortalamayı sağlar
+            objectFit: "cover",   // 📌 Bu satır basıklığı engeller
+          }}
+        />
+        )}
+
         <View style={styles.header}>
           <Text style={styles.name}>{formData.name || "Ad Soyad"}</Text>
           <Text style={styles.title}>{formData.title || "Pozisyon"}</Text>

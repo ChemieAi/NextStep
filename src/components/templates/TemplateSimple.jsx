@@ -7,8 +7,15 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
       className="bg-white text-black p-10 w-[820px] min-h-[1123px] text-sm leading-relaxed"
     >
       {/* Header */}
+      {data.showProfileImage && data.profileImage && (
+        <img
+          src={data.profileImage}
+          alt="Profil Fotoğrafı"
+          className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
+        />
+      )}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-wide mb-1">{data.name}</h1>
+        <h1 className="text-4xl font-bold tracking-wide mb-1 uppercase ">{data.name}</h1>
         <p className="text-lg text-gray-700 mb-1">{data.title}</p>
         <p className="text-gray-600 text-sm">
           {data.email} | {data.phone} | {data.city}

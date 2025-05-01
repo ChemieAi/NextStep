@@ -1,13 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase"; // Firestore importu
+import { db } from "../../firebase";
+
+// Base64 dönüşüm fonksiyonu
+const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
 
 const StepBasicInfo = ({ data, setData }) => {
   const { currentUser } = useAuth();
   const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    // localStorage'tan base64 al (ilk yüklenirken)
+    const base64 = localStorage.getItem("profileImageBase64");
+    if (base64 && !data.profileImageBase64) {
+      setData((prev) => ({ ...prev, profileImageBase64: base64 }));
+    }
+  }, []);
 
   const handleChange = (e) =>
     setData({ ...data, [e.target.name]: e.target.value });
@@ -16,21 +34,26 @@ const StepBasicInfo = ({ data, setData }) => {
     const file = e.target.files[0];
     if (!file || !currentUser) return;
     setUploading(true);
-  
+
     const storageRef = ref(storage, `profilePictures/${currentUser.uid}`);
     await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(storageRef);
-  
-    // 1. Form state güncelle
-    setData({ ...data, profileImage: downloadURL });
-  
-    // 2. Firestore'a da kaydet (users koleksiyonuna)
+    const base64 = await fileToBase64(file);
+
+    setData({
+      ...data,
+      profileImage: downloadURL,
+      profileImageBase64: base64,
+    });
+
+    localStorage.setItem("profileImageBase64", base64);
+
     await setDoc(
       doc(db, "users", currentUser.uid),
       { profileImage: downloadURL },
       { merge: true }
     );
-  
+
     setUploading(false);
   };
 
@@ -54,11 +77,12 @@ const StepBasicInfo = ({ data, setData }) => {
           type="file"
           accept="image/*"
           onChange={handlePhotoUpload}
-          className="text-sm mt-1 dark:bg-gray-700 dark:text-white"
           disabled={uploading}
+          className="text-sm mt-1 dark:bg-gray-700 dark:text-white"
         />
       </div>
 
+      {/* Diğer inputlar */}
       <div>
         <label className="font-medium block mb-1">Ad Soyad</label>
         <input
@@ -113,6 +137,22 @@ const StepBasicInfo = ({ data, setData }) => {
           placeholder="Örneğin: +90 555 555 55 55"
           className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
+      </div>
+
+      <div className="col-span-1 flex items-center justify-center mt-7 ml-3 space-x-2">
+        <input
+          type="checkbox"
+          id="showProfileImage"
+          name="showProfileImage"
+          checked={data.showProfileImage || false}
+          onChange={(e) =>
+            setData({ ...data, showProfileImage: e.target.checked })
+          }
+          className="w-6 h-6 accent-green-500"
+        />
+        <label htmlFor="showProfileImage" className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+          CV'de profil fotoğrafımı göster
+        </label>
       </div>
     </div>
   );
