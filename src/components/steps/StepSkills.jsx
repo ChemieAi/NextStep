@@ -39,15 +39,15 @@ const StepSkills = ({ data, setData }) => {
             placeholder="e.g. React, JavaScript"
             className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           />
-          <button onClick={addSkill} className="bg-green-500 text-white px-4 rounded hover:bg-green-600">
+          <button onClick={addSkill} title="Ekle" className="bg-green-500 dark:bg-green-600 text-white px-4 rounded hover:bg-green-600 dark:hover:bg-green-700 font-semibold ">
             +
           </button>
         </div>
         <div className="flex flex-wrap gap-2 ">
           {(data.skills || []).map((s, i) => (
-            <div key={i} className="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center gap-2">
+            <div key={i} className="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center gap-2 ">
               {s}
-              <button onClick={() => removeSkill(i)} className="text-sm text-red-600">X</button>
+              <button onClick={() => removeSkill(i)} title="Sil" className="text-sm font-semibold text-red-600">X</button>
             </div>
           ))}
         </div>
@@ -78,14 +78,14 @@ const StepSkills = ({ data, setData }) => {
             <option value="Native">Native</option>
           </select>
         </div>
-        <button onClick={addLang} className="border-2 border-green-500 text-green-500 px-4 py-1 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600">
+        <button onClick={addLang} className="border-2 border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 px-4 py-1 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600">
           Dil Ekle
         </button>
         <div className="mt-3 space-y-2">
           {(data.languages || []).map((l, i) => (
             <div key={i} className="flex items-center justify-between bg-gray-50 p-2 rounded border dark:bg-gray-700 dark:text-white">
               <span>{l.name} – {l.level}</span>
-              <button onClick={() => removeLang(i)} className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-500 absolute:right">🗑️</button>
+              <button onClick={() => removeLang(i)} title="Sil" className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-500 absolute:right">🗑️</button>
             </div>
           ))}
         </div>

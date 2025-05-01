@@ -46,18 +46,18 @@ const CvBuilder = () => {
 
   useEffect(() => {
     let isMounted = true;
-  
+
     const fetchData = async () => {
       if (!currentUser || !isMounted) return;
-  
+
       try {
         const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
         const cvSnap = await getDoc(cvRef);
-  
+
         const userRef = doc(db, "users", currentUser.uid);
         const userSnap = await getDoc(userRef);
         const profileImage = userSnap.exists() ? userSnap.data().profileImage : "";
-  
+
         if (cvSnap.exists()) {
           setFormData({ ...cvSnap.data(), profileImage }); // ✅
         } else {
@@ -80,13 +80,13 @@ const CvBuilder = () => {
         console.error("CV verisi alınamadı ❌", err);
       }
     };
-  
+
     fetchData();
     return () => {
       isMounted = false;
     };
   }, [currentUser, setFormData]);
-  
+
 
   const saveToFirebase = async () => {
     if (!currentUser) return;
@@ -100,13 +100,9 @@ const CvBuilder = () => {
 
   const CurrentStepComponent = stepsConfig[step].component;
   const handleNext = () => {
-    if (step === stepsConfig.length - 2) {
-      // Şablona geçmeden önce veriyi kaydet
-      saveToFirebase();
-    }
+    saveToFirebase(); // ⬅️ Her ileri tıklamasında kaydet
 
     if (step === stepsConfig.length - 1) {
-      // Son adımda preview sayfasına yönlendir
       navigate("/cv-preview");
       return;
     }
@@ -144,7 +140,7 @@ const CvBuilder = () => {
           <CurrentStepComponent data={formData} setData={setFormData} />
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center flex-wrap gap-4">
           <button
             onClick={handleBack}
             disabled={step === 0}
@@ -152,9 +148,14 @@ const CvBuilder = () => {
           >
             Geri
           </button>
+
+          <p className="text-sm text-orange-500 text-center mx-auto w-full md:w-auto mt-2 mb-2 ">
+            🔄 Değişikliklerin kaydolması için "İleri" butonuna basmayı unutmayın.
+          </p>
+
           <button
             onClick={handleNext}
-            className="px-5 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            className="px-5 py-2 bg-green-500 dark:bg-green-600 text-white rounded hover:bg-green-600 dark:hover:bg-green-700"
           >
             {step === stepsConfig.length - 1 ? "Tamamla" : "İleri"}
           </button>

@@ -75,7 +75,7 @@ const Navbar = () => {
           {currentUser && (
             <button
               onClick={handleLogout}
-              title="Çıkış yap"
+              title="Çıkış Yap"
               className="text-red-300 hover:text-red-500 transition"
             >
               <ArrowLeftOnRectangleIcon className="h-6 w-6" />
