@@ -28,7 +28,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
           <h2 className="font-bold text-lg border-b pb-1 mb-2">Education</h2>
           {data.education.map((edu, idx) => (
             <div key={idx} className="mb-2">
-              <p className="font-semibold">
+              <p className="font-bold mb-1">
                 {edu.school}, {edu.country}
               </p>
               <p className="text-sm text-gray-700">
@@ -45,7 +45,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
           <h2 className="font-bold text-lg border-b pb-1 mb-2">Experience</h2>
           {data.experience.map((exp, idx) => (
             <div key={idx} className="mb-2">
-              <p className="font-semibold">
+              <p className="font-bold mb-1">
                 {exp.company} – {exp.position}
               </p>
               <p className="text-sm text-gray-700">
@@ -91,17 +91,17 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
           <h2 className="font-bold text-lg border-b pb-1 mb-2">Projects</h2>
           {data.projects.map((p, i) => (
             <div key={i} className="mb-2">
-              <p className="font-semibold">{p.title}</p>
-              <p className="text-gray-800">{p.description}</p>
+              <p className="font-bold mb-1">{p.title}</p>
+              <p className="text-gray-800 mb-1">{p.description}</p>
               {p.link && (
-                <a
+                <p
                   href={p.link}
                   className="text-blue-600 underline text-sm"
                   target="_blank"
                   rel="noreferrer"
                 >
                   {p.link}
-                </a>
+                </p>
               )}
             </div>
           ))}
