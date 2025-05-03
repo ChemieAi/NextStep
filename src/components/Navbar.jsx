@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
@@ -6,18 +6,20 @@ import {
   HomeIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
-  ArrowLeftOnRectangleIcon, // Çıkış ikonu
+  ArrowLeftOnRectangleIcon,
   UserCircleIcon
 } from "@heroicons/react/24/solid";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     try {
       await logout();
+      navigate("/login"); // yönlendirme eklendi
     } catch (err) {
       console.error("Logout error ❌", err);
     }
@@ -46,7 +48,7 @@ const Navbar = () => {
       to: "/profile",
       icon: <UserCircleIcon className="h-6 w-6" />,
       label: "Profil",
-      show: currentUser
+      show: currentUser,
     },
   ];
 
@@ -62,12 +64,12 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 title={link.label}
-                className={`transition hover:text-green-400 ${location.pathname === link.to ? "text-green-500" : ""
-                  }`}
+                className={`transition hover:text-green-400 ${location.pathname === link.to ? "text-green-500" : ""}`}
               >
                 {link.icon}
               </Link>
             ))}
+
           <button onClick={toggleTheme} className="ml-4 hover:text-green-400" title="Tema Değiştir">
             {theme === "dark" ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
           </button>

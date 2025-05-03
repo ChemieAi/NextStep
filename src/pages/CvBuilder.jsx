@@ -22,7 +22,6 @@ import StepSocial from "../components/steps/StepSocial";
 import StepSkills from "../components/steps/StepSkills";
 import StepProjects from "../components/steps/StepProjects";
 import StepTemplate from "../components/steps/StepTemplate";
-import { Navigate } from "react-router-dom";
 
 const stepsConfig = [
   { label: "Temel Bilgiler", icon: UserCircleIcon, component: StepBasicInfo },
@@ -40,16 +39,13 @@ const CvBuilder = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
-
-  if (currentUser === undefined) return null;
-  if (!currentUser) return <Navigate to="/login" replace />;
-
   useEffect(() => {
-    let isMounted = true;
+    if (currentUser === null) {
+      navigate("/login", { replace: true });
+      return;
+    }
 
     const fetchData = async () => {
-      if (!currentUser || !isMounted) return;
-
       try {
         const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
         const cvSnap = await getDoc(cvRef);
@@ -59,22 +55,7 @@ const CvBuilder = () => {
         const profileImage = userSnap.exists() ? userSnap.data().profileImage : "";
 
         if (cvSnap.exists()) {
-          setFormData({ ...cvSnap.data(), profileImage }); // ✅
-        } else {
-          setFormData({
-            name: "",
-            title: "",
-            email: "",
-            phone: "",
-            city: "",
-            education: [],
-            experience: [],
-            socials: [],
-            skills: [],
-            languages: [],
-            projects: [],
-            profileImage, // ✅
-          });
+          setFormData({ ...cvSnap.data(), profileImage });
         }
       } catch (err) {
         console.error("CV verisi alınamadı ❌", err);
@@ -82,11 +63,7 @@ const CvBuilder = () => {
     };
 
     fetchData();
-    return () => {
-      isMounted = false;
-    };
-  }, [currentUser, setFormData]);
-
+  }, [currentUser, setFormData, navigate]);
 
   const saveToFirebase = async () => {
     if (!currentUser) return;
@@ -99,20 +76,20 @@ const CvBuilder = () => {
   };
 
   const CurrentStepComponent = stepsConfig[step].component;
-  const handleNext = () => {
-    saveToFirebase(); // ⬅️ Her ileri tıklamasında kaydet
 
+  const handleNext = () => {
+    saveToFirebase();
     if (step === stepsConfig.length - 1) {
       navigate("/cv-preview");
       return;
     }
-
     setStep((prev) => Math.min(prev + 1, stepsConfig.length - 1));
   };
 
   const handleBack = () => {
     setStep((prev) => Math.max(prev - 1, 0));
   };
+
   return (
     <div className="min-h-screen bg-[#e5e5e5] flex justify-center items-center p-6 dark:bg-gray-900 dark:text-white">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-5xl p-6">

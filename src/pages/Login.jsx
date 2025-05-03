@@ -18,7 +18,7 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, form.email, form.password);
-      navigate("/cv-builder");
+      navigate("/");
     } catch (err) {
       setError("E-posta ya da şifre yanlış!");
     }

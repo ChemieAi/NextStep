@@ -6,67 +6,66 @@ import { db, storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import CvPDF from "../components/pdf/CvPdf";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-    const { currentUser } = useAuth();
-    const { formData, setFormData } = useForm();
-    const [uploading, setUploading] = useState(false);
+  const { currentUser } = useAuth();
+  const { formData, setFormData } = useForm();
+  const [uploading, setUploading] = useState(false);
+  const navigate = useNavigate();
 
-    if (currentUser === undefined) return null;
-    if (!currentUser) return <Navigate to="/login" replace />;
+  useEffect(() => {
+    if (currentUser === null) {
+      navigate("/login", { replace: true });
+    }
+  }, [currentUser, navigate]);
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            if (!currentUser) return;
-            try {
-                const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-                if (userDoc.exists()) {
-                    const image = userDoc.data().profileImage || "";
-                    setFormData((prev) => ({ ...prev, profileImage: image }));
-                }
-                const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
-                const cvSnap = await getDoc(cvRef);
-
-                if (cvSnap.exists()) {
-                    const image = userDoc.data().profileImage || "";
-                    setFormData({ ...cvSnap.data(), profileImage: image });
-                }
-            } catch (err) {
-                console.error("Kullanıcı bilgileri alınamadı ❌", err);
-            }
-        };
-        fetchUserData();
-    }, [currentUser, setFormData]);
-
-    const handleUploadPhoto = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        setUploading(true);
-
-        try {
-            const storageRef = ref(storage, `profilePictures/${currentUser.uid}`);
-            await uploadBytes(storageRef, file);
-            const downloadURL = await getDownloadURL(storageRef);
-
-            // 1️⃣ Firestore'daki kullanıcı dokümanına profileImage ekle (merge: true ile diğer bilgileri silmeden)
-            const userRef = doc(db, "users", currentUser.uid);
-            await setDoc(userRef, { profileImage: downloadURL }, { merge: true });
-
-            // 2️⃣ Local state güncelle
-            setFormData((prev) => ({
-                ...prev,
-                profileImage: downloadURL,
-            }));
-
-            console.log("Profil fotoğrafı güncellendi ✅");
-        } catch (error) {
-            console.error("Fotoğraf yükleme hatası ❌", error);
-        } finally {
-            setUploading(false);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!currentUser) return;
+      try {
+        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+        if (userDoc.exists()) {
+          const image = userDoc.data().profileImage || "";
+          setFormData((prev) => ({ ...prev, profileImage: image }));
         }
+        const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
+        const cvSnap = await getDoc(cvRef);
+        if (cvSnap.exists()) {
+          const image = userDoc.data().profileImage || "";
+          setFormData({ ...cvSnap.data(), profileImage: image });
+        }
+      } catch (err) {
+        console.error("Kullanıcı bilgileri alınamadı ❌", err);
+      }
     };
+    fetchUserData();
+  }, [currentUser, setFormData]);
+
+  const handleUploadPhoto = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+
+    try {
+      const storageRef = ref(storage, `profilePictures/${currentUser.uid}`);
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+
+      const userRef = doc(db, "users", currentUser.uid);
+      await setDoc(userRef, { profileImage: downloadURL }, { merge: true });
+
+      setFormData((prev) => ({
+        ...prev,
+        profileImage: downloadURL,
+      }));
+    } catch (error) {
+      console.error("Fotoğraf yükleme hatası ❌", error);
+    } finally {
+      setUploading(false);
+    }
+  };
 
 
     return (
@@ -100,7 +99,7 @@ const Profile = () => {
                 <div className="mb-6 dark:text-white">
                     <p className="dark:text-white"><strong>Ad Soyad:</strong> {formData.name || "-"}</p>
                     <p className="dark:text-white"><strong>Ünvan:</strong> {formData.title || "-"}</p>
-                    <p className="dark:text-white"><strong>Email:</strong> {currentUser.email}</p>
+                    <p className="dark:text-white"><strong>Email:</strong> {formData.email}</p>
                 </div>
 
                 <div className="flex justify-center">
