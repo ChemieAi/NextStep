@@ -94,4 +94,4 @@ MIT License
 
 ---
 
-> Geliştiren: [Adınız] | ⭐️ Projeyi beğendiyseniz repo'yu yıldızlamayı unutmayın!
+> Geliştiren: Burak "Chemie" Kızılay | ⭐️ Projeyi beğendiyseniz repo'yu yıldızlamayı unutmayın!
