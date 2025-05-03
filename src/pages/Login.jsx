@@ -30,7 +30,7 @@ const Login = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="bg-[#cbc2c2] p-8 rounded-lg shadow-md w-full max-w-sm"
+        className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-sm dark:bg-gray-800 dark:text-black"
       >
         <h2 className="text-lg font-semibold text-center mb-4 text-white">
           Hoş Geldiniz

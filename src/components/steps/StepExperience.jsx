@@ -52,7 +52,7 @@ const StepExperience = ({ data, setData }) => {
           <p className="text-sm text-gray-600  dark:text-gray-300">
             {item.startMonth}/{item.startYear} - {item.endMonth}/{item.endYear}
           </p>
-          <p className="text-sm mt-2 text-gray-700">{item.description}</p>
+          <p className="text-sm mt-2 text-gray-700 dark:text-gray-400">{item.description}</p>
           <button
             onClick={() => handleDelete(index)}
             className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-600 absolute top-2 right-2"
