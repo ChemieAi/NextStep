@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   itemText: {
-    marginBottom: 4,
+    marginBottom: 2,
   },
   skillItem: {
     display: "flex",
