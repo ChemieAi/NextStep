@@ -11,15 +11,17 @@ import {
 
 // Örnek bir font (gerekirse özel font da ekleyebiliriz)
 Font.register({
-  family: "Helvetica",
+  family: "Roboto",
   fonts: [
-    { src: "https://fonts.gstatic.com/s/helvetica/v16/FjBkMkXDNJs9H0IYT9RURQ.ttf" },
+    { src: "/fonts/static/Roboto-Regular.ttf", fontWeight: "normal" },
+    { src: "/fonts/static/Roboto-Bold.ttf", fontWeight: "bold" },
   ],
 });
 
+
 const styles = StyleSheet.create({
   page: {
-    fontFamily: "Helvetica",
+    fontFamily: "Roboto",
     fontSize: 11,
     padding: 40,
     lineHeight: 1.6,
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 4,
+    marginBottom: 10,
     textTransform: "uppercase",
   },
   title: {
@@ -62,12 +64,16 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   skillItem: {
-    display: "inline-block",
+    display: "flex",
     marginRight: 6,
-    padding: "2px 6px",
+    padding: "5px 6px",
     border: "1px solid #aaa",
     borderRadius: 4,
     fontSize: 9,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    lineHeight: 1.3,
   },
 });
 
