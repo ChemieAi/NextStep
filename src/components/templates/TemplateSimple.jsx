@@ -29,10 +29,10 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
           {data.education.map((edu, idx) => (
             <div key={idx} className="mb-2">
               <p className="font-bold mb-1 text-left">
-                {edu.school}, {edu.country}
+                {edu.school}, {edu.department}
               </p>
               <p className="text-sm mb-1 text-gray-700 text-left">
-                {edu.startMonth}/{edu.startYear} - {edu.endMonth}/{edu.endYear}
+                {edu.startMonth}/{edu.startYear} - {edu.currently ? "Devam ediyor" : `${edu.endMonth}/${edu.endYear}`}
               </p>
             </div>
           ))}
@@ -49,7 +49,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
                 {exp.company} – {exp.position}
               </p>
               <p className="text-sm text-gray-700 text-left mb-1">
-                {exp.startMonth}/{exp.startYear} - {exp.endMonth}/{exp.endYear}
+                {exp.startMonth}/{exp.startYear} -{" "} {exp.currently ? "Devam ediyor" : `${exp.endMonth}/${exp.endYear}`}
               </p>
               <p className="text-gray-800 mb-1 text-left">{exp.description}</p>
             </div>

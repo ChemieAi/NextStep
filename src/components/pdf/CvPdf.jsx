@@ -91,17 +91,17 @@ const CvPDF = ({ formData }) => {
 
         {formData.showProfileImage && formData.profileImageBase64 && (
           <Image
-          src={formData.profileImageBase64}
-          style={{
-            width: 80,
-            height: 80,
-            borderRadius: 40,
-            marginBottom: 10,
-            marginLeft: "auto",
-            marginRight: "auto", // 📌 Bu satır ortalamayı sağlar
-            objectFit: "cover",   // 📌 Bu satır basıklığı engeller
-          }}
-        />
+            src={formData.profileImageBase64}
+            style={{
+              width: 80,
+              height: 80,
+              borderRadius: 40,
+              marginBottom: 10,
+              marginLeft: "auto",
+              marginRight: "auto", // 📌 Bu satır ortalamayı sağlar
+              objectFit: "cover",   // 📌 Bu satır basıklığı engeller
+            }}
+          />
         )}
 
         <View style={styles.header}>
@@ -119,10 +119,10 @@ const CvPDF = ({ formData }) => {
             {formData.education.map((edu, i) => (
               <View key={i}>
                 <Text style={styles.itemTitle}>
-                  {edu.school}, {edu.country}
+                  {edu.school}, {edu.department}
                 </Text>
                 <Text style={styles.itemText}>
-                  {edu.startMonth}/{edu.startYear} - {edu.endMonth}/{edu.endYear}
+                  {edu.startMonth}/{edu.startYear} - {edu.currently ? "Devam ediyor" : `${edu.endMonth}/${edu.endYear}`}
                 </Text>
               </View>
             ))}
@@ -139,7 +139,7 @@ const CvPDF = ({ formData }) => {
                   {exp.company} – {exp.position}
                 </Text>
                 <Text style={styles.itemText}>
-                  {exp.startMonth}/{exp.startYear} - {exp.endMonth}/{exp.endYear}
+                  {exp.startMonth}/{exp.startYear} -{" "} {exp.currently ? "Devam ediyor" : `${exp.endMonth}/${exp.endYear}`}
                 </Text>
                 <Text>{exp.description}</Text>
               </View>

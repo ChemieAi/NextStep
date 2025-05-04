@@ -11,6 +11,7 @@ const StepExperience = ({ data, setData }) => {
     endMonth: "",
     endYear: "",
     description: "",
+    currently: false,
   });
 
   const generateOptions = (start, end) => {
@@ -18,7 +19,8 @@ const StepExperience = ({ data, setData }) => {
   };
 
   const handleChange = (e) => {
-    setExp({ ...exp, [e.target.name]: e.target.value });
+    const { name, type, checked, value } = e.target;
+    setExp({ ...exp, [name]: type === "checkbox" ? checked : value });
   };
 
   const handleAdd = () => {
@@ -35,6 +37,7 @@ const StepExperience = ({ data, setData }) => {
       endMonth: "",
       endYear: "",
       description: "",
+      currently: false,
     });
   };
 
@@ -49,8 +52,8 @@ const StepExperience = ({ data, setData }) => {
       {(data.experience || []).map((item, index) => (
         <div key={index} className="bg-gray-50 p-4 rounded-md border relative dark:bg-gray-700 dark:text-white">
           <p className="font-semibold  dark:text-white">{item.company} – {item.position}</p>
-          <p className="text-sm text-gray-600  dark:text-gray-300">
-            {item.startMonth}/{item.startYear} - {item.endMonth}/{item.endYear}
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            {item.startMonth}/{item.startYear} -{" "} {item.currently ? "Devam ediyor" : `${item.endMonth}/${item.endYear}`}
           </p>
           <p className="text-sm mt-2 text-gray-700 dark:text-gray-400">{item.description}</p>
           <button
@@ -82,14 +85,27 @@ const StepExperience = ({ data, setData }) => {
         </div>
         <div className="flex gap-2">
           <p className="text-sm font-semibold dark:text-white">Bitiş Tarihi</p>
-          <select name="endMonth" value={exp.endMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
+          <select name="endMonth" disabled={exp.currently} value={exp.endMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Ay</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
-          <select name="endYear" value={exp.endYear} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
+          <select name="endYear" disabled={exp.currently} value={exp.endYear} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Yıl</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
+        </div>
+        <div className="flex items-center ml-80 pl-64 gap-2 col-span-2">
+          <input
+            type="checkbox"
+            checked={exp.currently}
+            onChange={(e) =>
+              setExp({ ...exp, currently: e.target.checked })
+            }
+            className="w-6 h-6 accent-green-500"
+          />
+          <label className="text-sm text-[18px] text-gray-700 dark:text-gray-300 mb-4">
+            Halen bu pozisyonda çalışıyorum
+          </label>
         </div>
 
         <div className="md:col-span-2">
