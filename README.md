@@ -39,10 +39,10 @@ firebase login
 firebase use --add
 ```
 loginde hata alırsanız
-# 1.PowerShell'i Yönetici olarak çalıştırın:
+#### 1.PowerShell'i Yönetici olarak çalıştırın:
   Başlat Menüsüne "PowerShell" yazın
   "Windows PowerShell" üzerine sağ tıkla > Yönetici olarak çalıştır seçeneğine tıklayın
-# 2.Aşağıdaki komutu çalıştırın:
+#### 2.Aşağıdaki komutu çalıştırın:
 ```bash
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
