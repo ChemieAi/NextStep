@@ -17,12 +17,51 @@ cd nextstepcv
 ### 2. Bağımlılıkları Kurun
 ```bash
 npm install
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm install react-router-dom
+npm install @heroicons/react
+npm install @react-pdf/renderer
+```
+
+if you get error with tailwind
+```bash
+npm install -D @tailwindcss/postcss
 ```
 
 ### 3. Firebase Ayarlarını Yapın
 `/src/firebase.js` dosyasındaki Firebase konfigürasyon bilgilerini kendi projenize göre doldurun.
 
-### 4. Uygulamayı Başlatın
+### 4. Firebase Configuration
+```bash
+npm install -g firebase-tools
+firebase login
+firebase use --add
+```
+loginde hata alırsanız
+# 1.PowerShell'i Yönetici olarak çalıştırın:
+  Başlat Menüsüne "PowerShell" yazın
+  "Windows PowerShell" üzerine sağ tıkla > Yönetici olarak çalıştır seçeneğine tıklayın
+# 2.Aşağıdaki komutu çalıştırın:
+```bash
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+eğer yine de aşağıdaki gibi bir hata alırsanız 
+```bash
+Error: firebase use must be run from a Firebase project directory.
+Run firebase init to start a project directory in the current folder.
+```
+aşağıdaki komutu çalıştırın:
+```bash
+firebase init
+```
+tüm kurulumu tamamladıktan sonra da
+```bash
+firebase deploy
+```
+yapmayı unutmayın
+
+### 5. Uygulamayı Başlatın
 ```bash
 npm run dev
 ```
