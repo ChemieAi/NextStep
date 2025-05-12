@@ -48,45 +48,56 @@ const CvBuilder = () => {
 
     const fetchData = async () => {
       try {
-        const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
-        const cvSnap = await getDoc(cvRef);
+        const token = await currentUser.getIdToken();
+        const response = await fetch("http://localhost:5000/api/cv", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
+        if (!response.ok) {
+          console.warn("CV verisi bulunamadı ❌");
+          return;
+        }
+
+        const data = await response.json();
+
+        // Profil fotoğrafını Firebase'den çekmeye devam et
         const userRef = doc(db, "users", currentUser.uid);
         const userSnap = await getDoc(userRef);
         const profileImage = userSnap.exists() ? userSnap.data().profileImage : "";
 
-        if (cvSnap.exists()) {
-          setFormData({ ...cvSnap.data(), profileImage });
-        }
+        setFormData({ ...data, profileImage });
       } catch (err) {
-        console.error("CV verisi alınamadı ❌", err);
+        console.error("CV backend'den alınamadı ❌", err);
       }
     };
+
 
     fetchData();
   }, [currentUser, setFormData, navigate]);
 
-const saveToFirebase = async () => {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  if (!user) return;
+  const saveToFirebase = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (!user) return;
 
-  try {
-    const token = await user.getIdToken();
-    await fetch("http://localhost:5000/api/cv", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const token = await user.getIdToken();
+      await fetch("http://localhost:5000/api/cv", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
 
-    console.log("✅ CV backend'e kaydedildi");
-  } catch (error) {
-    console.error("❌ Backend'e CV kaydedilirken hata:", error);
-  }
-};
+      console.log("✅ CV backend'e kaydedildi");
+    } catch (error) {
+      console.error("❌ Backend'e CV kaydedilirken hata:", error);
+    }
+  };
 
 
   const CurrentStepComponent = stepsConfig[step].component;
