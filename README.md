@@ -61,6 +61,15 @@ firebase deploy
 ```
 yapmayı unutmayın
 
+### 5. Backend kurulumu
+```bash
+mkdir backend
+cd backend
+npm init -y
+npm install express cors dotenv firebase-admin
+npm install multer
+```
+
 ### 5. Uygulamayı Başlatın
 ```bash
 npm run dev
