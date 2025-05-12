@@ -7,7 +7,7 @@ import TemplateSimple from "../components/templates/TemplateSimple";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import CvPdf from "../components/pdf/CvPdf";
 import { getFormDataFromLocal, saveFormDataToLocal } from "../utils/localStorage";
-import { getDoc, doc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const CvPreview = () => {
@@ -17,25 +17,32 @@ const CvPreview = () => {
   const { currentUser, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(true);
 
-  // Firestore'dan fetch et (arka planda)
   const fetchFormData = async () => {
     if (!currentUser) return;
 
     try {
-      const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
-      const cvSnap = await getDoc(cvRef);
+      const token = await currentUser.getIdToken();
+      const response = await fetch("http://localhost:5000/api/cv", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      let backendData = {};
+      if (response.ok) {
+        backendData = await response.json();
+      }
+
+      // Profil fotoğrafı ayrı alınabilir
       const userRef = doc(db, "users", currentUser.uid);
       const userSnap = await getDoc(userRef);
       const profileImage = userSnap.exists() ? userSnap.data().profileImage : "";
 
-      if (cvSnap.exists()) {
-        const data = { ...cvSnap.data(), profileImage };
-        setFormData(data);
-        saveFormDataToLocal(data);
-      }
+      const fullData = { ...backendData, profileImage };
+      setFormData(fullData);
+      saveFormDataToLocal(fullData);
     } catch (err) {
-      console.error("Firestore'dan veri alınamadı ❌", err);
+      console.error("Backend'den CV verisi alınamadı ❌", err);
     } finally {
       setLoading(false);
     }
@@ -52,11 +59,10 @@ const CvPreview = () => {
     const cachedData = getFormDataFromLocal();
 
     if (cachedData) {
-      setFormData(cachedData); // ⬅️ Önce localStorage
+      setFormData(cachedData);
       setLoading(false);
     }
 
-    // ⬇️ Sonra Firestore'dan güncelle
     fetchFormData();
   }, [authLoading, currentUser]);
 
