@@ -70,7 +70,7 @@ npm install express cors dotenv firebase-admin
 npm install multer
 ```
 
-### 5. Uygulamayı Başlatın
+### 6. Uygulamayı Başlatın
 ```bash
 npm run dev
 ```
