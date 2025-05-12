@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 
 import {
   UserCircleIcon,
@@ -65,15 +66,28 @@ const CvBuilder = () => {
     fetchData();
   }, [currentUser, setFormData, navigate]);
 
-  const saveToFirebase = async () => {
-    if (!currentUser) return;
-    try {
-      const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
-      await setDoc(cvRef, { ...formData, updatedAt: new Date() });
-    } catch (error) {
-      console.error("CV kaydedilirken hata ❌", error);
-    }
-  };
+const saveToFirebase = async () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (!user) return;
+
+  try {
+    const token = await user.getIdToken();
+    await fetch("http://localhost:5000/api/cv", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    console.log("✅ CV backend'e kaydedildi");
+  } catch (error) {
+    console.error("❌ Backend'e CV kaydedilirken hata:", error);
+  }
+};
+
 
   const CurrentStepComponent = stepsConfig[step].component;
 

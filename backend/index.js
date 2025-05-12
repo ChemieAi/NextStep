@@ -7,46 +7,50 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "5mb" })); // veya ihtiyacına göre 5mb, 10mb vs.
 
-// Firebase Admin SDK başlatılıyor
 const serviceAccount = require("./firebaseServiceAccountKey.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET, // opsiyonel
 });
 
 const db = admin.firestore();
 
-// ✅ Test endpoint
-app.get("/", (req, res) => {
-  res.send("NextStepCV Backend çalışıyor 🚀");
-});
-
-// ✅ Örnek güvenli endpoint (kullanıcı doğrulamalı)
-app.get("/secure-data", async (req, res) => {
+// ✅ Middleware: Kullanıcı token’ını doğrula
+const authenticate = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Yetkisiz istek" });
+  if (!authHeader?.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Yetkisiz erişim" });
   }
 
-  const idToken = authHeader.split("Bearer ")[1];
+  const token = authHeader.split(" ")[1];
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const uid = decodedToken.uid;
+    const decoded = await admin.auth().verifyIdToken(token);
+    req.uid = decoded.uid; // 🔑 UID artık her endpointte erişilebilir
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Token geçersiz" });
+  }
+};
 
-    // Örnek: Firestore'dan veri çekme
-    const userDoc = await db.doc(`users/${uid}`).get();
-    return res.json({ uid, userData: userDoc.data() || null });
+// ✅ CV kaydetme endpoint’i
+app.post("/api/cv", authenticate, async (req, res) => {
+  const cvData = req.body;
+
+  try {
+    const ref = db.collection("users").doc(req.uid).collection("cvs").doc("main");
+    await ref.set({ ...cvData, updatedAt: new Date() }, { merge: true });
+    return res.status(200).json({ message: "CV kaydedildi ✅" });
   } catch (error) {
-    return res.status(401).json({ error: "Geçersiz token" });
+    return res.status(500).json({ message: "CV kaydedilemedi ❌", error });
   }
 });
 
-// Sunucuyu başlat
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Backend sunucusu ${PORT} portunda çalışıyor 🔥`);
+app.get("/", (req, res) => {
+  res.send("NextStepCV Backend çalışıyor ✅");
 });
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Backend çalışıyor: http://localhost:${PORT}`));
