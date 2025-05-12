@@ -29,3 +29,4 @@ firestore.rules
 storage.rules
 .firebaserc
 firestore.indexes.json
+firebaseServiceAccountKey.json
