@@ -22,26 +22,36 @@ const Profile = () => {
   }, [currentUser, navigate]);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (!currentUser) return;
-      try {
-        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-        if (userDoc.exists()) {
-          const image = userDoc.data().profileImage || "";
-          setFormData((prev) => ({ ...prev, profileImage: image }));
-        }
-        const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
-        const cvSnap = await getDoc(cvRef);
-        if (cvSnap.exists()) {
-          const image = userDoc.data().profileImage || "";
-          setFormData({ ...cvSnap.data(), profileImage: image });
-        }
-      } catch (err) {
-        console.error("Kullanıcı bilgileri alınamadı ❌", err);
+  const fetchUserData = async () => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+
+      // CV verisini backend'den al
+      const response = await fetch("http://localhost:5000/api/cv", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      let cvData = {};
+      if (response.ok) {
+        cvData = await response.json();
       }
-    };
-    fetchUserData();
-  }, [currentUser, setFormData]);
+
+      // Profil fotoğrafını Firestore'dan çek
+      const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+      const profileImage = userDoc.exists() ? userDoc.data().profileImage : "";
+
+      setFormData({ ...cvData, profileImage });
+    } catch (err) {
+      console.error("Kullanıcı bilgileri alınamadı ❌", err);
+    }
+  };
+
+  fetchUserData();
+}, [currentUser, setFormData]);
+
 
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
