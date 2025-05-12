@@ -30,3 +30,6 @@ storage.rules
 .firebaserc
 firestore.indexes.json
 firebaseServiceAccountKey.json
+.env
+.env.local
+.env.development.local
