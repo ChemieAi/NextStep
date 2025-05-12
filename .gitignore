@@ -31,5 +31,3 @@ storage.rules
 firestore.indexes.json
 firebaseServiceAccountKey.json
 .env
-.env.local
-.env.development.local
