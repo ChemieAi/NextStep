@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const admin = require("firebase-admin");
+const multer = require("multer");
+const { getStorage } = require("firebase-admin/storage");
+const path = require("path");
 
 dotenv.config();
 
@@ -11,10 +14,17 @@ app.use(express.json({ limit: "5mb" })); // veya ihtiyacına göre 5mb, 10mb vs.
 
 const serviceAccount = require("./firebaseServiceAccountKey.json");
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 1 * 1024 * 1024 }, // 1MB sınırı
 });
 
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  storageBucket: "nextstepcv-702de.firebasestorage.app" // Örnek: "yourapp.appspot.com"
+});
+
+const bucket = getStorage().bucket();
 const db = admin.firestore();
 
 // ✅ Middleware: Kullanıcı token’ını doğrula
@@ -34,6 +44,35 @@ const authenticate = async (req, res, next) => {
         return res.status(401).json({ message: "Token geçersiz" });
     }
 };
+app.post("/api/profile-image", authenticate, upload.single("file"), async (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) return res.status(400).json({ message: "Dosya eksik" });
+
+    const ext = path.extname(file.originalname);
+    const fileName = `profilePictures/${req.uid}${ext}`;
+    const fileRef = bucket.file(fileName);
+
+    await fileRef.save(file.buffer, {
+      metadata: {
+        contentType: file.mimetype,
+      },
+    });
+
+    const [url] = await fileRef.getSignedUrl({
+      action: "read",
+      expires: "03-01-2030",
+    });
+
+    // Firestore'da güncelle
+    await db.collection("users").doc(req.uid).set({ profileImage: url }, { merge: true });
+
+    res.status(200).json({ url });
+  } catch (err) {
+    console.error("Fotoğraf yüklenemedi ❌", err);
+    res.status(500).json({ message: "Fotoğraf yüklenemedi", error: err });
+  }
+});
 
 // ✅ CV kaydetme endpoint’i
 app.post("/api/cv", authenticate, async (req, res) => {

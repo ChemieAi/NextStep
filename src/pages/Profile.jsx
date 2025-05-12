@@ -13,6 +13,7 @@ const Profile = () => {
   const { formData, setFormData } = useForm();
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (currentUser === null) {
@@ -44,29 +45,41 @@ const Profile = () => {
 
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
+    if (!file || !currentUser) return;
 
+    // ⬇️ 1MB sınırı kontrolü
+    if (file.size > 1024 * 1024) {
+      setErrorMessage("⚠️ Dosya boyutu 1MB'dan büyük olamaz.");
+      return;
+    }
+
+    setErrorMessage(""); // önceki hataları temizle
     setUploading(true);
 
     try {
-      const storageRef = ref(storage, `profilePictures/${currentUser.uid}`);
-      await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
+      const token = await currentUser.getIdToken();
 
-      const userRef = doc(db, "users", currentUser.uid);
-      await setDoc(userRef, { profileImage: downloadURL }, { merge: true });
+      const formData = new FormData();
+      formData.append("file", file);
 
-      setFormData((prev) => ({
-        ...prev,
-        profileImage: downloadURL,
-      }));
+      const response = await fetch("http://localhost:5000/api/profile-image", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (data.url) {
+        setFormData((prev) => ({ ...prev, profileImage: data.url }));
+      }
     } catch (error) {
       console.error("Fotoğraf yükleme hatası ❌", error);
     } finally {
       setUploading(false);
     }
   };
-
 
   return (
     <div className="min-h-screen bg-[#e5e5e5] p-6 dark:bg-gray-900 ">
@@ -94,6 +107,10 @@ const Profile = () => {
             className="text-sm dark:bg-gray-700 dark:text-white"
             disabled={uploading}
           />
+          {errorMessage && (
+            <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+          )}
+
         </div>
 
         <div className="mb-6 dark:text-white">

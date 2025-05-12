@@ -18,7 +18,7 @@ const fileToBase64 = (file) => {
 const StepBasicInfo = ({ data, setData }) => {
   const { currentUser } = useAuth();
   const [uploading, setUploading] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState("");
   useEffect(() => {
     // localStorage'tan base64 al (ilk yüklenirken)
     const base64 = localStorage.getItem("profileImageBase64");
@@ -33,29 +33,50 @@ const StepBasicInfo = ({ data, setData }) => {
   const handlePhotoUpload = async (e) => {
     const file = e.target.files[0];
     if (!file || !currentUser) return;
+
+    // 1MB sınırı (1MB = 1024 * 1024 byte)
+    if (file.size > 1024 * 1024) {
+      setErrorMessage("⚠️ Dosya boyutu 1MB'dan büyük olamaz.");
+      return;
+    }
+    setErrorMessage(""); // ⬅️ başarılı yüklemeden sonra temizle
     setUploading(true);
 
-    const storageRef = ref(storage, `profilePictures/${currentUser.uid}`);
-    await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(storageRef);
-    const base64 = await fileToBase64(file);
+    try {
+      const token = await currentUser.getIdToken();
+      const formData = new FormData();
+      formData.append("file", file);
 
-    setData({
-      ...data,
-      profileImage: downloadURL,
-      profileImageBase64: base64,
-    });
+      const response = await fetch("http://localhost:5000/api/profile-image", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
 
-    localStorage.setItem("profileImageBase64", base64);
-
-    await setDoc(
-      doc(db, "users", currentUser.uid),
-      { profileImage: downloadURL },
-      { merge: true }
-    );
-
-    setUploading(false);
+      const data = await response.json();
+      if (data.url) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64 = reader.result;
+          setData((prev) => ({
+            ...prev,
+            profileImage: data.url,
+            profileImageBase64: base64,
+          }));
+          localStorage.setItem("profileImageBase64", base64);
+        };
+        reader.readAsDataURL(file);
+      }
+    } catch (error) {
+      console.error("Profil fotoğrafı yüklenemedi ❌", error);
+      alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+    } finally {
+      setUploading(false);
+    }
   };
+
 
   return (
     <div className="grid md:grid-cols-2 gap-4">
@@ -80,6 +101,9 @@ const StepBasicInfo = ({ data, setData }) => {
           disabled={uploading}
           className="text-sm mt-1 dark:bg-gray-700 dark:text-white"
         />
+        {errorMessage && (
+          <p className="text-red-500 text-sm mt-2">{errorMessage}</p> 
+        )}
       </div>
 
       {/* Diğer inputlar */}
