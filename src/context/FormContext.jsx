@@ -16,6 +16,7 @@ export const FormProvider = ({ children }) => {
     languages: [],
     projects: [],
     profileImage:"",
+    summary: "",
   });
 
   const resetForm = () => {
@@ -32,6 +33,7 @@ export const FormProvider = ({ children }) => {
       languages: [],
       projects: [],
       profileImage:"",
+      summary: "",
     });
   };
 

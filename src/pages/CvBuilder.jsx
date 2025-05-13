@@ -23,9 +23,11 @@ import StepSocial from "../components/steps/StepSocial";
 import StepSkills from "../components/steps/StepSkills";
 import StepProjects from "../components/steps/StepProjects";
 import StepTemplate from "../components/steps/StepTemplate";
+import StepSummary from "../components/steps/StepSummary";
 
 const stepsConfig = [
   { label: "Temel Bilgiler", icon: UserCircleIcon, component: StepBasicInfo },
+  { label: "Özet", icon: DocumentDuplicateIcon, component: StepSummary },
   { label: "Eğitim", icon: AcademicCapIcon, component: StepEducation },
   { label: "Deneyim", icon: BriefcaseIcon, component: StepExperience },
   { label: "Sosyal Medya", icon: LinkIcon, component: StepSocial },

@@ -118,6 +118,15 @@ const CvPDF = ({ formData }) => {
           </Text>
         </View>
 
+        {/* SUMMARY */}
+        {formData.summary && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Summary</Text>
+            <Text style={styles.itemText}>{formData.summary}</Text>
+          </View>
+        )}
+
+
         {/* EDUCATION */}
         {formData.education?.length > 0 && (
           <View style={styles.section}>
