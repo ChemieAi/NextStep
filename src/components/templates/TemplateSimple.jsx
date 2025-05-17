@@ -26,7 +26,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
       {data.summary && (
         <div className="mb-6">
           <h2 className="font-bold text-lg border-b pb-1 mb-2 text-left">Summary</h2>
-          <p className="text-sm text-left">{data.summary}</p>
+          <p className="text-sm text-left text-gray-700">{data.summary}</p>
         </div>
       )}
 
