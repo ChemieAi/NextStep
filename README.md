@@ -1,146 +1,126 @@
-# NextStepCV 🚀  TODO: SEARCH & TRY AI SKILL SUPPORT
+# 🚀 NextStepCV – Akıllı CV Oluşturucu
 
-NextStepCV, kullanıcıların adım adım özgeçmiş oluşturmalarına olanak tanıyan modern, sade ve özelleştirilebilir bir CV oluşturma uygulamasıdır.
+**Modern. Sade. Özelleştirilebilir. Güvenli.**
+
+> TODO: SEARCH & AI-Supported Skill Recommender ✨
+
+NextStepCV, kullanıcıların adım adım CV oluşturmasına olanak tanıyan, karanlık tema destekli, PDF çıktısı alabilen ve Firebase ile tam entegre edilmiş modern bir özgeçmiş oluşturma uygulamasıdır.
 
 ![Landing](./public/screenshots/landing_page.png)
 
 ---
-<!---
-## 🔧 Kurulum ve Başlatma
 
-### 1. Repository'yi Klonlayın
+## 🌟 Özellikler
+
+* ✅ Adım adım CV oluşturma (Temel Bilgiler, Eğitim, Deneyim, Projeler, vb.)
+* 🎨 Aydınlık & karanlık tema desteği
+* 📄 Şablon seçimi ve anında PDF çıktısı
+* 🔐 Firebase Authentication ile güvenli giriş/kayıt
+* ☁️ Firestore ve Storage ile canlı veri senkronizasyonu
+* 🖼️ Profil fotoğrafı yükleme (1MB sınırlı)
+* 📱 Mobil uyumlu ve responsive tasarım
+* ☁️ Netlify + Render ile full-stack canlı deploy
+
+---
+
+## 🔐 Canlı Sürüm
+
+| Platform              | Bağlantı                                                                           |
+| --------------------- | ---------------------------------------------------------------------------------- |
+| 🌐 Frontend (Netlify) | [https://nextstepcvapp.netlify.app](https://nextstepcvapp.netlify.app)             |
+| 📈 Backend (Render)   | [https://nextstepcv-backend.onrender.com](https://nextstepcv-backend.onrender.com) |
+
+> ⚠️ Not: Uygulama Firebase güvenlik kuralları ile korunmaktadır. Yalnızca kimliği doğrulanmış kullanıcılar kendi verilerine erişebilir.
+
+---
+
+<!---
+## ⚙️ Kurulum ve Geliştirme
+
+### 1️⃣ Repo'yu klonlayın
 ```bash
 git clone https://github.com/chemieai/nextstepcv.git
 cd nextstepcv
 ```
 
-### 2. Bağımlılıkları Kurun
+### 2️⃣ Frontend kurulumu
 ```bash
+cd client
 npm install
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-npm install react-router-dom
-npm install @heroicons/react
-npm install @react-pdf/renderer
 ```
 
-if you get error with tailwind
+### 3️⃣ Backend kurulumu
 ```bash
-npm install -D @tailwindcss/postcss
-```
-
-### 3. Firebase Ayarlarını Yapın
-`/src/firebase.js` dosyasındaki Firebase konfigürasyon bilgilerini kendi projenize göre doldurun.
-
-### 4. Firebase Configuration
-```bash
-npm install -g firebase-tools
-firebase login
-firebase use --add
-```
-loginde hata alırsanız
-#### 1.PowerShell'i Yönetici olarak çalıştırın:
-  Başlat Menüsüne "PowerShell" yazın
-  "Windows PowerShell" üzerine sağ tıkla > Yönetici olarak çalıştır seçeneğine tıklayın
-#### 2.Aşağıdaki komutu çalıştırın:
-```bash
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
-eğer yine de aşağıdaki gibi bir hata alırsanız 
-```bash
-Error: firebase use must be run from a Firebase project directory.
-Run firebase init to start a project directory in the current folder.
-```
-aşağıdaki komutu çalıştırın:
-```bash
-firebase init
-```
-tüm kurulumu tamamladıktan sonra da
-```bash
-firebase deploy
-```
-yapmayı unutmayın
-
-### 5. Backend kurulumu
-```bash
-mkdir backend
 cd backend
-npm init -y
-npm install express cors dotenv firebase-admin
-npm install multer
+npm install
 ```
 
-### 6. Uygulamayı Başlatın
-```bash
-npm run dev
-```
-
----
---->
-
-## 🌟 Özellikler
-
-- Adım adım CV oluşturma (Temel Bilgiler, Eğitim, Deneyim, vb.)
-- Karanlık ve aydınlık tema desteği 🌗
-- Şablon seçimi ve PDF çıktısı alma
-- Firebase Authentication ve Firestore entegrasyonu
-- Gerçek zamanlı veri kaydı
+.env dosyaları ve daha fazlası için proje içinde yer alan `.env.example` şablonlarına bakabilirsiniz.
+-->
 
 ---
 
-## 🖼️ Uygulama Görselleri
+## 🗄️ Uygulama Ekran Görüntüleri
 
-### 🔐 Giriş & Kayıt Sayfası
-| Login | Register |
-|-------|----------|
-| ![](./public/screenshots/login_page.png) | ![](./public/screenshots/register_page.png) |
+### 🔐 Giriş & Kayıt
+
+| Login                                         | Register                                         |
+| --------------------------------------------- | ------------------------------------------------ |
+| ![](./public/screenshots/login_page.png)      | ![](./public/screenshots/register_page.png)      |
 | ![](./public/screenshots/login_page_dark.png) | ![](./public/screenshots/register_page_dark.png) |
 
 ---
 
 ### 🏠 Ana Sayfa
-| Light | Dark |
-|-------|------|
+
+| Light                                      | Dark                                            |
+| ------------------------------------------ | ----------------------------------------------- |
 | ![](./public/screenshots/landing_page.png) | ![](./public/screenshots/landing_page_dark.png) |
 
 ---
 
-### 🧑‍💼 CV Oluşturma Adımları
-| Sayfa | Karanlık Tema |
-|-------|---------------|
+### 🏗️ CV Oluşturma Adımları
+
+| Sayfa                                         | Karanlık Tema                                      |
+| --------------------------------------------- | -------------------------------------------------- |
 | ![](./public/screenshots/cv_builder_page.png) | ![](./public/screenshots/cv_builder_page_dark.png) |
 
 ---
 
 ### 🔍 CV Önizleme & PDF
-| Önizleme | PDF |
-|----------|------|
-| ![](./public/screenshots/cv_preview_page.png) | ![](./public/screenshots/example_basic_cv.png) |
-| ![](./public/screenshots/cv_preview_page_dark.png) |  |
+
+| Önizleme                                           | PDF                                            |
+| -------------------------------------------------- | ---------------------------------------------- |
+| ![](./public/screenshots/cv_preview_page.png)      | ![](./public/screenshots/example_basic_cv.png) |
+| ![](./public/screenshots/cv_preview_page_dark.png) |                                                |
 
 ---
 
 ### 👤 Profil Sayfası
-| Light | Dark |
-|-------|------|
+
+| Light                                      | Dark                                            |
+| ------------------------------------------ | ----------------------------------------------- |
 | ![](./public/screenshots/profile_page.png) | ![](./public/screenshots/profile_page_dark.png) |
 
 ---
 
 ## 🛠️ Kullanılan Teknolojiler
 
-- React.js + Vite
-- Tailwind CSS
-- Firebase (Auth, Firestore, Storage)
-- React Router
-- react-pdf / html2canvas
-- Heroicons
+* React.js + Vite
+* Tailwind CSS
+* Firebase (Auth, Firestore, Storage)
+* React Router
+* react-pdf / html2canvas
+* Heroicons
+* Netlify & Render deploy altyapısı
 
 ---
 
 ## 📄 Lisans
+
 MIT License
 
 ---
 
-> Geliştiren: Burak "Chemie" Kızılay | ⭐️ Projeyi beğendiyseniz repo'yu yıldızlamayı unutmayın!
+> ✍️ Geliştiren: [Burak "Chemie" Kızılay](https://github.com/chemieai)
+> ⭐️ Projeyi beğendiyseniz repo’ya ⭐️ bırakmayı unutmayın!
