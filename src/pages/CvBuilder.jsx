@@ -41,6 +41,7 @@ const CvBuilder = () => {
   const { formData, setFormData } = useForm();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (currentUser === null) {
@@ -51,7 +52,7 @@ const CvBuilder = () => {
     const fetchData = async () => {
       try {
         const token = await currentUser.getIdToken();
-        const response = await fetch("http://localhost:5000/api/cv", {
+        const response = await fetch(`${API_BASE}/api/cv`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -86,7 +87,7 @@ const CvBuilder = () => {
 
     try {
       const token = await user.getIdToken();
-      await fetch("http://localhost:5000/api/cv", {
+      await fetch(`${API_BASE}/api/cv`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

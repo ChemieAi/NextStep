@@ -16,13 +16,15 @@ const CvPreview = () => {
   const { formData, setFormData } = useForm();
   const { currentUser, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(true);
+  const API_BASE = import.meta.env.VITE_API_URL;
+
 
   const fetchFormData = async () => {
     if (!currentUser) return;
 
     try {
       const token = await currentUser.getIdToken();
-      const response = await fetch("http://localhost:5000/api/cv", {
+      const response = await fetch(`${API_BASE}/api/cv`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

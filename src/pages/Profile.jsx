@@ -14,6 +14,8 @@ const Profile = () => {
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const API_BASE = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     if (!currentUser) {
@@ -26,7 +28,7 @@ const Profile = () => {
         const token = await currentUser.getIdToken();
 
         // CV verisini backend'den al
-        const response = await fetch("http://localhost:5000/api/cv", {
+        const response = await fetch(`${API_BASE}/api/cv`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -70,7 +72,7 @@ const Profile = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("http://localhost:5000/api/profile-image", {
+      const response = await fetch(`${API_BASE}/api/profile-image`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -129,16 +131,16 @@ const Profile = () => {
 
         <div className="flex justify-center mt-4 gap-4">
           {formData.name && (
-          <PDFDownloadLink
-            document={<CvPDF formData={formData} />}
-            fileName={`${formData.name || "CV"}_NextStepCV.pdf`}
-          >
-            {({ loading }) => (
-              <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">
-                {loading ? "Hazırlanıyor..." : "CV'yi İndir"}
-              </button>
-            )}
-          </PDFDownloadLink>
+            <PDFDownloadLink
+              document={<CvPDF formData={formData} />}
+              fileName={`${formData.name || "CV"}_NextStepCV.pdf`}
+            >
+              {({ loading }) => (
+                <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">
+                  {loading ? "Hazırlanıyor..." : "CV'yi İndir"}
+                </button>
+              )}
+            </PDFDownloadLink>
           )}
           <button
             onClick={() => navigate("/cv-builder")}
