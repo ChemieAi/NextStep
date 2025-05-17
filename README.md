@@ -1,4 +1,4 @@
-# NextStepCV 🚀  TODO: UPDATE README. AND SEARCH & TRY AI SKILL SUPPORT
+# NextStepCV 🚀  TODO: SEARCH & TRY AI SKILL SUPPORT
 
 NextStepCV, kullanıcıların adım adım özgeçmiş oluşturmalarına olanak tanıyan modern, sade ve özelleştirilebilir bir CV oluşturma uygulamasıdır.
 
