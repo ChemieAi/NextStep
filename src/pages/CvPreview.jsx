@@ -64,7 +64,7 @@ const CvPreview = () => {
     }
 
     fetchFormData();
-  }, [authLoading, currentUser]);
+  }, [authLoading, navigate, currentUser]);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -94,17 +94,18 @@ const CvPreview = () => {
           >
             Geri Dön
           </button>
-
-          <PDFDownloadLink
-            document={<CvPdf formData={formData} />}
-            fileName={`${formData.name || "PlaceHolder"}_CV.pdf`}
-          >
-            {({ loading }) => (
-              <button className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded hover:bg-green-600 dark:hover:bg-green-700">
-                {loading ? "Hazırlanıyor..." : "PDF Olarak İndir"}
-              </button>
-            )}
-          </PDFDownloadLink>
+          {formData.name && (
+            <PDFDownloadLink
+              document={<CvPdf formData={formData} />}
+              fileName={`${formData.name || "PlaceHolder"}_CV.pdf`}
+            >
+              {({ loading }) => (
+                <button className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded hover:bg-green-600 dark:hover:bg-green-700">
+                  {loading ? "Hazırlanıyor..." : "PDF Olarak İndir"}
+                </button>
+              )}
+            </PDFDownloadLink>
+          )}
         </div>
 
         <div className="flex justify-center">

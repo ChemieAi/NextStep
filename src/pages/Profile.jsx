@@ -16,41 +16,39 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (currentUser === null) {
+    if (!currentUser) {
       navigate("/login", { replace: true });
+      return;
     }
-  }, [currentUser, navigate]);
+    const fetchUserData = async () => {
+      if (!currentUser) return;
+      try {
+        const token = await currentUser.getIdToken();
 
-  useEffect(() => {
-  const fetchUserData = async () => {
-    if (!currentUser) return;
-    try {
-      const token = await currentUser.getIdToken();
+        // CV verisini backend'den al
+        const response = await fetch("http://localhost:5000/api/cv", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      // CV verisini backend'den al
-      const response = await fetch("http://localhost:5000/api/cv", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+        let cvData = {};
+        if (response.ok) {
+          cvData = await response.json();
+        }
 
-      let cvData = {};
-      if (response.ok) {
-        cvData = await response.json();
+        // Profil fotoğrafını Firestore'dan çek
+        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+        const profileImage = userDoc.exists() ? userDoc.data().profileImage : "";
+
+        setFormData({ ...cvData, profileImage });
+      } catch (err) {
+        console.error("Kullanıcı bilgileri alınamadı ❌", err);
       }
+    };
 
-      // Profil fotoğrafını Firestore'dan çek
-      const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-      const profileImage = userDoc.exists() ? userDoc.data().profileImage : "";
-
-      setFormData({ ...cvData, profileImage });
-    } catch (err) {
-      console.error("Kullanıcı bilgileri alınamadı ❌", err);
-    }
-  };
-
-  fetchUserData();
-}, [currentUser, setFormData]);
+    fetchUserData();
+  }, [currentUser, navigate, setFormData]);
 
 
   const handleUploadPhoto = async (e) => {
@@ -130,6 +128,7 @@ const Profile = () => {
         </div>
 
         <div className="flex justify-center mt-4 gap-4">
+          {formData.name && (
           <PDFDownloadLink
             document={<CvPDF formData={formData} />}
             fileName={`${formData.name || "CV"}_NextStepCV.pdf`}
@@ -140,6 +139,7 @@ const Profile = () => {
               </button>
             )}
           </PDFDownloadLink>
+          )}
           <button
             onClick={() => navigate("/cv-builder")}
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded"

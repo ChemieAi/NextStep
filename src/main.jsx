@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Buffer } from "buffer";
+window.Buffer = Buffer;
 import App from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
