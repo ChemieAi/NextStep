@@ -19,6 +19,8 @@ const StepBasicInfo = ({ data, setData }) => {
   const { currentUser } = useAuth();
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const API_BASE = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     // localStorage'tan base64 al (ilk yüklenirken)
     const base64 = localStorage.getItem("profileImageBase64");
@@ -102,7 +104,7 @@ const StepBasicInfo = ({ data, setData }) => {
           className="text-sm mt-1 dark:bg-gray-700 dark:text-white"
         />
         {errorMessage && (
-          <p className="text-red-500 text-sm mt-2">{errorMessage}</p> 
+          <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
         )}
       </div>
 
