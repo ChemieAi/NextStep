@@ -22,7 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-src/firebase.js
 firebase.json
 firebase-debug.log
 firestore.rules
