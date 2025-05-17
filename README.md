@@ -5,7 +5,7 @@ NextStepCV, kullanıcıların adım adım özgeçmiş oluşturmalarına olanak t
 ![Landing](./public/screenshots/landing_page.png)
 
 ---
-
+<!---
 ## 🔧 Kurulum ve Başlatma
 
 ### 1. Repository'yi Klonlayın
@@ -76,6 +76,7 @@ npm run dev
 ```
 
 ---
+--->
 
 ## 🌟 Özellikler
 
