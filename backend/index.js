@@ -11,6 +11,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: "5mb" })); // veya ihtiyacına göre 5mb, 10mb vs.
+app.use(express.urlencoded({ extended: true }));
 
 const upload = multer({
   storage: multer.memoryStorage(),
