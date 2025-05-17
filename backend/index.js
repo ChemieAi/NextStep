@@ -12,8 +12,6 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "5mb" })); // veya ihtiyacına göre 5mb, 10mb vs.
 
-const serviceAccount = require("./firebaseServiceAccountKey.json");
-
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 1 * 1024 * 1024 }, // 1MB sınırı
