@@ -17,7 +17,7 @@ NextStepCV, kullanıcıların adım adım CV oluşturmasına olanak tanıyan, ka
 * 📄 Şablon seçimi ve anında PDF çıktısı
 * 🔐 Firebase Authentication ile güvenli giriş/kayıt
 * ☁️ Firestore ve Storage ile canlı veri senkronizasyonu
-* 🖼️ Profil fotoğrafı yükleme (1MB sınırlı)
+* 🖼️ Profil fotoğrafı yükleme 
 * 📱 Mobil uyumlu ve responsive tasarım
 * ☁️ Netlify + Render ile full-stack canlı deploy
 
