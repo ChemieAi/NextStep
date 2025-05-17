@@ -47,7 +47,7 @@ const StepBasicInfo = ({ data, setData }) => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("http://localhost:5000/api/profile-image", {
+      const response = await fetch(`${API_BASE}/api/profile-image`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
