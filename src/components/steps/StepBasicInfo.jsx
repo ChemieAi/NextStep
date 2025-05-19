@@ -21,6 +21,7 @@ const StepBasicInfo = ({ data, setData }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [emailError, setEmailError] = useState("");
   const [photoError, setPhotoError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const API_BASE = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -174,9 +175,23 @@ const StepBasicInfo = ({ data, setData }) => {
           name="phone"
           value={data.phone}
           onChange={handleChange}
-          placeholder="Örneğin: +90 555 555 55 55"
-          className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+          onBlur={(e) => {
+            const phoneRegex = /^\+?[1-9]\d{7,14}$/; // + opsiyonel, 8-15 arası hane alan koduyla birlikte
+            if (!phoneRegex.test(e.target.value)) {
+              setPhoneError("Lütfen geçerli bir telefon numarası girin. Örnek Format: +905551112233  (Alan kodu ile birlikte boşluksuz giriniz)");
+            } else {
+              setPhoneError("");
+            }
+          }}
+          placeholder="Örneğin: +905551112233 (Alan kodu ile birlikte boşluksuz giriniz)"
+          className={`w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white ${phoneError ? "border-red-500 animate-shake" : ""
+            }`}
         />
+        {phoneError && (
+          <p className="mt-1 mb-2 bg-white dark:bg-gray-800 text-red-600 text-sm px-3 py-2 rounded shadow border border-red-300 z-10">
+            ⚠️ {phoneError}
+          </p>
+        )}
       </div>
 
       <div className="col-span-1 flex items-center justify-center mt-7 ml-3 space-x-2">

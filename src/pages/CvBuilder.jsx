@@ -104,13 +104,17 @@ const CvBuilder = () => {
 
 
   const CurrentStepComponent = stepsConfig[step].component;
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
+  const emailRegex = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const phoneRegex = (phone) => /^\+?[1-9]\d{7,14}$/.test(phone);
   const handleNext = () => {
     // StepBasicInfo'da isek email'i kontrol et
     if (stepsConfig[step].label === "Temel Bilgiler") {
-      if (!validateEmail(formData.email)) {
+      if (!emailRegex(formData.email)) {
         alert("Lütfen geçerli bir e-posta adresi girin (örneğin: example@mail.com).");
+        return;
+      }
+      if (!phoneRegex(formData.phone)) {
+        alert("Lütfen geçerli bir telefon numarası girin (örneğin: +905551112233) Alan kodu dahil.");
         return;
       }
     }
