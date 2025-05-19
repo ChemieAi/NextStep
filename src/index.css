@@ -117,3 +117,14 @@ textarea:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2); /* yeşil glow */
 }
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-shake {
+  animation: shake 0.5s;
+}

@@ -19,6 +19,8 @@ const StepBasicInfo = ({ data, setData }) => {
   const { currentUser } = useAuth();
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [photoError, setPhotoError] = useState("");
   const API_BASE = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -38,10 +40,10 @@ const StepBasicInfo = ({ data, setData }) => {
 
     // 1MB sınırı (1MB = 1024 * 1024 byte)
     if (file.size > 1024 * 1024) {
-      setErrorMessage("⚠️ Dosya boyutu 1MB'dan büyük olamaz.");
+      setPhotoError("Dosya boyutu 1MB'dan büyük olamaz.");
       return;
     }
-    setErrorMessage(""); // ⬅️ başarılı yüklemeden sonra temizle
+    setPhotoError(""); // ⬅️ başarılı yüklemeden sonra temizle
     setUploading(true);
 
     try {
@@ -103,8 +105,8 @@ const StepBasicInfo = ({ data, setData }) => {
           disabled={uploading}
           className="text-sm mt-1 dark:bg-gray-700 dark:text-white"
         />
-        {errorMessage && (
-          <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+        {photoError && (
+          <p className="mt-1 mb-2 bg-white dark:bg-gray-800 text-red-600 text-sm px-3 py-2 rounded shadow border border-red-300 z-10">⚠️ {photoError}</p>
         )}
       </div>
 
@@ -138,9 +140,21 @@ const StepBasicInfo = ({ data, setData }) => {
           name="email"
           value={data.email}
           onChange={handleChange}
+          onBlur={(e) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(e.target.value)) {
+              setEmailError("Lütfen geçerli bir e-posta adresi girin.");
+            } else {
+              setEmailError("");
+            }
+          }}
           placeholder="Mail adresiniz"
-          className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+          className={`w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white ${emailError ? "border-red-500 animate-shake" : ""
+            }`}
         />
+        {emailError && (
+          <p className="mt-1 mb-2 bg-white dark:bg-gray-800 text-red-600 text-sm px-3 py-2 rounded shadow border border-red-300 z-10">⚠️ {emailError}</p>
+        )}
       </div>
       <div>
         <label className="font-medium block mb-1">Ülke/Şehir</label>

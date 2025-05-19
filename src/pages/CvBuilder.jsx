@@ -104,8 +104,16 @@ const CvBuilder = () => {
 
 
   const CurrentStepComponent = stepsConfig[step].component;
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleNext = () => {
+    // StepBasicInfo'da isek email'i kontrol et
+    if (stepsConfig[step].label === "Temel Bilgiler") {
+      if (!validateEmail(formData.email)) {
+        alert("Lütfen geçerli bir e-posta adresi girin (örneğin: example@mail.com).");
+        return;
+      }
+    }
     saveToFirebase();
     if (step === stepsConfig.length - 1) {
       navigate("/cv-preview");
