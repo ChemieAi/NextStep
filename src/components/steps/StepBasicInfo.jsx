@@ -104,7 +104,8 @@ const StepBasicInfo = ({ data, setData }) => {
           accept="image/*"
           onChange={handlePhotoUpload}
           disabled={uploading}
-          className="text-sm mt-1 dark:bg-gray-700 dark:text-white"
+          className={`w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white ${photoError ? "border-red-500 animate-shake" : ""
+            }`}
         />
         {photoError && (
           <p className="mt-1 mb-2 bg-white dark:bg-gray-800 text-red-600 text-sm px-3 py-2 rounded shadow border border-red-300 z-10">⚠️ {photoError}</p>
