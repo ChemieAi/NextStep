@@ -34,6 +34,14 @@ NextStepCV, kullanıcıların adım adım CV oluşturmasına olanak tanıyan, ka
 
 ---
 
+## 🤝 İş Birliği & Yatırım Teklifleri
+
+NextStepCV, potansiyeli yüksek modern bir ürün olarak geliştirilmeye devam etmektedir.  
+Yatırım, stratejik ortaklık veya profesyonel iş birliği tekliflerinizi memnuniyetle değerlendiririz.
+
+📬 İletişim: [chemie.valorant@gmail.com](mailto:chemie.valorant@gmail.com)
+
+
 <!---
 ## ⚙️ Kurulum ve Geliştirme
 
@@ -124,3 +132,13 @@ MIT License
 
 > ✍️ Geliştiren: [Burak "Chemie" Kızılay](https://github.com/chemieai)
 > ⭐️ Projeyi beğendiyseniz repo’ya ⭐️ bırakmayı unutmayın!
+
+---
+
+## 🤝 İş Birliği & Yatırım Teklifleri
+
+NextStepCV, potansiyeli yüksek modern bir ürün olarak geliştirilmeye devam etmektedir.  
+Yatırım, stratejik ortaklık veya profesyonel iş birliği tekliflerinizi memnuniyetle değerlendiririz.
+
+📬 İletişim: [chemie.valorant@gmail.com](mailto:chemie.valorant@gmail.com)
+
