@@ -2,7 +2,6 @@
 
 **Modern. Sade. Özelleştirilebilir. Güvenli.**
 
-> TODO: SEARCH & AI-Supported Skill Recommender ✨
 
 NextStepCV, kullanıcıların adım adım CV oluşturmasına olanak tanıyan, karanlık tema destekli, PDF çıktısı alabilen ve Firebase ile tam entegre edilmiş modern bir özgeçmiş oluşturma uygulamasıdır.
 
