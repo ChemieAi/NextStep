@@ -2,7 +2,6 @@
 
 **Modern. Sade. Özelleştirilebilir. Güvenli.**
 
-> TODO: SEARCH & AI-Supported Skill Recommender ✨
 
 NextStepCV, kullanıcıların adım adım CV oluşturmasına olanak tanıyan, karanlık tema destekli, PDF çıktısı alabilen ve Firebase ile tam entegre edilmiş modern bir özgeçmiş oluşturma uygulamasıdır.
 
@@ -33,6 +32,14 @@ NextStepCV, kullanıcıların adım adım CV oluşturmasına olanak tanıyan, ka
 > ⚠️ Not: Uygulama Firebase güvenlik kuralları ile korunmaktadır. Yalnızca kimliği doğrulanmış kullanıcılar kendi verilerine erişebilir.
 
 ---
+
+## 🤝 İş Birliği & Yatırım Teklifleri
+
+NextStepCV, potansiyeli yüksek modern bir ürün olarak geliştirilmeye devam etmektedir.  
+Yatırım, stratejik ortaklık veya profesyonel iş birliği tekliflerinizi memnuniyetle değerlendiririz.
+
+📬 İletişim: [chemie.valorant@gmail.com](mailto:chemie.valorant@gmail.com)
+
 
 <!---
 ## ⚙️ Kurulum ve Geliştirme
@@ -124,3 +131,13 @@ MIT License
 
 > ✍️ Geliştiren: [Burak "Chemie" Kızılay](https://github.com/chemieai)
 > ⭐️ Projeyi beğendiyseniz repo’ya ⭐️ bırakmayı unutmayın!
+
+---
+
+## 🤝 İş Birliği & Yatırım Teklifleri
+
+NextStepCV, potansiyeli yüksek modern bir ürün olarak geliştirilmeye devam etmektedir.  
+Yatırım, stratejik ortaklık veya profesyonel iş birliği tekliflerinizi memnuniyetle değerlendiririz.
+
+📬 İletişim: [chemie.valorant@gmail.com](mailto:chemie.valorant@gmail.com)
+
