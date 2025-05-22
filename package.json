@@ -13,9 +13,11 @@
     "@heroicons/react": "^2.2.0",
     "@react-pdf/renderer": "^4.3.0",
     "buffer": "^6.0.3",
+    "emailjs-com": "^3.2.0",
     "firebase": "^11.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.5.2",
     "react-to-print": "^3.0.6"
   },

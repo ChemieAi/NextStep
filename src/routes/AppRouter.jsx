@@ -7,6 +7,7 @@ import CvBuilder from "../pages/CvBuilder";
 import CvPreview from "../pages/CvPreview";
 import Profile from "../pages/Profile";
 import RouteChangeLoader from "../components/RouteChangeLoader";
+import Contact from '../pages/Contact';
 
 const AppRouter = () => {
   return (
@@ -18,6 +19,7 @@ const AppRouter = () => {
         <Route path="/cv-builder" element={<CvBuilder />} />
         <Route path="/cv-preview" element={<CvPreview />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/iletisim" element={<Contact />} />
       </Routes>
     </RouteChangeLoader>
   );
