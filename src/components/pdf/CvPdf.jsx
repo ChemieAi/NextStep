@@ -32,11 +32,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
+  separator: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    marginBottom: 14,
+  },
   name: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    textTransform: "uppercase",
+    textTransform: "uppercase", 
   },
   title: {
     fontSize: 12,
@@ -117,6 +122,8 @@ const CvPDF = ({ formData }) => {
             {formData.email || "email@example.com"} | {formData.phone || "000"} | {formData.city || "City"}
           </Text>
         </View>
+
+        <View style={styles.separator} />
 
         {/* SUMMARY */}
         {formData.summary && (

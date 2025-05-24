@@ -8,6 +8,7 @@ import CvPreview from "../pages/CvPreview";
 import Profile from "../pages/Profile";
 import RouteChangeLoader from "../components/RouteChangeLoader";
 import Contact from '../pages/Contact';
+import ForgotPassword from '../pages/ForgotPassword';
 
 const AppRouter = () => {
   return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
         <Route path="/cv-preview" element={<CvPreview />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/iletisim" element={<Contact />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </RouteChangeLoader>
   );

@@ -21,11 +21,12 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
           {data.email} | {data.phone} | {data.city}
         </p>
       </div>
+      <hr className="border-t border-gray-300 my-6" />
 
       {/* Summary */}
       {data.summary && (
         <div className="mb-6">
-          <h2 className="font-bold text-lg border-b pb-1 mb-2 text-left">Summary</h2>
+          <h2 className="font-bold text-lg border-b border-gray-300 pb-1 mb-2 text-left">Summary</h2>
           <p className="text-sm text-left text-gray-700">{data.summary}</p>
         </div>
       )}
@@ -33,7 +34,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
       {/* Education */}
       {data.education?.length > 0 && (
         <div className="mb-6">
-          <h2 className="font-bold text-lg border-b pb-1 mb-2">Education</h2>
+          <h2 className="font-bold text-lg border-b border-gray-300 pb-1 mb-2">Education</h2>
           {data.education.map((edu, idx) => (
             <div key={idx} className="mb-2">
               <p className="font-bold mb-1 text-left text-gray-700">
@@ -50,7 +51,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
       {/* Experience */}
       {data.experience?.length > 0 && (
         <div className="mb-6">
-          <h2 className="font-bold text-lg border-b pb-1 mb-2">Experience</h2>
+          <h2 className="font-bold text-lg border-b border-gray-300 pb-1 mb-2">Experience</h2>
           {data.experience.map((exp, idx) => (
             <div key={idx} className="mb-2">
               <p className="font-bold mb-1 text-left text-gray-700">
@@ -68,7 +69,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
       {/* Skills */}
       {data.skills?.length > 0 && (
         <div className="mb-6">
-          <h2 className="font-bold text-lg border-b pb-1 mb-2">Skills</h2>
+          <h2 className="font-bold text-lg border-b border-gray-300 pb-1 mb-2">Skills</h2>
           <ul className="flex flex-wrap gap-2">
             {data.skills.map((skill, idx) => (
               <li key={idx} className="px-2 py-1 border rounded">
@@ -82,7 +83,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
       {/* Languages */}
       {data.languages?.length > 0 && (
         <div className="mb-6">
-          <h2 className="font-bold text-lg border-b pb-1 mb-2">Languages</h2>
+          <h2 className="font-bold text-lg border-b border-gray-300 pb-1 mb-2">Languages</h2>
           <ul>
             {data.languages.map((lang, idx) => (
               <li key={idx}>
@@ -96,7 +97,7 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
       {/* Projects */}
       {data.projects?.length > 0 && (
         <div>
-          <h2 className="font-bold text-lg border-b pb-1 mb-2">Projects</h2>
+          <h2 className="font-bold text-lg border-b border-gray-300 pb-1 mb-2">Projects</h2>
           {data.projects.map((p, i) => (
             <div key={i} className="mb-2">
               <p className="font-bold mb-0 text-left text-gray-700">{p.title}</p>

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,12 +20,20 @@ const Login = () => {
     setError("");
 
     try {
-      await signInWithEmailAndPassword(auth, form.email, form.password);
+      const userCredential = await signInWithEmailAndPassword(auth, form.email, form.password);
+      const user = userCredential.user;
+
+      if (!user.emailVerified) {
+        setError("Lütfen önce e-posta adresinizi doğrulayın.");
+        return;
+      }
+
       navigate("/");
     } catch (err) {
       setError("E-posta ya da şifre yanlış!");
     }
   };
+
 
   return (
     <div className="min-h-screen bg-[#e3e3e3] flex flex-col justify-center items-center dark:bg-gray-900 dark:text-white">
@@ -56,9 +67,9 @@ const Login = () => {
 
         <button type="submit" className="btn w-full">Giriş yap</button>
 
-        <p className="text-center mt-4 text-sm text-white underline cursor-pointer">
+        <Link to="/forgot-password" className="text-white underline text-sm text-center block mt-4">
           Şifremi unuttum
-        </p>
+        </Link>
       </form>
     </div>
   );
