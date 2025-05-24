@@ -15,6 +15,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const API_BASE = import.meta.env.VITE_API_URL;
+  const [hovered, setHovered] = useState(false);
 
 
   useEffect(() => {
@@ -82,7 +83,9 @@ const Profile = () => {
 
       const data = await response.json();
       if (data.url) {
-        setFormData((prev) => ({ ...prev, profileImage: data.url }));
+        const separator = data.url.includes("?") ? "&" : "?";
+        const cacheBustedUrl = `${data.url}${separator}t=${Date.now()}`;
+        setFormData((prev) => ({ ...prev, profileImage: cacheBustedUrl }));
       }
     } catch (error) {
       console.error("Fotoğraf yükleme hatası ❌", error);
@@ -91,37 +94,94 @@ const Profile = () => {
     }
   };
 
+  const handleDeletePhoto = async () => {
+    if (!currentUser) return;
+    setUploading(true);
+
+    try {
+      const token = await currentUser.getIdToken();
+      await fetch(`${API_BASE}/api/profile-image`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setFormData((prev) => ({ ...prev, profileImage: "" }));
+    } catch (error) {
+      console.error("Fotoğraf silinemedi ❌", error);
+      setErrorMessage("Fotoğraf silinemedi.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+
   return (
     <div className="min-h-screen bg-[#e5e5e5] p-6 dark:bg-gray-900 ">
       <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow mt-8 dark:bg-gray-800 dark:text-white">
         <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">Profilim</h1>
 
-        <div className="flex flex-col items-center mb-6">
-          {formData.profileImage ? (
-            <img
-              src={formData.profileImage}
-              alt="Profil Fotoğrafı"
-              className="w-32 h-32 object-cover rounded-full mb-4"
-            />
-          ) : (
-            <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center mb-4">
-              <span className="text-gray-500">No Photo</span>
+        <div
+          className="relative group w-32 h-32 mb-4 justify-center items-center mx-auto rounded-full overflow-hidden cursor-pointer border-2 border-gray-300 dark:border-gray-600"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          {uploading ? (
+            <div className="flex items-center justify-center w-full h-full bg-gray-100 dark:bg-gray-700">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-green-500"></div>
             </div>
-          )}
-
-          <label className="text-sm mb-2 font-medium">Fotoğrafı Değiştir</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleUploadPhoto}
-            className="text-sm dark:bg-gray-700 dark:text-white"
-            disabled={uploading}
-          />
-          {errorMessage && (
-            <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
-          )}
-
+          ) :
+            formData.profileImage ? (
+              <>
+                <img
+                  src={formData.profileImage}
+                  alt="Profil Fotoğrafı"
+                  className="w-full h-full object-cover rounded-full border-2 border-white shadow"
+                />
+                {hovered && (
+                  <div className="absolute inset-0 bg-black/60 rounded-full flex flex-col justify-center items-center text-xs">
+                    <label className="bg-green-200 dark:bg-green-200 dark:hover:bg-green-300 text-gray-800 px-2 py-1 rounded cursor-pointer mb-1 hover:bg-green-300">
+                      Fotoğrafı Değiştir
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleUploadPhoto}
+                        disabled={uploading}
+                        className="hidden"
+                      />
+                    </label>
+                    <button
+                      onClick={handleDeletePhoto}
+                      className="bg-red-200 text-red-600 px-2 py-1 rounded hover:bg-red-300"
+                    >
+                      Sil
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="w-full h-full rounded-full bg-gray-200 flex items-center justify-center text-sm relative">
+                <label className="bg-green-200 text-gray-800 px-3 py-1 rounded cursor-pointer hover:bg-green-300 z-10">
+                  Fotoğraf Yükle
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleUploadPhoto}
+                    disabled={uploading}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            )
+          }
         </div>
+
+
+        {errorMessage && (
+          <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+        )}
+
 
         <div className="mb-6 dark:text-white">
           <p className="dark:text-white"><strong>Ad Soyad:</strong> {formData.name || "-"}</p>
