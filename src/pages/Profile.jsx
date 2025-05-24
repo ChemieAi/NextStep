@@ -150,6 +150,15 @@ const Profile = () => {
           </button>
         </div>
       </div>
+      <div className="flex justify-center mt-6 gap-4">
+        <button
+          onClick={() => navigate("/update-password")}
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+        >
+          Şifre Güncelle
+        </button>
+      </div>
+
     </div>
   );
 };
