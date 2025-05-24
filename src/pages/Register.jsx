@@ -3,6 +3,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
+import { sendEmailVerification } from "firebase/auth";
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ const Register = () => {
       setPasswordError("Şifreler eşleşmiyor");
       return;
     }
-    setPasswordError(""); // eşleşiyorsa temizle
+    setPasswordError("");
 
     if (!form.agree) {
       setAgreeError("Devam etmek için şartları kabul etmelisiniz.");
@@ -49,19 +51,22 @@ const Register = () => {
 
       const user = userCredential.user;
 
-      await setDoc(doc(db, "users", user.uid), {
+      await sendEmailVerification(user);
+
+      // Kullanıcı bilgilerini localStorage'a geçici olarak kaydet
+      localStorage.setItem("temp_user_data", JSON.stringify({
         name: form.name,
         surname: form.surname,
-        email: form.email,
         agreedToTerms: true,
-        agreedAt: new Date(),
-      });
+      }));
 
-      navigate("/");
+      // Bekleme ekranına yönlendir
+      navigate("/verify-waiting");
     } catch (err) {
       setError(err.message);
     }
   };
+
 
 
   return (

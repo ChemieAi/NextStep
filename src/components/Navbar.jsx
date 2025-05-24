@@ -48,9 +48,11 @@ const Navbar = () => {
       to: "/profile",
       icon: <UserCircleIcon className="h-6 w-6" />,
       label: "Profil",
-      show: currentUser,
+      show: currentUser && currentUser.emailVerified,
     },
   ];
+
+  if (location.pathname === "/verify-waiting") return null;
 
   return (
     <nav className="bg-[#2c2c2c] text-white px-6 py-4 shadow-md">

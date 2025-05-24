@@ -9,6 +9,9 @@ import Profile from "../pages/Profile";
 import RouteChangeLoader from "../components/RouteChangeLoader";
 import Contact from '../pages/Contact';
 import ForgotPassword from '../pages/ForgotPassword';
+import VerifyWaiting from '../pages/VerifyWaiting';
+import ProtectedRoute from "../components/ProtectedRoute";
+import UpdatePassword from "../pages/UpdatePassword";
 
 const AppRouter = () => {
   return (
@@ -17,11 +20,36 @@ const AppRouter = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/cv-builder" element={<CvBuilder />} />
-        <Route path="/cv-preview" element={<CvPreview />} />
-        <Route path="/profile" element={<Profile />} />
+        {/* ProtectedRoute ile korunan rotalar */}
+        <Route path="/cv-builder" element={
+          <ProtectedRoute>
+            <CvBuilder />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/cv-preview" element={
+          <ProtectedRoute>
+            <CvPreview />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        <Route
+          path="/update-password"
+          element={
+            <ProtectedRoute>
+              <UpdatePassword />
+            </ProtectedRoute>
+          } />
+
+        {/* Diğer rotalar */}
         <Route path="/iletisim" element={<Contact />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-waiting" element={<VerifyWaiting />} />
       </Routes>
     </RouteChangeLoader>
   );
