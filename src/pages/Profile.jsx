@@ -15,7 +15,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const API_BASE = import.meta.env.VITE_API_URL;
-  const [hovered, setHovered] = useState(false);
 
 
   useEffect(() => {
@@ -44,11 +43,7 @@ const Profile = () => {
         const userDoc = await getDoc(doc(db, "users", currentUser.uid));
         const profileImage = userDoc.exists() ? userDoc.data().profileImage : "";
 
-        // ✅ localStorage'dan base64'i de al
-        const base64 = localStorage.getItem(`profileImageBase64_${currentUser.uid}`);
-
-        // ⬇️ formData'yı tam doldur
-        setFormData({ ...cvData, profileImage, profileImageBase64: base64 || "" });
+        setFormData({ ...cvData, profileImage, profileImageBase64: cvData.profileImageBase64 || "" });
       } catch (err) {
         console.error("Kullanıcı bilgileri alınamadı ❌", err);
       }
@@ -62,7 +57,6 @@ const Profile = () => {
     const file = e.target.files[0];
     if (!file || !currentUser) return;
 
-    // ⬇️ 1MB sınırı kontrolü
     if (file.size > 1024 * 1024) {
       setErrorMessage("⚠️ Dosya boyutu 1MB'dan büyük olamaz.");
       return;
@@ -83,52 +77,39 @@ const Profile = () => {
       });
 
       const data = await response.json();
+
       if (data.url) {
-        // Base64 oluştur
         const reader = new FileReader();
-        reader.onloadend = () => {
+        reader.onloadend = async () => {
           const base64 = reader.result;
 
+          // 🔁 URL'ye timestamp ekle (cache busting)
           const separator = data.url.includes("?") ? "&" : "?";
           const cacheBustedUrl = `${data.url}${separator}t=${Date.now()}`;
 
-          // 🔄 formData'yı güncelle (UI + PDF için)
+          // 🟢 1. Form datasını güncelle
           setFormData((prev) => ({
             ...prev,
             profileImage: cacheBustedUrl,
             profileImageBase64: base64,
           }));
 
-          // Opsiyonel: localStorage'a da yazılabilir
+          // 🟢 2. Firestore'daki CV verisini güncelle
+          const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
+          await setDoc(cvRef, {
+            profileImage: cacheBustedUrl,
+            profileImageBase64: base64,
+            updatedAt: new Date()
+          }, { merge: true });
+
+          // 🟢 3. (Opsiyonel) localStorage güncelle
           localStorage.setItem("profileImageBase64", base64);
         };
         reader.readAsDataURL(file);
       }
     } catch (error) {
       console.error("Fotoğraf yükleme hatası ❌", error);
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleDeletePhoto = async () => {
-    if (!currentUser) return;
-    setUploading(true);
-
-    try {
-      const token = await currentUser.getIdToken();
-      await fetch(`${API_BASE}/api/profile-image`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setFormData((prev) => ({ ...prev, profileImage: "" }));
-      localStorage.removeItem(`profileImageBase64_${currentUser.uid}`);
-    } catch (error) {
-      console.error("Fotoğraf silinemedi ❌", error);
-      setErrorMessage("Fotoğraf silinemedi.");
+      setErrorMessage("Fotoğraf yüklenirken bir hata oluştu.");
     } finally {
       setUploading(false);
     }
@@ -140,66 +121,32 @@ const Profile = () => {
       <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow mt-8 dark:bg-gray-800 dark:text-white">
         <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">Profilim</h1>
 
-        <div
-          className="relative group w-32 h-32 mb-4 justify-center items-center mx-auto rounded-full overflow-hidden cursor-pointer border-2 border-gray-300 dark:border-gray-600"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-        >
-          {uploading ? (
-            <div className="flex items-center justify-center w-full h-full bg-gray-100 dark:bg-gray-700">
-              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-green-500"></div>
+        <div className="flex flex-col items-center mb-6">
+          {formData.profileImage ? (
+            <img
+              src={formData.profileImage}
+              alt="Profil Fotoğrafı"
+              className="w-32 h-32 object-cover rounded-full mb-4"
+            />
+          ) : (
+            <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center mb-4">
+              <span className="text-gray-500">No Photo</span>
             </div>
-          ) :
-            formData.profileImage ? (
-              <>
-                <img
-                  src={formData.profileImage}
-                  alt="Profil Fotoğrafı"
-                  className="w-full h-full object-cover rounded-full border-2 border-white shadow"
-                />
-                {hovered && (
-                  <div className="absolute inset-0 bg-black/60 rounded-full flex flex-col justify-center items-center text-xs">
-                    <label className="bg-green-200 dark:bg-green-200 dark:hover:bg-green-300 text-gray-800 px-2 py-1 rounded cursor-pointer mb-1 hover:bg-green-300">
-                      Fotoğrafı Değiştir
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleUploadPhoto}
-                        disabled={uploading}
-                        className="hidden"
-                      />
-                    </label>
-                    <button
-                      onClick={handleDeletePhoto}
-                      className="bg-red-200 text-red-600 px-2 py-1 rounded hover:bg-red-300"
-                    >
-                      Sil
-                    </button>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="w-full h-full rounded-full bg-gray-200 flex items-center justify-center text-sm relative">
-                <label className="bg-green-200 text-gray-800 px-3 py-1 rounded cursor-pointer hover:bg-green-300 z-10">
-                  Fotoğraf Yükle
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleUploadPhoto}
-                    disabled={uploading}
-                    className="hidden"
-                  />
-                </label>
-              </div>
-            )
-          }
+          )}
+
+          <label className="text-sm mb-2 font-medium">Fotoğrafı Değiştir</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleUploadPhoto}
+            className="text-sm dark:bg-gray-700 dark:text-white"
+            disabled={uploading}
+          />
+          {errorMessage && (
+            <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+          )}
+
         </div>
-
-
-        {errorMessage && (
-          <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
-        )}
-
 
         <div className="mb-6 dark:text-white">
           <p className="dark:text-white"><strong>Ad Soyad:</strong> {formData.name || "-"}</p>

@@ -54,15 +54,6 @@ app.post("/api/profile-image", authenticate, upload.single("file"), async (req, 
     const file = req.file;
     if (!file) return res.status(400).json({ message: "Dosya eksik" });
 
-    const userRef = db.collection("users").doc(req.uid);
-
-    // 1️⃣ Storage'daki tüm eski dosyaları (her uzantıdan) sil
-    const [files] = await bucket.getFiles({ prefix: `profilePictures/${req.uid}` });
-    await Promise.all(
-      files.map(file => file.delete().catch(() => {}))
-    );
-
-    // 2️⃣ Yeni dosya adı oluştur
     const ext = path.extname(file.originalname);
     const fileName = `profilePictures/${req.uid}${ext}`;
     const fileRef = bucket.file(fileName);
@@ -78,43 +69,13 @@ app.post("/api/profile-image", authenticate, upload.single("file"), async (req, 
       expires: "03-01-2030",
     });
 
-    // 3️⃣ Firestore'a güncelle
-    await userRef.set({ profileImage: url }, { merge: true });
+    // Firestore'da güncelle
+    await db.collection("users").doc(req.uid).set({ profileImage: url }, { merge: true });
 
     res.status(200).json({ url });
   } catch (err) {
     console.error("Fotoğraf yüklenemedi ❌", err);
     res.status(500).json({ message: "Fotoğraf yüklenemedi", error: err });
-  }
-});
-
-// ✅ Profil fotoğrafını silme endpoint’i
-app.delete("/api/profile-image", authenticate, async (req, res) => {
-  try {
-    const userRef = db.collection("users").doc(req.uid);
-
-    // 🔍 Firestore'dan eski URL'yi al
-    const userSnap = await userRef.get();
-    const existingUrl = userSnap.exists ? userSnap.data().profileImage : null;
-
-    if (existingUrl) {
-      // ✅ Dosya adını URL’den çıkart
-      const decodedUrl = decodeURIComponent(existingUrl);
-      const match = decodedUrl.match(/profilePictures\/(.+?)\?/);
-      
-      if (match) {
-        const filePath = `profilePictures/${match[1]}`;
-        await bucket.file(filePath).delete().catch(() => { }); // yoksa da hata vermesin
-      }
-    }
-
-    // 🔁 Firestore'dan alanı sil
-    await userRef.update({ profileImage: admin.firestore.FieldValue.delete() });
-
-    res.status(200).json({ message: "Fotoğraf silindi ✅" });
-  } catch (error) {
-    console.error("Fotoğraf silinemedi ❌", error);
-    res.status(500).json({ message: "Fotoğraf silinemedi ❌" });
   }
 });
 

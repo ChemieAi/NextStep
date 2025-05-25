@@ -35,40 +35,16 @@ const CvPreview = () => {
         backendData = await response.json();
       }
 
+      // Profil fotoğrafı ayrı alınabilir
       const userRef = doc(db, "users", currentUser.uid);
       const userSnap = await getDoc(userRef);
       const profileImage = userSnap.exists() ? userSnap.data().profileImage : "";
 
-      let profileImageBase64 = "";
-
-      // Eğer localStorage'ta base64 varsa önce onu kullan
-      const fromLocal = localStorage.getItem(`profileImageBase64_${currentUser.uid}`);
-      if (fromLocal) {
-        profileImageBase64 = fromLocal;
-      } else if (profileImage) {
-        // Yoksa URL'den dönüştür
-        const imgRes = await fetch(profileImage);
-        const blob = await imgRes.blob();
-        profileImageBase64 = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result);
-          reader.readAsDataURL(blob);
-        });
-
-        // localStorage'a yaz
-        localStorage.setItem(`profileImageBase64_${currentUser.uid}`, profileImageBase64);
-      }
-
-      const fullData = {
-        ...backendData,
-        profileImage,
-        profileImageBase64,
-      };
-
+      const fullData = { ...backendData, profileImage };
       setFormData(fullData);
       saveFormDataToLocal(fullData);
     } catch (err) {
-      console.error("CV verisi alınamadı ❌", err);
+      console.error("Backend'den CV verisi alınamadı ❌", err);
     } finally {
       setLoading(false);
     }
