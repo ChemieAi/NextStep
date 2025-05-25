@@ -54,22 +54,39 @@ app.post("/api/profile-image", authenticate, upload.single("file"), async (req, 
     const file = req.file;
     if (!file) return res.status(400).json({ message: "Dosya eksik" });
 
-    const ext = path.extname(file.originalname);
-    const fileName = `profilePictures/${req.uid}${ext}`;
+    const ext = path.extname(file.originalname).toLowerCase(); // örn: .jpg
+    const baseName = `profilePictures/${req.uid}`;
+    const fileName = `${baseName}${ext}`;
     const fileRef = bucket.file(fileName);
 
+    // ✅ Önceki formatlardaki dosyaları sil (.jpg, .jpeg, .png, .webp)
+    const possibleExts = [".jpg", ".jpeg", ".png", ".webp"];
+    await Promise.all(
+      possibleExts.map(async (e) => {
+        if (e !== ext) {
+          const oldFile = bucket.file(`${baseName}${e}`);
+          try {
+            const [exists] = await oldFile.exists();
+            if (exists) await oldFile.delete();
+          } catch (err) {
+            console.warn(`Silinemedi: ${baseName}${e}`, err.message);
+          }
+        }
+      })
+    );
+
+    // 📤 Yeni dosyayı yükle
     await fileRef.save(file.buffer, {
-      metadata: {
-        contentType: file.mimetype,
-      },
+      metadata: { contentType: file.mimetype },
     });
 
+    // 🔗 URL oluştur
     const [url] = await fileRef.getSignedUrl({
       action: "read",
       expires: "03-01-2030",
     });
 
-    // Firestore'da güncelle
+    // 🔄 Firestore güncelle (istenirse)
     await db.collection("users").doc(req.uid).set({ profileImage: url }, { merge: true });
 
     res.status(200).json({ url });
@@ -78,6 +95,7 @@ app.post("/api/profile-image", authenticate, upload.single("file"), async (req, 
     res.status(500).json({ message: "Fotoğraf yüklenemedi", error: err });
   }
 });
+
 
 // ✅ CV kaydetme endpoint’i
 app.post("/api/cv", authenticate, async (req, res) => {
