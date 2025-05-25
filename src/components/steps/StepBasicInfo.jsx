@@ -4,6 +4,8 @@ import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { PencilIcon } from "@heroicons/react/24/solid";
 
 // Base64 dönüşüm fonksiyonu
 const fileToBase64 = (file) => {
@@ -23,6 +25,7 @@ const StepBasicInfo = ({ data, setData }) => {
   const [photoError, setPhotoError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const API_BASE = import.meta.env.VITE_API_URL;
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     // localStorage'tan base64 al (ilk yüklenirken)
@@ -63,15 +66,32 @@ const StepBasicInfo = ({ data, setData }) => {
       const data = await response.json();
       if (data.url) {
         const reader = new FileReader();
-        reader.onloadend = () => {
+        reader.onloadend = async () => {
           const base64 = reader.result;
+
+          // 🔁 URL’ye cache busting ekleme (sadece görünüm için)
+          const separator = data.url.includes("?") ? "&" : "?";
+          const cacheBustedUrl = `${data.url}${separator}t=${Date.now()}`;
+
+          // 🔄 local state güncelle
           setData((prev) => ({
             ...prev,
-            profileImage: data.url,
+            profileImage: cacheBustedUrl,
             profileImageBase64: base64,
           }));
+
+          // 🔄 Firestore cv verisini güncelle ki PDF de doğru base64'ü alsın
+          const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
+          await setDoc(cvRef, {
+            profileImage: cacheBustedUrl,
+            profileImageBase64: base64,
+            updatedAt: new Date(),
+          }, { merge: true });
+
+          // 🔄 localStorage opsiyonel
           localStorage.setItem("profileImageBase64", base64);
         };
+
         reader.readAsDataURL(file);
       }
     } catch (error) {
@@ -87,28 +107,58 @@ const StepBasicInfo = ({ data, setData }) => {
     <div className="grid md:grid-cols-2 gap-4">
       {/* Profil resmi alanı */}
       <div className="col-span-2 flex flex-col items-center mt-4 mb-4">
-        {data.profileImage ? (
-          <img
-            src={data.profileImage}
-            alt="Profil"
-            className="w-28 h-28 rounded-full object-cover mb-2"
-          />
-        ) : (
-          <div className="w-28 h-28 bg-gray-300 rounded-full flex items-center justify-center text-sm mb-2">
-            No Photo
-          </div>
-        )}
-        <label className="text-sm font-medium">Profil Fotoğrafı</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handlePhotoUpload}
-          disabled={uploading}
-          className={`w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white ${photoError ? "border-red-500 animate-shake" : ""
-            }`}
-        />
+        <div
+          className="relative group w-28 h-28 rounded-full overflow-hidden border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          {uploading ? (
+            <div className="flex items-center justify-center w-full h-full bg-gray-100 dark:bg-gray-700">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-green-500"></div>
+            </div>
+          ) : data.profileImage ? (
+            <>
+              <img
+                src={data.profileImage}
+                alt="Profil Fotoğrafı"
+                className="w-full h-full object-cover rounded-full"
+              />
+              {hovered && (
+                <div className="absolute inset-0 bg-black/50 flex justify-center items-center">
+                  <label className="flex flex-col items-center cursor-pointer">
+                    <PencilIcon className="w-6 h-6 text-white" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePhotoUpload}
+                      disabled={uploading}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center text-sm relative dark:bg-gray-700">
+              <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-black/30 transition">
+                <UserCircleIcon className="w-14 h-14 text-gray-400" />
+                <span className="text-xs text-gray-600 mt-1 dark:text-gray-300">Fotoğraf Yükle</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  disabled={uploading}
+                  className="hidden"
+                />
+              </label>
+            </div>
+          )}
+        </div>
+
         {photoError && (
-          <p className="mt-1 mb-2 bg-white dark:bg-gray-800 text-red-600 text-sm px-3 py-2 rounded shadow border border-red-300 z-10">⚠️ {photoError}</p>
+          <p className="mt-2 bg-white dark:bg-gray-800 text-red-600 text-sm px-3 py-2 rounded shadow border border-red-300 z-10">
+            ⚠️ {photoError}
+          </p>
         )}
       </div>
 

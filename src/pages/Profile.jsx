@@ -7,6 +7,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import CvPDF from "../components/pdf/CvPdf";
 import { useNavigate } from "react-router-dom";
+import { PencilIcon } from "@heroicons/react/24/solid";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 const Profile = () => {
   const { currentUser } = useAuth();
@@ -15,7 +17,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const API_BASE = import.meta.env.VITE_API_URL;
-
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
@@ -121,32 +123,62 @@ const Profile = () => {
       <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow mt-8 dark:bg-gray-800 dark:text-white">
         <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">Profilim</h1>
 
-        <div className="flex flex-col items-center mb-6">
-          {formData.profileImage ? (
-            <img
-              src={formData.profileImage}
-              alt="Profil Fotoğrafı"
-              className="w-32 h-32 object-cover rounded-full mb-4"
-            />
-          ) : (
-            <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center mb-4">
-              <span className="text-gray-500">No Photo</span>
+        <div
+          className="relative group w-32 h-32 mb-4 justify-center items-center mx-auto rounded-full overflow-hidden cursor-pointer border-2 border-gray-300 dark:border-gray-600"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          {uploading ? (
+            <div className="flex items-center justify-center w-full h-full bg-gray-100 dark:bg-gray-700">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-green-500"></div>
             </div>
-          )}
-
-          <label className="text-sm mb-2 font-medium">Fotoğrafı Değiştir</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleUploadPhoto}
-            className="text-sm dark:bg-gray-700 dark:text-white"
-            disabled={uploading}
-          />
-          {errorMessage && (
-            <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
-          )}
-
+          ) :
+            formData.profileImage ? (
+              <>
+                <img
+                  src={formData.profileImage}
+                  alt="Profil Fotoğrafı"
+                  className="w-full h-full object-cover rounded-full border-2 border-white shadow"
+                />
+                {hovered && (
+                  <div className="absolute inset-0 bg-black/60 rounded-full flex flex-col justify-center items-center text-xs">
+                    <label className="flex flex-col items-center cursor-pointer text-white">
+                      <PencilIcon className="w-10 h-10 text-white mb-1" />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleUploadPhoto}
+                        disabled={uploading}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center relative">
+                <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-black/30 transition">
+                  <UserCircleIcon className="w-16 h-16 text-gray-400 dark:text-gray-500" />
+                  <span className="text-xs text-gray-600 dark:text-gray-300 mt-1">Fotoğraf Yükle</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleUploadPhoto}
+                    disabled={uploading}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            )
+          }
         </div>
+
+
+        {errorMessage && (
+          <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+        )}
+
+
 
         <div className="mb-6 dark:text-white">
           <p className="dark:text-white"><strong>Ad Soyad:</strong> {formData.name || "-"}</p>
