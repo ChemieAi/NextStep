@@ -44,7 +44,11 @@ const Profile = () => {
         const userDoc = await getDoc(doc(db, "users", currentUser.uid));
         const profileImage = userDoc.exists() ? userDoc.data().profileImage : "";
 
-        setFormData({ ...cvData, profileImage });
+        // ✅ localStorage'dan base64'i de al
+        const base64 = localStorage.getItem(`profileImageBase64_${currentUser.uid}`);
+
+        // ⬇️ formData'yı tam doldur
+        setFormData({ ...cvData, profileImage, profileImageBase64: base64 || "" });
       } catch (err) {
         console.error("Kullanıcı bilgileri alınamadı ❌", err);
       }
@@ -64,28 +68,41 @@ const Profile = () => {
       return;
     }
 
-    setErrorMessage(""); // önceki hataları temizle
+    setErrorMessage("");
     setUploading(true);
 
     try {
       const token = await currentUser.getIdToken();
-
-      const formData = new FormData();
-      formData.append("file", file);
+      const formDataObj = new FormData();
+      formDataObj.append("file", file);
 
       const response = await fetch(`${API_BASE}/api/profile-image`, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
+        headers: { Authorization: `Bearer ${token}` },
+        body: formDataObj,
       });
 
       const data = await response.json();
       if (data.url) {
-        const separator = data.url.includes("?") ? "&" : "?";
-        const cacheBustedUrl = `${data.url}${separator}t=${Date.now()}`;
-        setFormData((prev) => ({ ...prev, profileImage: cacheBustedUrl }));
+        // Base64 oluştur
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64 = reader.result;
+
+          const separator = data.url.includes("?") ? "&" : "?";
+          const cacheBustedUrl = `${data.url}${separator}t=${Date.now()}`;
+
+          // 🔄 formData'yı güncelle (UI + PDF için)
+          setFormData((prev) => ({
+            ...prev,
+            profileImage: cacheBustedUrl,
+            profileImageBase64: base64,
+          }));
+
+          // Opsiyonel: localStorage'a da yazılabilir
+          localStorage.setItem("profileImageBase64", base64);
+        };
+        reader.readAsDataURL(file);
       }
     } catch (error) {
       console.error("Fotoğraf yükleme hatası ❌", error);
@@ -108,6 +125,7 @@ const Profile = () => {
       });
 
       setFormData((prev) => ({ ...prev, profileImage: "" }));
+      localStorage.removeItem(`profileImageBase64_${currentUser.uid}`);
     } catch (error) {
       console.error("Fotoğraf silinemedi ❌", error);
       setErrorMessage("Fotoğraf silinemedi.");

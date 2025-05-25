@@ -70,7 +70,7 @@ const StepBasicInfo = ({ data, setData }) => {
             profileImage: data.url,
             profileImageBase64: base64,
           }));
-          localStorage.setItem("profileImageBase64", base64);
+          localStorage.setItem(`profileImageBase64_${currentUser.uid}`, base64);
         };
         reader.readAsDataURL(file);
       }
