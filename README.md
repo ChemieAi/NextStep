@@ -1,4 +1,4 @@
-# 🚀 NextStepCV – Akıllı CV Oluşturucu
+# 🚀 NextStepCV – ATS Uyumlu CV Oluşturucu
 
 **Modern. Sade. Özelleştirilebilir. Güvenli.**
 
