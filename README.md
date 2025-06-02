@@ -24,8 +24,8 @@ NextStepCV, kullanıcıların adım adım CV oluşturmasına olanak tanıyan, ka
 
 ## 🔐 Canlı Sürüm
 
-|Domain                |   [https://nextstepcv.tech](https://nextstepcv.tech)    |
-| -------------------- | ------------------------------------------------------- |
+|Domain                |   [nextstepcv.tech](https://nextstepcv.tech)    |
+| -------------------- | ----------------------------------------------- |
 
 
 | Platform              | Bağlantı                                                                           |
