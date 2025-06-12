@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
+import { motion } from "framer-motion";
 
 const Contact = () => {
     const [form, setForm] = useState({
@@ -33,7 +34,12 @@ const Contact = () => {
 
     return (
         <div className="min-h-screen bg-[#e5e5e5] dark:bg-gray-900 flex justify-center items-center p-6">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-8">
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-8"
+            >
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
                     Bizimle İletişime Geçin
                 </h2>
@@ -57,8 +63,8 @@ const Contact = () => {
                 {status === "error" && (
                     <p className="text-red-500 text-center mt-4">❌ Mesaj gönderilirken bir hata oluştu.</p>
                 )}
-            </div>
-        </div>
+            </motion.div >
+        </div >
     );
 };
 

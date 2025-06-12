@@ -4,7 +4,7 @@ import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { sendEmailVerification } from "firebase/auth";
-
+import { motion } from "framer-motion";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -71,99 +71,106 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-[#e3e3e3] flex flex-col justify-center items-center dark:bg-gray-900 dark:text-white">
-      <img src="/favicon.png" alt="NextStepCV" className="ml-2 mb-6" />
-
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-sm dark:bg-gray-800 dark:text-black"
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full max-w-sm"
       >
-        <h2 className="text-lg font-semibold text-center mb-4 text-white">
-          Hoş Geldiniz
-        </h2>
-        <p className="text-center text-white mb-4">Hesabınızı oluşturunuz</p>
+        <img src="/favicon.svg" alt="Logo" className="h-12 mx-auto mb-6" />
 
-        <input
-          name="name"
-          placeholder="Adınızı giriniz"
-          value={form.name}
-          onChange={handleChange}
-        />
-        <input
-          name="surname"
-          placeholder="Soyadınızı giriniz"
-          value={form.surname}
-          onChange={handleChange}
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email adresinizi giriniz"
-          value={form.email}
-          onChange={handleChange}
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Şifrenizi giriniz"
-          value={form.password}
-          onChange={handleChange}
-          className={`w-full p-3 border rounded ${passwordError ? "border-red-500 animate-shake" : ""
-            }`}
-        />
+        <form
+          onSubmit={handleSubmit}
+          className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-sm dark:bg-gray-800 dark:text-black"
+        >
+          <h2 className="text-lg font-semibold text-center mb-4 text-white">
+            Hoş Geldiniz
+          </h2>
+          <p className="text-center text-white mb-4">Hesabınızı oluşturunuz</p>
 
-        <input
-          name="confirmPassword"
-          type="password"
-          placeholder="Şifrenizi tekrar giriniz"
-          value={form.confirmPassword}
-          onChange={handleChange}
-          className={`w-full p-3 border rounded   ${passwordError ? "border-red-500 animate-shake" : ""
-            }`}
-        />
-
-        {passwordError && (
-          <p className="mt-2 bg-white dark:bg-gray-800 text-red-600 text-sm px-3 py-2 rounded shadow border border-red-500">
-            ⚠️ {passwordError}
-          </p>
-        )}
-
-        <div className="mt-4 mb-6 flex items-start ">
           <input
-            type="checkbox"
-            name="agree"
-            checked={form.agree}
-            onChange={(e) => setForm({ ...form, agree: e.target.checked })}
-            className="ml-5 mr-3 mt-1 w-6 h-6"
+            name="name"
+            placeholder="Adınızı giriniz"
+            value={form.name}
+            onChange={handleChange}
           />
-          <label className="text-sm text-white">
-            <span
-              onClick={() => setShowTerms(true)}
-              className="font-medium text-green-300 underline cursor-pointer"
-            >
-              Kullanım Şartları
-            </span> ve{" "}
-            <span
-              onClick={() => setShowPrivacy(true)}
-              className="font-medium text-green-300 underline cursor-pointer"
-            >
-              Gizlilik Politikasını
-            </span> okudum, kabul ediyorum.
-          </label>
-        </div>
+          <input
+            name="surname"
+            placeholder="Soyadınızı giriniz"
+            value={form.surname}
+            onChange={handleChange}
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email adresinizi giriniz"
+            value={form.email}
+            onChange={handleChange}
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Şifrenizi giriniz"
+            value={form.password}
+            onChange={handleChange}
+            className={`w-full p-3 border rounded ${passwordError ? "border-red-500 animate-shake" : ""
+              }`}
+          />
 
-        {agreeError && (
-          <p className="text-red-500 text-sm mt-2">{agreeError}</p>
-        )}
+          <input
+            name="confirmPassword"
+            type="password"
+            placeholder="Şifrenizi tekrar giriniz"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            className={`w-full p-3 border rounded   ${passwordError ? "border-red-500 animate-shake" : ""
+              }`}
+          />
+
+          {passwordError && (
+            <p className="mt-2 bg-white dark:bg-gray-800 text-red-600 text-sm px-3 py-2 rounded shadow border border-red-500">
+              ⚠️ {passwordError}
+            </p>
+          )}
+
+          <div className="mt-4 mb-6 flex items-start ">
+            <input
+              type="checkbox"
+              name="agree"
+              checked={form.agree}
+              onChange={(e) => setForm({ ...form, agree: e.target.checked })}
+              className="ml-5 mr-3 mt-1 w-6 h-6"
+            />
+            <label className="text-sm text-white">
+              <span
+                onClick={() => setShowTerms(true)}
+                className="font-medium text-green-300 underline cursor-pointer"
+              >
+                Kullanım Şartları
+              </span> ve{" "}
+              <span
+                onClick={() => setShowPrivacy(true)}
+                className="font-medium text-green-300 underline cursor-pointer"
+              >
+                Gizlilik Politikasını
+              </span> okudum, kabul ediyorum.
+            </label>
+          </div>
+
+          {agreeError && (
+            <p className="text-red-500 text-sm mt-2">{agreeError}</p>
+          )}
 
 
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+          {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
-        <button type="submit" className="btn w-full">Üye Ol</button>
+          <button type="submit" className="btn w-full">Üye Ol</button>
 
-        <p className="text-center mt-4 text-sm text-white underline cursor-pointer">
-          <a href="/login">Zaten hesabınız var mı? Giriş yap</a>
-        </p>
-      </form>
+          <p className="text-center mt-4 text-sm text-white underline cursor-pointer">
+            <a href="/login">Zaten hesabınız var mı? Giriş yap</a>
+          </p>
+        </form>
+      </motion.div>
       {showTerms && (
         <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg max-w-lg w-full max-h-[80vh] overflow-y-auto">

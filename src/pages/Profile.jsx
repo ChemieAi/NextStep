@@ -9,6 +9,7 @@ import CvPDF from "../components/pdf/CvPdf";
 import { useNavigate } from "react-router-dom";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
 
 const Profile = () => {
   const { currentUser } = useAuth();
@@ -120,7 +121,12 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-[#e5e5e5] p-6 dark:bg-gray-900 ">
-      <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow mt-8 dark:bg-gray-800 dark:text-white">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow mt-8 dark:bg-gray-800 dark:text-white"
+      >
         <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">Profilim</h1>
 
         <div
@@ -206,17 +212,16 @@ const Profile = () => {
             CV Oluştur
           </button>
         </div>
-      </div>
-      <div className="flex justify-center mt-6 gap-4">
-        <button
-          onClick={() => navigate("/update-password")}
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-        >
-          Şifre Güncelle
-        </button>
-      </div>
-
-    </div>
+        <div className="flex justify-center mt-6 gap-4">
+          <button
+            onClick={() => navigate("/update-password")}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+          >
+            Şifre Güncelle
+          </button>
+        </div>
+      </motion.div>
+    </div >
   );
 };
 

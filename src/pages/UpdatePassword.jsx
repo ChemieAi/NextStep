@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -27,7 +28,12 @@ const UpdatePassword = () => {
 
   return (
     <div className="min-h-screen bg-[#f1f1f1] flex flex-col justify-center items-center p-6 dark:bg-gray-900">
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-md">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-md"
+      >
         <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">Şifre Güncelle</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -49,7 +55,7 @@ const UpdatePassword = () => {
           <button className="btn w-full bg-green-600 text-white">Güncelle</button>
           {message && <p className="text-center mt-3 text-sm text-red-600">{message}</p>}
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };

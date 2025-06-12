@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import { motion } from "framer-motion";
 
 import {
   UserCircleIcon,
@@ -132,7 +133,12 @@ const CvBuilder = () => {
 
   return (
     <div className="min-h-screen bg-[#e5e5e5] flex justify-center items-center p-6 dark:bg-gray-900 dark:text-white">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-5xl p-6">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-5xl p-6"
+      >
         {/* Step Navigation */}
         <div className="flex items-center justify-between mb-8 overflow-x-auto">
           {stepsConfig.map((stepItem, index) => {
@@ -177,8 +183,8 @@ const CvBuilder = () => {
             {step === stepsConfig.length - 1 ? "Tamamla" : "İleri"}
           </button>
         </div>
-      </div>
-    </div>
+      </motion.div >
+    </div >
   );
 };
 

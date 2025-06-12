@@ -9,6 +9,7 @@ import CvPdf from "../components/pdf/CvPdf";
 import { getFormDataFromLocal, saveFormDataToLocal } from "../utils/localStorage";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { motion } from "framer-motion";
 
 const CvPreview = () => {
   const componentRef = useRef();
@@ -86,7 +87,12 @@ const CvPreview = () => {
 
   return (
     <div className="dark:bg-gray-900 dark:text-white">
-      <div className="max-w-5xl mx-auto p-6 bg-gray-100 min-h-screen dark:bg-gray-800 dark:text-white">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-5xl mx-auto p-6 bg-gray-100 min-h-screen dark:bg-gray-800 dark:text-white"
+      >
         <h1 className="text-2xl font-bold mb-4 text-center dark:text-white">CV Önizleme</h1>
 
         <div className="flex justify-center mb-6">
@@ -113,7 +119,7 @@ const CvPreview = () => {
         <div className="flex justify-center">
           <TemplateSimple ref={componentRef} data={formData} />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
