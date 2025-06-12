@@ -57,7 +57,10 @@ const Navbar = () => {
   return (
     <nav className="bg-[#2c2c2c] text-white px-6 py-4 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="text-xl font-bold tracking-wide">NextStepCV</div>
+        <div className="flex items-center space-x-2">
+          <img src="/favicon.png" alt="NS" className="h-7"/>
+          <span className="text-xl font-bold tracking-wide">NextStepCV</span>
+        </div>
         <div className="ml-auto flex items-center space-x-6">
           {links
             .filter((link) => link.show)

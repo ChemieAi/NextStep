@@ -71,7 +71,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-[#e3e3e3] flex flex-col justify-center items-center dark:bg-gray-900 dark:text-white">
-      <h1 className="text-4xl font-bold mb-6 dark:text-white">LOGO</h1>
+      <img src="/favicon.png" alt="NextStepCV" className="ml-2 mb-6" />
 
       <form
         onSubmit={handleSubmit}

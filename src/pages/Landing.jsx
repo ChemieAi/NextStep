@@ -28,7 +28,7 @@ const Landing = () => {
   return (
     <div className="min-h-screen bg-[#e5e5e5] dark:bg-gray-900 dark:text-white flex flex-col items-center px-4 pt-40 pb-16 text-center">
       {/* Hero */}
-      <DocumentTextIcon className="h-20 w-20 text-green-500 mb-6" />
+      <img src="/favicon.png" alt="NextStepCV" className="mb-6" />
       <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#2c2c2c] dark:text-white">
         ATS uyumlu, profesyonel CV’nizi kolayca oluşturun
       </h1>
