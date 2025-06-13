@@ -12,10 +12,12 @@ import ForgotPassword from '../pages/ForgotPassword';
 import VerifyWaiting from '../pages/VerifyWaiting';
 import ProtectedRoute from "../components/ProtectedRoute";
 import UpdatePassword from "../pages/UpdatePassword";
+import ScrollToTop from "../components/ScrollToTop";
 
 const AppRouter = () => {
   return (
     <RouteChangeLoader>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
