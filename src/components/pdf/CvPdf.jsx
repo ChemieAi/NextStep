@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   separator: {
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
-    marginBottom: 14,
+    marginBottom: 7,
   },
   name: {
     fontSize: 20,
@@ -118,12 +118,12 @@ const CvPDF = ({ formData }) => {
         <View style={styles.header}>
           <Text style={styles.name}>{formData.name || "Ad Soyad"}</Text>
           <Text style={styles.title}>{formData.title || "Pozisyon"}</Text>
+          <View style={styles.separator} />
           <Text style={styles.contact}>
             {formData.email || "email@example.com"} | {formData.phone || "000"} | {formData.city || "City"}
           </Text>
+          <View style={styles.separator} />
         </View>
-
-        <View style={styles.separator} />
 
         {/* SUMMARY */}
         {formData.summary && (
