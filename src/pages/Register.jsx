@@ -75,7 +75,7 @@ const Register = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-full max-w-sm"
+        className="w-full max-w-sm max-sm:mt-20 max-sm:mb-20"
       >
         <img src="/favicon.svg" alt="Logo" className="h-12 mx-auto mb-6" />
 
