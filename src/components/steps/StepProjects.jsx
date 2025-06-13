@@ -34,7 +34,7 @@ const StepProjects = ({ data, setData }) => {
               href={p.link}
               target="_blank"
               rel="noreferrer"
-              className="text-sm text-blue-600 underline"
+              className="text-sm text-blue-600 underline text-center block"
             >
               {p.link}
             </a>

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    textTransform: "uppercase", 
+    textTransform: "uppercase",
   },
   title: {
     fontSize: 12,
@@ -200,7 +200,25 @@ const CvPDF = ({ formData }) => {
                 <Text style={styles.itemTitle}>{p.title}</Text>
                 <Text style={styles.itemText}>{p.description}</Text>
                 {p.link && (
-                  <Text style={{ color: "blue" }}>{p.link}</Text>
+                  <Text style={{ color: "blue" }} src={p.link}>{p.link}</Text>
+                )}
+              </View>
+            ))}
+          </View>
+        )}
+        {/* SOCIALS */}
+        {formData.socials?.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Socials</Text>
+            {formData.socials.map((social, i) => (
+              <View key={i}>
+                {social.url && (
+                  <Text
+                    style={{ color: "blue", marginBottom: 3 }}
+                    src={encodeURI(social.url)}
+                  >
+                    {social.name}
+                  </Text>
                 )}
               </View>
             ))}

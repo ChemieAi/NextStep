@@ -86,7 +86,7 @@ const CvPreview = () => {
   }
 
   return (
-    <div className="dark:bg-gray-900 dark:text-white">
+    <div className="dark:bg-gray-900 dark:text-white mt-12">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

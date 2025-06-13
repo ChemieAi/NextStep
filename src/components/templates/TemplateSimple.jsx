@@ -104,19 +104,38 @@ const TemplateSimple = forwardRef(({ data }, ref) => {
               <p className="font-bold mb-0 text-left text-gray-700">{p.title}</p>
               <p className="text-gray-800 mb-0 text-left">{p.description}</p>
               {p.link && (
-                <p
+                <a
                   href={p.link}
                   className="text-blue-600 underline text-sm text-left"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   {p.link}
-                </p>
+                </a>
               )}
             </div>
           ))}
         </div>
       )}
+      {/* Social Links */}
+      {data.socials?.length > 0 && (
+        <div className="mb-5">
+          <h2 className="font-bold text-lg border-b border-gray-300 pb-1 mb-2">Socials</h2>
+          {data.socials.map((social, i) => (
+            <div key={i} className="mb-1">
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline text-sm"
+              >
+                {social.name}
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
+
     </div>
   );
 });
