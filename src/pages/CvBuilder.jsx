@@ -137,7 +137,7 @@ const CvBuilder = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-5xl p-6"
+        className="bg-white dark:bg-gray-800 rounded-lg max-lg:mt-20 shadow-lg w-full max-w-5xl p-6 "
       >
         {/* Step Navigation */}
         <div className="flex items-center justify-between mb-8 overflow-x-auto">

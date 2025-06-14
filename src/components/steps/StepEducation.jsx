@@ -72,12 +72,12 @@ const StepEducation = ({ data, setData }) => {
       ))}
 
       {/* Yeni giriş alanları */}
-      <div className="grid md:grid-cols-2 gap-4 ">
+      <div className="grid grid-cols-2 gap-4 ">
         <input name="school" value={edu.school} onChange={handleChange} placeholder="Okul Adı" className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
         <input name="department" value={edu.department} onChange={handleChange} placeholder="Bölüm adı" className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
 
         {/* Start Date */}
-        <div className="flex gap-2 col-span-1">
+        <div className="flex gap-2 col-span-1 max-md:col-span-2">
           <p className="font-semibold dark:text-white">Başlangıç Tarihi</p>
           <select name="startDay" value={edu.startDay} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Gün</option>
@@ -94,7 +94,7 @@ const StepEducation = ({ data, setData }) => {
         </div>
 
         {/* End Date */}
-        <div className="flex gap-2 col-span-1">
+        <div className="flex gap-2 col-span-1 max-md:col-span-2">
           <p className="font-semibold dark:text-white">Bitiş Tarihi</p>
           <select name="endDay" disabled={edu.currently} value={edu.endDay} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Gün</option>
@@ -109,7 +109,7 @@ const StepEducation = ({ data, setData }) => {
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
-        <div className="flex items-center ml-80 pl-80 gap-2 col-span-2">
+        <div className="flex items-center lg:ml-80 lg:pl-80 gap-2 col-span-2">
           <input
             type="checkbox"
             name="currently"

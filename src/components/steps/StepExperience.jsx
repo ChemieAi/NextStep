@@ -72,7 +72,7 @@ const StepExperience = ({ data, setData }) => {
         <input name="position" value={exp.position} onChange={handleChange} placeholder="Pozisyon" className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
 
         {/* Tarihler */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 max-md:col-span-2">
           <p className="text-sm font-semibold dark:text-white">Başlangıç Tarihi</p>
           <select name="startMonth" value={exp.startMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Ay</option>
@@ -83,7 +83,7 @@ const StepExperience = ({ data, setData }) => {
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 max-md:col-span-2">
           <p className="text-sm font-semibold dark:text-white">Bitiş Tarihi</p>
           <select name="endMonth" disabled={exp.currently} value={exp.endMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             <option value="">Ay</option>
@@ -94,7 +94,7 @@ const StepExperience = ({ data, setData }) => {
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
-        <div className="flex items-center ml-80 pl-64 gap-2 col-span-2">
+        <div className="flex items-center lg:ml-80 lg:pl-64 gap-2 col-span-2">
           <input
             type="checkbox"
             checked={exp.currently}
@@ -108,7 +108,7 @@ const StepExperience = ({ data, setData }) => {
           </label>
         </div>
 
-        <div className="md:col-span-2">
+        <div className="col-span-2">
           <textarea name="description" value={exp.description} onChange={handleChange} placeholder="İş Tanımı" className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
         </div>
       </div>
