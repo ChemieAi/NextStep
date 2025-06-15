@@ -34,7 +34,7 @@ const Landing = () => {
         className="w-full max-w-6xl flex flex-col items-center"
       >
         {/* Hero */}
-        <img src="/favicon.svg" alt="Logo" className="h-12 mx-auto mb-6 lg:mt-20"/>
+        <img src="/favicon.svg" alt="Logo" className="h-12 mx-auto mb-6 mt-20"/>
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#2c2c2c] dark:text-white">
           ATS uyumlu, profesyonel CV’nizi kolayca oluşturun
         </h1>

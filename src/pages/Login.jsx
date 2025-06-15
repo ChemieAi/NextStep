@@ -32,9 +32,9 @@ const Login = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-full max-w-sm text-center"
+        className="w-full max-w-sm text-center mt-12 mb-16 max-md:p-4"
       >
-        <img src="/favicon.svg" alt="Logo" className="h-12 mx-auto mb-6" />
+        <img src="/favicon.svg" alt="Logo" className="h-12 mx-auto mb-6 mt-8" />
 
         <form
           onSubmit={handleSubmit}
