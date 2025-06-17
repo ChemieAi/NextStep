@@ -17,6 +17,7 @@ export const FormProvider = ({ children }) => {
     projects: [],
     profileImage:"",
     summary: "",
+    selectedTemplate: "simple",
   });
 
   const resetForm = () => {
@@ -34,6 +35,7 @@ export const FormProvider = ({ children }) => {
       projects: [],
       profileImage:"",
       summary: "",
+      selectedTemplate: "simple",
     });
   };
 

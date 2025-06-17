@@ -6,6 +6,7 @@ import { db, storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import CvPDF from "../components/pdf/CvPdf";
+import CvPdf_2 from "../components/pdf/CvPdf_2";
 import { useNavigate } from "react-router-dom";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
@@ -195,7 +196,11 @@ const Profile = () => {
         <div className="flex justify-center mt-4 gap-4">
           {formData.name && (
             <PDFDownloadLink
-              document={<CvPDF formData={formData} />}
+              document={
+                (formData.selectedTemplate || "simple") === "simple_2"
+                  ? <CvPdf_2 formData={formData} />
+                  : <CvPDF formData={formData} />
+              }
               fileName={`${formData.name || "CV"}_NextStepCV.pdf`}
             >
               {({ loading }) => (

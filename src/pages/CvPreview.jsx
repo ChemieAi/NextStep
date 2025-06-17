@@ -4,8 +4,10 @@ import { useReactToPrint } from "react-to-print";
 import { useForm } from "../context/FormContext";
 import { useAuth } from "../context/AuthContext";
 import TemplateSimple from "../components/templates/TemplateSimple";
+import TemplateSimple_2 from "../components/templates/TemplateSimple_2";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import CvPdf from "../components/pdf/CvPdf";
+import CvPdf_2 from "../components/pdf/CvPdf_2";
 import { getFormDataFromLocal, saveFormDataToLocal } from "../utils/localStorage";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -21,7 +23,7 @@ const CvPreview = () => {
 
 
   const fetchFormData = async () => {
-    if (!currentUser) return;
+    if (!currentUser) return {};
 
     try {
       const token = await currentUser.getIdToken();
@@ -36,38 +38,36 @@ const CvPreview = () => {
         backendData = await response.json();
       }
 
-      // Profil fotoğrafı ayrı alınabilir
       const userRef = doc(db, "users", currentUser.uid);
       const userSnap = await getDoc(userRef);
       const profileImage = userSnap.exists() ? userSnap.data().profileImage : "";
 
-      const fullData = { ...backendData, profileImage };
-      setFormData(fullData);
-      saveFormDataToLocal(fullData);
+      return { ...backendData, profileImage };
     } catch (err) {
-      console.error("Backend'den CV verisi alınamadı ❌", err);
-    } finally {
-      setLoading(false);
+      console.error("❌ Backend'den CV verisi alınamadı", err);
+      return {};
     }
   };
 
+
   useEffect(() => {
-    if (authLoading) return;
+    if (authLoading || !currentUser) return;
 
-    if (!currentUser) {
-      navigate("/login", { replace: true });
-      return;
-    }
+    const fetchAndSet = async () => {
+      const fullData = await fetchFormData(); // Bu fonksiyon async dönecek şekilde yukarıda ayarlanmalı
+      const selectedTemplate = fullData?.selectedTemplate || "simple";
 
-    const cachedData = getFormDataFromLocal();
+      setFormData({
+        ...fullData,
+        selectedTemplate,
+      });
 
-    if (cachedData) {
-      setFormData(cachedData);
       setLoading(false);
-    }
+    };
 
-    fetchFormData();
-  }, [authLoading, navigate, currentUser]);
+    fetchAndSet();
+  }, [authLoading, currentUser]);
+
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -104,8 +104,12 @@ const CvPreview = () => {
           </button>
           {formData.name && (
             <PDFDownloadLink
-              document={<CvPdf formData={formData} />}
-              fileName={`${formData.name || "PlaceHolder"}_CV.pdf`}
+              document={
+                formData.selectedTemplate === "simple_2"
+                  ? <CvPdf_2 formData={formData} />
+                  : <CvPdf formData={formData} />
+              }
+              fileName={`${formData.name || "CV"}_NextStepCV.pdf`}
             >
               {({ loading }) => (
                 <button className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded hover:bg-green-600 dark:hover:bg-green-700">
@@ -117,7 +121,11 @@ const CvPreview = () => {
         </div>
 
         <div className="flex justify-center">
-          <TemplateSimple ref={componentRef} data={formData} />
+          {formData.selectedTemplate === "simple_2" ? (
+            <TemplateSimple_2 ref={componentRef} data={formData} />
+          ) : (
+            <TemplateSimple ref={componentRef} data={formData} />
+          )}
         </div>
       </motion.div>
     </div>
