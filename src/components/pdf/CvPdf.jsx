@@ -69,16 +69,16 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   skillItem: {
-    display: "flex",
+    flexDirection: "row",
     marginRight: 6,
-    padding: "5px 6px",
+    marginBottom: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 3,
     border: "1px solid #aaa",
     borderRadius: 4,
     fontSize: 9,
-    textAlign: "center",
-    justifyContent: "center",
     alignItems: "center",
-    lineHeight: 1.3,
+    justifyContent: "center",
   },
 });
 
@@ -173,9 +173,11 @@ const CvPDF = ({ formData }) => {
         {formData.skills?.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Skills</Text>
-            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4 }}>
+            <View style={{ flexDirection: "row", flexWrap: "wrap"}}>
               {formData.skills.map((skill, i) => (
-                <Text key={i} style={styles.skillItem}>{skill}</Text>
+                <View key={i} style={styles.skillItem}>
+                  <Text wrap={false}>{skill}</Text>
+                </View>
               ))}
             </View>
           </View>

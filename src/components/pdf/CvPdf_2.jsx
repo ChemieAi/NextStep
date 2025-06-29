@@ -90,16 +90,16 @@ const styles = StyleSheet.create({
         marginBottom: 2,
     },
     skillItem: {
-        display: "flex",
+        flexDirection: "row",
         marginRight: 6,
-        padding: "5px 6px",
+        marginBottom: 4,
+        paddingHorizontal: 6,
+        paddingVertical: 3,
         border: "1px solid #aaa",
         borderRadius: 4,
         fontSize: 9,
-        textAlign: "center",
-        justifyContent: "center",
         alignItems: "center",
-        lineHeight: 1.3,
+        justifyContent: "center",
     },
 });
 
@@ -127,7 +127,7 @@ const CvPdf_2 = ({ formData }) => (
                 {formData.email} | {formData.phone} | {formData.city}
             </Text>
             <View style={styles.separator} />
-            <View style={{color:"white", marginBottom:"16"}} />
+            <View style={{ color: "white", marginBottom: "16" }} />
             {/* SUMMARY */}
             {formData.summary && (
                 <View style={styles.section}>
@@ -179,7 +179,9 @@ const CvPdf_2 = ({ formData }) => (
                     <Text style={styles.sectionTitle}>Skills</Text>
                     <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                         {formData.skills.map((skill, i) => (
-                            <Text key={i} style={styles.skillItem}>{skill}</Text>
+                            <View key={i} style={styles.skillItem}>
+                                <Text wrap={false}>{skill}</Text>
+                            </View>
                         ))}
                     </View>
                 </View>
@@ -206,7 +208,7 @@ const CvPdf_2 = ({ formData }) => (
                             <Text style={styles.itemTitle}>{p.title}</Text>
                             <Text style={styles.itemText}>{p.description}</Text>
                             {p.link && (
-                                <Text src={p.link} style={{ color: "blue"}}>
+                                <Text src={p.link} style={{ color: "blue" }}>
                                     {p.link}
                                 </Text>
                             )}
@@ -220,7 +222,7 @@ const CvPdf_2 = ({ formData }) => (
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Socials</Text>
                     {formData.socials.map((s, i) => (
-                        <Text key={i} src={s.url} style={{ color: "blue", marginBottom: 3}}>
+                        <Text key={i} src={s.url} style={{ color: "blue", marginBottom: 3 }}>
                             {s.name}
                         </Text>
                     ))}
