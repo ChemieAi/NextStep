@@ -1,8 +1,18 @@
 import { useState } from "react";
+import {
+  ChevronUpIcon,
+  ChevronDownIcon,
+  PencilIcon,
+  TrashIcon,
+  PlusIcon,
+  XCircleIcon,
+} from "@heroicons/react/24/solid";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 const StepSkills = ({ data, setData }) => {
   const [skillInput, setSkillInput] = useState("");
   const [lang, setLang] = useState({ name: "", level: "" });
+  const [editMode, setEditMode] = useState(false); // Yeni: Edit modu
 
   const addSkill = () => {
     if (!skillInput) return;
@@ -12,6 +22,14 @@ const StepSkills = ({ data, setData }) => {
 
   const removeSkill = (i) => {
     const updated = data.skills.filter((_, idx) => idx !== i);
+    setData({ ...data, skills: updated });
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+    const updated = Array.from(data.skills);
+    const [reordered] = updated.splice(result.source.index, 1);
+    updated.splice(result.destination.index, 0, reordered);
     setData({ ...data, skills: updated });
   };
 
@@ -26,12 +44,35 @@ const StepSkills = ({ data, setData }) => {
     setData({ ...data, languages: updated });
   };
 
+  const moveLangUp = (i) => {
+    if (i === 0) return;
+    const updated = [...data.languages];
+    [updated[i - 1], updated[i]] = [updated[i], updated[i - 1]];
+    setData({ ...data, languages: updated });
+  };
+
+  const moveLangDown = (i) => {
+    if (i === data.languages.length - 1) return;
+    const updated = [...data.languages];
+    [updated[i + 1], updated[i]] = [updated[i], updated[i + 1]];
+    setData({ ...data, languages: updated });
+  };
+
   return (
     <div className="space-y-6">
       {/* Skills */}
       <div>
-        <h3 className="text-lg font-semibold mb-2 ">Yetenekler</h3>
-        <div className="flex gap-2 mb-3">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="text-lg font-semibold">Yetenekler</h3>
+          <button
+            onClick={() => setEditMode(!editMode)}
+            className="text-sm text-white bg-gray-600 px-3 py-1 rounded hover:bg-green-700"
+          >
+            {editMode ? "Sıralamayı Bitir" : "Sıralamayı Düzenle"}
+          </button>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-2 items-center mb-3">
           <input
             type="text"
             value={skillInput}
@@ -39,18 +80,52 @@ const StepSkills = ({ data, setData }) => {
             placeholder="e.g. React, JavaScript"
             className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           />
-          <button onClick={addSkill} title="Ekle" className="bg-green-500 dark:bg-green-600 text-white px-4 rounded hover:bg-green-600 dark:hover:bg-green-700 font-semibold ">
-            +
+          <button
+            onClick={addSkill}
+            title="Ekle"
+            className="bg-green-500 dark:bg-green-600 text-white px-3 py-2 mb-4 rounded hover:bg-green-600 dark:hover:bg-green-700 font-semibold "
+          >
+            <PlusIcon className="w-5 h-5 inline-block" />
           </button>
         </div>
-        <div className="flex flex-wrap gap-2 ">
-          {(data.skills || []).map((s, i) => (
-            <div key={i} className="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center gap-2 ">
-              {s}
-              <button onClick={() => removeSkill(i)} title="Sil" className="text-sm font-semibold text-red-600">X</button>
-            </div>
-          ))}
-        </div>
+
+        {/* Drag & Drop Alanı */}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="skills">
+            {(provided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className={`${editMode ? "space-y-2" : "flex flex-wrap gap-2"}`}
+              >
+                {(data.skills || []).map((s, i) => (
+                  <Draggable key={s + i} draggableId={s + i} index={i} isDragDisabled={!editMode}>
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className={`bg-gray-500 dark:bg-gray-600 text-gray-100 px-3 py-1 rounded-full flex items-center justify-between ${
+                          editMode ? "w-full" : ""
+                        }`}
+                      >
+                        <span>{s}</span>
+                        <button
+                          onClick={() => removeSkill(i)}
+                          title="Sil"
+                          className="text-sm ml-1 font-semibold text-red-400 dark:text-red-300"
+                        >
+                          <XCircleIcon className="w-5 h-5 inline-block" />
+                        </button>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
 
       {/* Languages */}
@@ -72,20 +147,52 @@ const StepSkills = ({ data, setData }) => {
             className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           >
             <option value="">Seviye</option>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Advanced">Advanced</option>
+            <option value="A1">A1</option>
+            <option value="A2">A2</option>
+            <option value="B1">B1</option>
+            <option value="B2">B2</option>
+            <option value="C1">C1</option>
+            <option value="C2">C2</option>
             <option value="Native">Native</option>
           </select>
         </div>
-        <button onClick={addLang} className="border-2 border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 px-4 py-1 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600">
+        <button
+          onClick={addLang}
+          className="border-2 border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 px-4 py-1 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600"
+        >
           Dil Ekle
         </button>
+
         <div className="mt-3 space-y-2">
           {(data.languages || []).map((l, i) => (
-            <div key={i} className="flex items-center justify-between bg-gray-50 p-2 rounded border dark:bg-gray-700 dark:text-white">
-              <span>{l.name} – {l.level}</span>
-              <button onClick={() => removeLang(i)} title="Sil" className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-500 absolute:right">🗑️</button>
+            <div
+              key={i}
+              className="flex items-center justify-between bg-gray-50 p-2 rounded border dark:bg-gray-700 dark:text-white"
+            >
+              <span>
+                {l.name} – {l.level}
+              </span>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => moveLangUp(i)}
+                  className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
+                >
+                  <ChevronUpIcon className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => moveLangDown(i)}
+                  className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
+                >
+                  <ChevronDownIcon className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => removeLang(i)}
+                  title="Sil"
+                  className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
+                >
+                  <TrashIcon className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
