@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const StepSocial = ({ data, setData }) => {
   const [social, setSocial] = useState({ name: "", url: "" });
@@ -19,30 +21,58 @@ const StepSocial = ({ data, setData }) => {
     setData({ ...data, socials: updated });
   };
 
+  const moveUp = (index) => {
+    if (index === 0) return;
+    const updated = [...data.socials];
+    [updated[index - 1], updated[index]] = [updated[index], updated[index - 1]];
+    setData({ ...data, socials: updated });
+  };
+
+  const moveDown = (index) => {
+    if (index === data.socials.length - 1) return;
+    const updated = [...data.socials];
+    [updated[index + 1], updated[index]] = [updated[index], updated[index + 1]];
+    setData({ ...data, socials: updated });
+  };
+
   return (
     <div className="space-y-4 ">
       {/* Mevcut linkler */}
       {(data.socials || []).map((item, index) => (
-        <div key={index} className="grid grid-cols-2 gap-4 items-center">
+        <div key={index} className="flex flex-col md:flex-row gap-2 items-center">
           <input
             type="text"
             value={item.name}
             disabled
-            className="w-full p-3 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+            className="flex-1 p-3 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white w-full"
           />
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={item.url}
-              disabled
-              className="w-full p-3 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
-            />
+          <input
+            type="text"
+            value={item.url}
+            disabled
+            className="flex-1 p-3 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white w-full"
+          />
+          <div className="flex gap-1 mb-4">
+            <button
+              onClick={() => moveUp(index)}
+              title="Yukarı Taşı"
+              className="bg-gray-500 hover:bg-green-700 text-white p-2 rounded"
+            >
+              <ChevronUpIcon className="w-5 h-5 text-gray-100" />
+            </button>
+            <button
+              onClick={() => moveDown(index)}
+              title="Aşağı Taşı"
+              className="bg-gray-500 hover:bg-green-700 text-white p-2 rounded"
+            >
+              <ChevronDownIcon className="w-5 h-5 text-gray-100" />
+            </button>
             <button
               onClick={() => handleDelete(index)}
-              className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-500"
               title="Sil"
+              className="bg-gray-500 hover:bg-green-700 text-white p-2 rounded"
             >
-              🗑️
+              <TrashIcon className="w-5 h-5 text-gray-100" />
             </button>
           </div>
         </div>
@@ -75,7 +105,7 @@ const StepSocial = ({ data, setData }) => {
       >
         EKLE
       </button>
-    </div>
+    </div >
   );
 };
 
