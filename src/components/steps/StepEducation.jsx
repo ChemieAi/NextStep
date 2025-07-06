@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 const StepEducation = ({ data, setData }) => {
   const [edu, setEdu] = useState({
@@ -13,6 +15,34 @@ const StepEducation = ({ data, setData }) => {
     currently: false,
   });
 
+  // Düzenleme için state
+  const [editIndex, setEditIndex] = useState(null);
+  const [editedEdu, setEditedEdu] = useState(null);
+
+  const startEdit = (index) => {
+    setEditIndex(index);
+    setEditedEdu({ ...data.education[index] });
+  };
+
+  const saveEdit = () => {
+    const updated = [...data.education];
+    updated[editIndex] = editedEdu;
+    setData({ ...data, education: updated });
+    setEditIndex(null);
+    setEditedEdu(null);
+  };
+
+  const cancelEdit = () => {
+    setEditIndex(null);
+    setEditedEdu(null);
+  };
+
+  const handleEditChange = (e) => {
+    const { name, type, checked, value } = e.target;
+    setEditedEdu({ ...editedEdu, [name]: type === "checkbox" ? checked : value });
+  };
+  // Düzenleme için state bitiş
+
   const generateOptions = (start, end) => {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };
@@ -20,12 +50,6 @@ const StepEducation = ({ data, setData }) => {
   const handleChange = (e) => {
     const { name, type, checked, value } = e.target;
     setEdu({ ...edu, [name]: type === "checkbox" ? checked : value });
-  };
-
-  const handleFieldChange = (index, field, value) => {
-    const updated = [...data.education]; // veya experience
-    updated[index][field] = value;
-    setData({ ...data, education: updated }); // veya experience
   };
 
 
@@ -45,6 +69,20 @@ const StepEducation = ({ data, setData }) => {
       currently: false,
     });
   };
+  const moveUp = (index) => {
+    if (index === 0) return;
+    const updated = [...data.education];
+    [updated[index - 1], updated[index]] = [updated[index], updated[index - 1]];
+    setData({ ...data, education: updated });
+  };
+
+  const moveDown = (index) => {
+    if (index === data.education.length - 1) return;
+    const updated = [...data.education];
+    [updated[index + 1], updated[index]] = [updated[index], updated[index + 1]];
+    setData({ ...data, education: updated });
+  };
+
 
   const handleDelete = (index) => {
     const updated = data.education.filter((_, i) => i !== index);
@@ -52,23 +90,112 @@ const StepEducation = ({ data, setData }) => {
   };
 
   return (
-    <div className="space-y-6 ">
-      {/* Listelenmiş eğitimler */}
+    <div className="space-y-6">
       {(data.education || []).map((item, index) => (
-        <div key={index} className="bg-gray-50 p-4 rounded-md border relative dark:bg-gray-700 dark:text-white">
-          <p className="font-semibold dark:text-white">{item.school} – {item.department}</p>
-          <p className="text-sm text-gray-600 dark:text-gray-300">
-            {item.startDay}/{item.startMonth}/{item.startYear} -{" "} {item.currently ? "Devam ediyor" : `${item.endDay}/${item.endMonth}/${item.endYear}`}
-          </p>
+        <div key={index} className="bg-gray-50 p-4 pt-10 rounded-md border relative dark:bg-gray-700 dark:text-white">
+          {/* Sağ üstte sabit buton grubu */}
+          <div className="absolute top-2 right-2 flex gap-1">
+            <button
+              onClick={() => moveUp(index)}
+              title="Yukarı Taşı"
+              className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
+            >
+              <ChevronUpIcon className="w-5 h-5 text-gray-100" />
+            </button>
+            <button
+              onClick={() => moveDown(index)}
+              title="Aşağı Taşı"
+              className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
+            >
+              <ChevronDownIcon className="w-5 h-5 text-gray-100" />
+            </button>
+            <button
+              onClick={() => handleDelete(index)}
+              title="Sil"
+              className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
+            >
+              <TrashIcon className="w-5 h-5 text-gray-100" />
+            </button>
+          </div>
 
-          <button
-            onClick={() => handleDelete(index)}
-            className="text-white bg-green-300 px-3 py-1 rounded hover:bg-green-600 absolute top-2 right-2"
-            title="Sil"
-          >
-            🗑️
-          </button>
+          {editIndex === index ? (
+            <div className="space-y-2">
+              <input
+                name="school"
+                value={editedEdu.school}
+                onChange={handleEditChange}
+                placeholder="Okul"
+                className="w-full p-2 rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
+              />
+              <input
+                name="department"
+                value={editedEdu.department}
+                onChange={handleEditChange}
+                placeholder="Bölüm"
+                className="w-full p-2 rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
+              />
+              {/* Başlangıç */}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-sm font-semibold dark:text-white">Başlangıç</span>
+                <select name="startDay" value={editedEdu.startDay} onChange={handleEditChange} className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white">
+                  <option value="">Gün</option>
+                  {generateOptions(1, 31).map(d => <option key={d}>{d}</option>)}
+                </select>
+                <select name="startMonth" value={editedEdu.startMonth} onChange={handleEditChange} className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white">
+                  <option value="">Ay</option>
+                  {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
+                </select>
+                <select name="startYear" value={editedEdu.startYear} onChange={handleEditChange} className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white">
+                  <option value="">Yıl</option>
+                  {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
+                </select>
+              </div>
+              {/* Bitiş */}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-sm font-semibold dark:text-white">Bitiş</span>
+                <select name="endDay" value={editedEdu.endDay} onChange={handleEditChange} disabled={editedEdu.currently} className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white">
+                  <option value="">Gün</option>
+                  {generateOptions(1, 31).map(d => <option key={d}>{d}</option>)}
+                </select>
+                <select name="endMonth" value={editedEdu.endMonth} onChange={handleEditChange} disabled={editedEdu.currently} className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white">
+                  <option value="">Ay</option>
+                  {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
+                </select>
+                <select name="endYear" value={editedEdu.endYear} onChange={handleEditChange} disabled={editedEdu.currently} className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white">
+                  <option value="">Yıl</option>
+                  {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
+                </select>
+              </div>
+              {/* Checkbox */}
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="currently"
+                  checked={editedEdu.currently}
+                  onChange={handleEditChange}
+                  className="w-5 h-5 accent-green-500"
+                />
+                <label className="text-sm dark:text-white">Halen devam ediyorum</label>
+              </div>
+              <div className="flex gap-2">
+                <button onClick={saveEdit} className="px-3 py-1 bg-green-600 text-white rounded">Kaydet</button>
+                <button onClick={cancelEdit} className="px-3 py-1 bg-gray-500 text-white rounded">İptal</button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <p className="font-semibold dark:text-white">{item.school} – {item.department}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                {item.startDay}/{item.startMonth}/{item.startYear} -{" "}
+                {item.currently ? "Devam ediyor" : `${item.endDay}/${item.endMonth}/${item.endYear}`}
+              </p>
+              <button title="Düzenle" onClick={() => startEdit(index)} className="absolute top-2 left-2 bg-gray-500 hover:bg-green-700 text-white p-1 rounded">
+                <PencilIcon className="w-5 h-5 text-gray-100" />
+              </button>
+            </>
+          )}
         </div>
+
       ))}
 
       {/* Yeni giriş alanları */}
