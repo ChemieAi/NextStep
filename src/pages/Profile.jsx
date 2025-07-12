@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
   const { currentUser } = useAuth();
@@ -20,6 +21,7 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const API_BASE = import.meta.env.VITE_API_URL;
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!currentUser) {
@@ -62,7 +64,7 @@ const Profile = () => {
     if (!file || !currentUser) return;
 
     if (file.size > 1024 * 1024) {
-      setErrorMessage("⚠️ Dosya boyutu 1MB'dan büyük olamaz.");
+      setErrorMessage(t("profile.uploadErrorSize"));
       return;
     }
 
@@ -113,7 +115,7 @@ const Profile = () => {
       }
     } catch (error) {
       console.error("Fotoğraf yükleme hatası ❌", error);
-      setErrorMessage("Fotoğraf yüklenirken bir hata oluştu.");
+      setErrorMessage(t("profile.uploadErrorGeneric"));
     } finally {
       setUploading(false);
     }
@@ -128,7 +130,7 @@ const Profile = () => {
         transition={{ duration: 0.4 }}
         className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow mt-8 dark:bg-gray-800 dark:text-white w-full"
       >
-        <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">Profilim</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">{t("profile.title")}</h1>
 
         <div
           className="relative group w-32 h-32 mb-4 justify-center items-center mx-auto rounded-full overflow-hidden cursor-pointer border-2 border-gray-300 dark:border-gray-600"
@@ -166,7 +168,7 @@ const Profile = () => {
               <div className="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center relative">
                 <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-black/30 transition">
                   <UserCircleIcon className="w-16 h-16 text-gray-400 dark:text-gray-500" />
-                  <span className="text-xs text-gray-600 dark:text-gray-300 mt-1">Fotoğraf Yükle</span>
+                  <span className="text-xs text-gray-600 dark:text-gray-300 mt-1">{t("profile.uploadLabel")}</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -188,9 +190,9 @@ const Profile = () => {
 
 
         <div className="mb-6 dark:text-white">
-          <p className="dark:text-white"><strong>Ad Soyad:</strong> {formData.name || "-"}</p>
-          <p className="dark:text-white"><strong>Ünvan:</strong> {formData.title || "-"}</p>
-          <p className="dark:text-white"><strong>Email:</strong> {formData.email}</p>
+          <p className="dark:text-white"><strong>{t("profile.fullname")}:</strong> {formData.name || "-"}</p>
+          <p className="dark:text-white"><strong>{t("profile.titleLabel")}:</strong> {formData.title || "-"}</p>
+          <p className="dark:text-white"><strong>{t("profile.email")}:</strong> {formData.email}</p>
         </div>
 
         <div className="flex justify-center mt-4 gap-4">
@@ -205,7 +207,7 @@ const Profile = () => {
             >
               {({ loading }) => (
                 <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">
-                  {loading ? "Hazırlanıyor..." : "CV'yi İndir"}
+                  {loading ? t("profile.downloading") : t("profile.download")}
                 </button>
               )}
             </PDFDownloadLink>
@@ -214,7 +216,7 @@ const Profile = () => {
             onClick={() => navigate("/cv-builder")}
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded"
           >
-            CV Oluştur
+            {t("profile.createCv")}
           </button>
         </div>
         <div className="flex justify-center mt-6 gap-4">
@@ -222,7 +224,7 @@ const Profile = () => {
             onClick={() => navigate("/update-password")}
             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
           >
-            Şifre Güncelle
+            {t("profile.updatePassword")}
           </button>
         </div>
       </motion.div>

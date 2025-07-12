@@ -6,6 +6,7 @@ import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 import {
   UserCircleIcon,
@@ -26,16 +27,6 @@ import StepProjects from "../components/steps/StepProjects";
 import StepTemplate from "../components/steps/StepTemplate";
 import StepSummary from "../components/steps/StepSummary";
 
-const stepsConfig = [
-  { label: "Temel Bilgiler", icon: UserCircleIcon, component: StepBasicInfo },
-  { label: "Özet", icon: DocumentDuplicateIcon, component: StepSummary },
-  { label: "Eğitim", icon: AcademicCapIcon, component: StepEducation },
-  { label: "Deneyim", icon: BriefcaseIcon, component: StepExperience },
-  { label: "Sosyal Medya", icon: LinkIcon, component: StepSocial },
-  { label: "Yetenekler", icon: WrenchScrewdriverIcon, component: StepSkills },
-  { label: "Projeler", icon: GlobeAltIcon, component: StepProjects },
-  { label: "Şablon", icon: DocumentDuplicateIcon, component: StepTemplate },
-];
 
 const CvBuilder = () => {
   const [step, setStep] = useState(0);
@@ -43,7 +34,17 @@ const CvBuilder = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const API_BASE = import.meta.env.VITE_API_URL;
-
+  const { t } = useTranslation();
+  const stepsConfig = [
+    { label: t("cvBuilder.steps.basic"), icon: UserCircleIcon, component: StepBasicInfo },
+    { label: t("cvBuilder.steps.summary"), icon: DocumentDuplicateIcon, component: StepSummary },
+    { label: t("cvBuilder.steps.education"), icon: AcademicCapIcon, component: StepEducation },
+    { label: t("cvBuilder.steps.experience"), icon: BriefcaseIcon, component: StepExperience },
+    { label: t("cvBuilder.steps.social"), icon: LinkIcon, component: StepSocial },
+    { label: t("cvBuilder.steps.skills"), icon: WrenchScrewdriverIcon, component: StepSkills },
+    { label: t("cvBuilder.steps.projects"), icon: GlobeAltIcon, component: StepProjects },
+    { label: t("cvBuilder.steps.template"), icon: DocumentDuplicateIcon, component: StepTemplate },
+  ];
   useEffect(() => {
     if (currentUser === null) {
       navigate("/login", { replace: true });
@@ -109,13 +110,13 @@ const CvBuilder = () => {
   const phoneRegex = (phone) => /^\+?[1-9]\d{7,14}$/.test(phone);
   const handleNext = () => {
     // StepBasicInfo'da isek email'i kontrol et
-    if (stepsConfig[step].label === "Temel Bilgiler") {
+    if (stepsConfig[step].label === t("cvBuilder.steps.basic")) {
       if (!emailRegex(formData.email)) {
-        alert("Lütfen geçerli bir e-posta adresi girin (örneğin: example@mail.com).");
+        alert(t("cvBuilder.errors.invalidEmail"));
         return;
       }
       if (!phoneRegex(formData.phone)) {
-        alert("Lütfen geçerli bir telefon numarası girin (örneğin: +905551112233) Alan kodu dahil.");
+        alert(t("cvBuilder.errors.invalidPhone"));
         return;
       }
     }
@@ -169,18 +170,18 @@ const CvBuilder = () => {
             disabled={step === 0}
             className="px-5 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-40 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
           >
-            Geri
+            {t("cvBuilder.back")}
           </button>
 
           <p className="text-sm text-orange-500 text-center mx-auto w-full md:w-auto mt-2 mb-2 ">
-            🔄 Değişikliklerin kaydolması için "İleri" butonuna basmayı unutmayın.
+            {t("cvBuilder.reminder")}
           </p>
 
           <button
             onClick={handleNext}
             className="px-5 py-2 bg-green-500 dark:bg-green-600 text-white rounded hover:bg-green-600 dark:hover:bg-green-700"
           >
-            {step === stepsConfig.length - 1 ? "Tamamla" : "İleri"}
+            {step === stepsConfig.length - 1 ? t("cvBuilder.complete") : t("cvBuilder.next")}
           </button>
         </div>
       </motion.div >

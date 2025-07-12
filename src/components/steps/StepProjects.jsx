@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronUpIcon, ChevronDownIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { useTranslation } from "react-i18next";
 
 const StepProjects = ({ data, setData }) => {
   const [project, setProject] = useState({
@@ -7,6 +8,7 @@ const StepProjects = ({ data, setData }) => {
     description: "",
     link: "",
   });
+  const { t } = useTranslation();
 
   const [editIndex, setEditIndex] = useState(null);
   const [editedProject, setEditedProject] = useState(null);
@@ -69,21 +71,21 @@ const StepProjects = ({ data, setData }) => {
           <div className="absolute top-2 right-2 flex gap-1">
             <button
               onClick={() => moveUp(i)}
-              title="Yukarı Taşı"
+              title={t("projects.moveUp")}
               className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
             >
               <ChevronUpIcon className="w-5 h-5 text-gray-100" />
             </button>
             <button
               onClick={() => moveDown(i)}
-              title="Aşağı Taşı"
+              title={t("projects.moveDown")}
               className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
             >
               <ChevronDownIcon className="w-5 h-5 text-gray-100" />
             </button>
             <button
               onClick={() => handleDelete(i)}
-              title="Sil"
+              title={t("projects.delete")}
               className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
             >
               <TrashIcon className="w-5 h-5 text-gray-100" />
@@ -96,26 +98,26 @@ const StepProjects = ({ data, setData }) => {
                 name="title"
                 value={editedProject.title}
                 onChange={handleEditChange}
-                placeholder="Proje Başlığı"
+                placeholder={t("projects.titlePlaceholder")}
                 className="w-full p-2 rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
               />
               <textarea
                 name="description"
                 value={editedProject.description}
                 onChange={handleEditChange}
-                placeholder="Açıklama"
+                placeholder={t("projects.descPlaceholder")}
                 className="w-full p-2 rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
               />
               <input
                 name="link"
                 value={editedProject.link}
                 onChange={handleEditChange}
-                placeholder="Proje Linki"
+                placeholder={t("projects.linkPlaceholder")}
                 className="w-full p-2 rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
               />
               <div className="flex gap-2">
-                <button onClick={saveEdit} className="px-3 py-1 bg-green-600 text-white rounded">Kaydet</button>
-                <button onClick={cancelEdit} className="px-3 py-1 bg-gray-500 text-white rounded">İptal</button>
+                <button onClick={saveEdit} className="px-3 py-1 bg-green-600 text-white rounded">{t("projects.save")}</button>
+                <button onClick={cancelEdit} className="px-3 py-1 bg-gray-500 text-white rounded">{t("projects.cancel")}</button>
               </div>
             </div>
           ) : (
@@ -133,7 +135,7 @@ const StepProjects = ({ data, setData }) => {
                 </a>
               )}
               <button
-                title="Düzenle"
+                title={t("projects.edit")}
                 onClick={() => startEdit(i)}
                 className="absolute top-2 left-2 bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
               >
@@ -150,21 +152,21 @@ const StepProjects = ({ data, setData }) => {
           name="title"
           value={project.title}
           onChange={handleChange}
-          placeholder="Proje Başlığı"
+          placeholder={t("projects.titlePlaceholder")}
           className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
         <textarea
           name="description"
           value={project.description}
           onChange={handleChange}
-          placeholder="Proje Açıklaması"
+          placeholder={t("projects.descPlaceholder")}
           className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
         <input
           name="link"
           value={project.link}
           onChange={handleChange}
-          placeholder="Proje Linki (isteğe bağlı)"
+          placeholder={t("projects.linkPlaceholder")}
           className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
@@ -173,7 +175,7 @@ const StepProjects = ({ data, setData }) => {
         onClick={handleAdd}
         className="w-full border-2 border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 py-2 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600"
       >
-        EKLE
+        {t("projects.add")}
       </button>
     </div>
   );

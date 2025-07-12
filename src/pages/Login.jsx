@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,21 +43,21 @@ const Login = () => {
           className="bg-gray-800 p-8 rounded-lg shadow-md dark:bg-gray-800 dark:text-black"
         >
           <h2 className="text-lg font-semibold text-center mb-4 text-white">
-            Hoş Geldiniz
+            {t("login.welcome")}
           </h2>
-          <p className="text-center text-white mb-4">Hesabınıza giriş yapınız</p>
+          <p className="text-center text-white mb-4">{t("login.subtitle")}</p>
 
           <input
             name="email"
             type="email"
-            placeholder="Email adresinizi giriniz"
+            placeholder={t("login.emailPlaceholder")}
             value={form.email}
             onChange={handleChange}
           />
           <input
             name="password"
             type="password"
-            placeholder="Şifrenizi giriniz"
+            placeholder={t("login.passwordPlaceholder")}
             value={form.password}
             onChange={handleChange}
           />
@@ -63,16 +65,16 @@ const Login = () => {
           {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
           <button type="submit" className="btn w-full">
-            Giriş yap
+            {t("login.submit")}
           </button>
           <p className="text-center mt-4 mb-2 text-sm text-white underline cursor-pointer">
-            <a href="/register">Hesabınız yok mu? Üye olun</a>
+            <a href="/register">{t("login.noAccount")}</a>
           </p>
           <Link
             to="/forgot-password"
             className="text-white underline text-sm text-center block mt-4"
           >
-            Şifremi unuttum
+            {t("login.forgotPassword")}
           </Link>
         </form>
       </motion.div>

@@ -12,6 +12,7 @@ import { getFormDataFromLocal, saveFormDataToLocal } from "../utils/localStorage
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const CvPreview = () => {
   const componentRef = useRef();
@@ -20,6 +21,7 @@ const CvPreview = () => {
   const { currentUser, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(true);
   const API_BASE = import.meta.env.VITE_API_URL;
+  const { t } = useTranslation();
 
 
   const fetchFormData = async () => {
@@ -79,7 +81,7 @@ const CvPreview = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">Yükleniyor...</p>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">{t("loading")}</p>
         </div>
       </div>
     );
@@ -93,14 +95,14 @@ const CvPreview = () => {
         transition={{ duration: 0.4 }}
         className="max-w-5xl mx-auto p-6 bg-gray-100 min-h-screen dark:bg-gray-800 dark:text-white"
       >
-        <h1 className="text-2xl font-bold mb-4 text-center dark:text-white">CV Önizleme</h1>
+        <h1 className="text-2xl font-bold mb-4 text-center dark:text-white">{t("cvPreview.title")}</h1>
 
         <div className="flex justify-center mb-6">
           <button
             onClick={() => navigate("/cv-builder")}
             className="border border-gray-400 text-gray-700 px-4 py-2 rounded mr-4 dark:text-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
           >
-            Geri Dön
+            {t("cvPreview.back")}
           </button>
           {formData.name && (
             <PDFDownloadLink
@@ -113,7 +115,7 @@ const CvPreview = () => {
             >
               {({ loading }) => (
                 <button className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded hover:bg-green-600 dark:hover:bg-green-700">
-                  {loading ? "Hazırlanıyor..." : "PDF Olarak İndir"}
+                  {loading ? t("cvPreview.generating") : t("cvPreview.downloadPdf")}
                 </button>
               )}
             </PDFDownloadLink>

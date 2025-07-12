@@ -1,5 +1,6 @@
 import React from 'react';
 import Contact from '../pages/Contact';
+import { useTranslation } from "react-i18next";
 import {
     FaFacebook,
     FaTwitter,
@@ -8,24 +9,25 @@ import {
 } from 'react-icons/fa';
 
 const Footer = () => {
+    const { t } = useTranslation();
     return (
         <footer className="bg-gray-800 text-white py-10">
             <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
                 {/* Şirket Bilgisi */}
                 <div>
-                    <h2 className="text-2xl font-bold mb-4">NextStep</h2>
+                    <h2 className="text-2xl font-bold mb-4">{t("footer.brand")}</h2>
                     <p className="text-gray-400">
-                        CV'nizi kolayca oluşturun ve yönetin. Kariyerinize bir adım önde başlayın.
+                        {t("footer.description")}
                     </p>
                 </div>
 
                 {/* Navigasyon Linkleri */}
                 <div>
-                    <h3 className="text-xl font-semibold mb-4">Hızlı Linkler</h3>
+                    <h3 className="text-xl font-semibold mb-4">{t("footer.links")}</h3>
                     <ul>
                         <li className="mb-2">
                             <a href="/" className="hover:underline text-gray-400">
-                                Ana Sayfa
+                                {t("footer.home")}
                             </a>
                         </li>
                         {/*
@@ -42,7 +44,7 @@ const Footer = () => {
                         */}
                         <li className="mb-2">
                             <a href="/iletisim" className="hover:underline text-gray-400">
-                                İletişim
+                                {t("footer.contact")}
                             </a>
                         </li>
                     </ul>
@@ -50,7 +52,7 @@ const Footer = () => {
 
                 {/* Sosyal Medya */}
                 <div>
-                    <h3 className="text-xl font-semibold mb-4">Bizi Takip Edin</h3>
+                    <h3 className="text-xl font-semibold mb-4">{t("footer.follow")}</h3>
                     <div className="flex space-x-4">
                         <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                             <FaFacebook size={24} />
@@ -69,18 +71,18 @@ const Footer = () => {
 
                 {/* Abonelik Formu */}
                 <div>
-                    <h3 className="text-xl font-semibold mb-4">Bültenimize Abone Olun</h3>
+                    <h3 className="text-xl font-semibold mb-4">{t("footer.subscribe")}</h3>
                     <form className="flex flex-col space-y-4">
                         <input
                             type="email"
-                            placeholder="E-posta adresiniz"
+                            placeholder={t("footer.emailPlaceholder")}
                             className="p-2 rounded bg-gray-700 text-white focus:outline-none"
                         />
                         <button
                             type="submit"
                             className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition mb-16"
                         >
-                            Abone Ol
+                            {t("footer.subscribeBtn")}
                         </button>
                     </form>
                 </div>
@@ -88,7 +90,7 @@ const Footer = () => {
 
             {/* Alt Bilgi */}
             <div className="mt-10 text-center text-gray-500">
-                &copy; {new Date().getFullYear()} NextStep. Tüm hakları saklıdır.
+                &copy; {new Date().getFullYear()} NextStep. {t("footer.rights")}
             </div>
         </footer>
     );

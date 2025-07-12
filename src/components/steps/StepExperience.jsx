@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { useTranslation } from "react-i18next";
 
 const StepExperience = ({ data, setData }) => {
   const [exp, setExp] = useState({
@@ -15,6 +16,7 @@ const StepExperience = ({ data, setData }) => {
     description: "",
     currently: false,
   });
+  const { t } = useTranslation();
 
   // Düzenleme için state
   const [editIndex, setEditIndex] = useState(null);
@@ -99,21 +101,21 @@ const StepExperience = ({ data, setData }) => {
           <div className="absolute top-2 right-2 flex gap-1">
             <button
               onClick={() => moveUp(index)}
-              title="Yukarı Taşı"
+              title={t("experience.moveUp")}
               className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
             >
               <ChevronUpIcon className="w-5 h-5 text-gray-100" />
             </button>
             <button
               onClick={() => moveDown(index)}
-              title="Aşağı Taşı"
+              title={t("experience.moveDown")}
               className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
             >
               <ChevronDownIcon className="w-5 h-5 text-gray-100" />
             </button>
             <button
               onClick={() => handleDelete(index)}
-              title="Sil"
+              title={t("experience.delete")}
               className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
             >
               <TrashIcon className="w-5 h-5 text-gray-100" />
@@ -126,26 +128,26 @@ const StepExperience = ({ data, setData }) => {
                 name="company"
                 value={editedExp.company}
                 onChange={handleEditChange}
-                placeholder="Şirket"
+                placeholder={t("experience.company")}
                 className="w-full p-2 rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
               />
               <input
                 name="position"
                 value={editedExp.position}
                 onChange={handleEditChange}
-                placeholder="Pozisyon"
+                placeholder={t("experience.position")}
                 className="w-full p-2 rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
               />
               {/* Başlangıç Tarihi */}
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-sm font-semibold dark:text-white">Başlangıç</p>
+                <p className="text-sm font-semibold dark:text-white">{t("experience.start")}</p>
                 <select
                   name="startMonth"
                   value={editedExp.startMonth}
                   onChange={handleEditChange}
                   className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
                 >
-                  <option value="">Ay</option>
+                  <option value="">{t("experience.month")}</option>
                   {generateOptions(1, 12).map(m => (
                     <option key={m}>{m}</option>
                   ))}
@@ -156,7 +158,7 @@ const StepExperience = ({ data, setData }) => {
                   onChange={handleEditChange}
                   className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
                 >
-                  <option value="">Yıl</option>
+                  <option value="">{t("experience.year")}</option>
                   {generateOptions(1980, 2025).map(y => (
                     <option key={y}>{y}</option>
                   ))}
@@ -165,7 +167,7 @@ const StepExperience = ({ data, setData }) => {
 
               {/* Bitiş Tarihi */}
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-sm font-semibold dark:text-white">Bitiş</p>
+                <p className="text-sm font-semibold dark:text-white">{t("experience.end")}</p>
                 <select
                   name="endMonth"
                   value={editedExp.endMonth}
@@ -173,7 +175,7 @@ const StepExperience = ({ data, setData }) => {
                   disabled={editedExp.currently}
                   className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
                 >
-                  <option value="">Ay</option>
+                  <option value="">{t("experience.month")}</option>
                   {generateOptions(1, 12).map(m => (
                     <option key={m}>{m}</option>
                   ))}
@@ -185,7 +187,7 @@ const StepExperience = ({ data, setData }) => {
                   disabled={editedExp.currently}
                   className="p-2 border rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
                 >
-                  <option value="">Yıl</option>
+                  <option value="">{t("experience.year")}</option>
                   {generateOptions(1980, 2025).map(y => (
                     <option key={y}>{y}</option>
                   ))}
@@ -202,7 +204,7 @@ const StepExperience = ({ data, setData }) => {
                   className="w-5 h-5 accent-green-500"
                 />
                 <label className="text-sm dark:text-white">
-                  Halen bu pozisyonda çalışıyorum
+                  {t("experience.currently")}
                 </label>
               </div>
 
@@ -210,12 +212,12 @@ const StepExperience = ({ data, setData }) => {
                 name="description"
                 value={editedExp.description}
                 onChange={handleEditChange}
-                placeholder="Açıklama"
+                placeholder={t("experience.description")}
                 className="w-full p-2 rounded bg-gray-100 dark:bg-gray-600 dark:text-white"
               />
               <div className="flex gap-2">
-                <button onClick={saveEdit} className="px-3 py-1 bg-green-600 text-white rounded">Kaydet</button>
-                <button onClick={cancelEdit} className="px-3 py-1 bg-gray-500 text-white rounded">İptal</button>
+                <button onClick={saveEdit} className="px-3 py-1 bg-green-600 text-white rounded">{t("experience.save")}</button>
+                <button onClick={cancelEdit} className="px-3 py-1 bg-gray-500 text-white rounded">{t("experience.cancel")}</button>
               </div>
             </div>
           ) : (
@@ -223,11 +225,11 @@ const StepExperience = ({ data, setData }) => {
               <p className="font-semibold dark:text-white ">{item.company} – {item.position}</p>
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 {item.startMonth}/{item.startYear} -{" "}
-                {item.currently ? "Devam ediyor" : `${item.endMonth}/${item.endYear}`}
+                {item.currently ? t("experience.ongoing") : `${item.endMonth}/${item.endYear}`}
               </p>
               <p className="text-sm mt-2 text-gray-700 dark:text-gray-400">{item.description}</p>
 
-              <button title="Düzenle" onClick={() => startEdit(index)} className="absolute top-2 left-2 bg-gray-500 hover:bg-green-700 text-white p-1 rounded">
+              <button title={t("experience.edit")} onClick={() => startEdit(index)} className="absolute top-2 left-2 bg-gray-500 hover:bg-green-700 text-white p-1 rounded">
                 <PencilIcon className="w-5 h-5 text-gray-100" />
               </button>
             </>
@@ -238,29 +240,29 @@ const StepExperience = ({ data, setData }) => {
 
       {/* Yeni giriş alanı */}
       <div className="grid md:grid-cols-2 gap-4">
-        <input name="company" value={exp.company} onChange={handleChange} placeholder="Şirket" className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
-        <input name="position" value={exp.position} onChange={handleChange} placeholder="Pozisyon" className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
+        <input name="company" value={exp.company} onChange={handleChange} placeholder={t("experience.company")} className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
+        <input name="position" value={exp.position} onChange={handleChange} placeholder={t("experience.position")} className="p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
 
         {/* Tarihler */}
         <div className="flex gap-2 max-md:col-span-2">
-          <p className="text-sm font-semibold dark:text-white">Başlangıç Tarihi</p>
+          <p className="text-sm font-semibold dark:text-white">{t("experience.start")}</p>
           <select name="startMonth" value={exp.startMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
-            <option value="">Ay</option>
+            <option value="">{t("experience.month")}</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
           <select name="startYear" value={exp.startYear} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
-            <option value="">Yıl</option>
+            <option value="">{t("experience.year")}</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
         <div className="flex gap-2 max-md:col-span-2">
-          <p className="text-sm font-semibold dark:text-white">Bitiş Tarihi</p>
+          <p className="text-sm font-semibold dark:text-white">{t("experience.end")}</p>
           <select name="endMonth" disabled={exp.currently} value={exp.endMonth} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
-            <option value="">Ay</option>
+            <option value="">{t("experience.month")}</option>
             {generateOptions(1, 12).map(m => <option key={m}>{m}</option>)}
           </select>
           <select name="endYear" disabled={exp.currently} value={exp.endYear} onChange={handleChange} className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
-            <option value="">Yıl</option>
+            <option value="">{t("experience.year")}</option>
             {generateOptions(1980, 2025).map(y => <option key={y}>{y}</option>)}
           </select>
         </div>
@@ -274,12 +276,12 @@ const StepExperience = ({ data, setData }) => {
             className="w-6 h-6 accent-green-500"
           />
           <label className="text-sm text-[18px] text-gray-700 dark:text-gray-300 mb-4">
-            Halen bu pozisyonda çalışıyorum
+            {t("experience.currently")}
           </label>
         </div>
 
         <div className="col-span-2">
-          <textarea name="description" value={exp.description} onChange={handleChange} placeholder="İş Tanımı" className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
+          <textarea name="description" value={exp.description} onChange={handleChange} placeholder={t("experience.description")} className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white" />
         </div>
       </div>
 
@@ -287,7 +289,7 @@ const StepExperience = ({ data, setData }) => {
         onClick={handleAdd}
         className="w-full border-2 border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 py-2 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600"
       >
-        EKLE
+        {t("experience.add")}
       </button>
     </div>
   );

@@ -1,0 +1,363 @@
+{
+    "landing": {
+        "heroTitle": "ATS uyumlu, profesyonel CV’nizi kolayca oluşturun",
+        "heroSubtitle": "CV'nizi dakikalar içinde oluşturun, işverenlerin dikkatini çekin.",
+        "createCv": "CV Oluştur",
+        "whatIsAts": "ATS Nedir?",
+        "atsInfo": "ATS (Aday Takip Sistemi), işe alım süreçlerinde kullanılan yazılımlardır. İşverenler, adayların CV'lerini bu sistemler üzerinden otomatik olarak tarar. Biçimlendirmesi hatalı veya anahtar kelimeleri eksik olan CV’ler, sistemden geçemez. Bu nedenle <1>ATS uyumlu bir CV</1> ile başvuru yapmak, mülakat şansınızı ciddi ölçüde artırır.",
+        "logout": "Çıkış Yap"
+    },
+    "nav": {
+        "home": "Ana Sayfa",
+        "login": "Giriş Yap",
+        "register": "Kayıt Ol",
+        "profile": "Profil",
+        "theme": "Tema",
+        "lang": "Dil",
+        "lang_tr": "Türkçe",
+        "lang_en": "English"
+    },
+    "footer": {
+        "brand": "NextStep",
+        "description": "CV'nizi kolayca oluşturun ve yönetin. Kariyerinize bir adım önde başlayın.",
+        "links": "Hızlı Linkler",
+        "home": "Ana Sayfa",
+        "contact": "İletişim",
+        "follow": "Bizi Takip Edin",
+        "subscribe": "Bültenimize Abone Olun",
+        "emailPlaceholder": "E-posta adresiniz",
+        "subscribeBtn": "Abone Ol",
+        "rights": "Tüm hakları saklıdır."
+    },
+    "login": {
+        "welcome": "Hoş Geldiniz",
+        "subtitle": "Hesabınıza giriş yapınız",
+        "emailPlaceholder": "Email adresinizi giriniz",
+        "passwordPlaceholder": "Şifrenizi giriniz",
+        "submit": "Giriş yap",
+        "noAccount": "Hesabınız yok mu? Üye olun",
+        "forgotPassword": "Şifremi unuttum"
+    },
+    "register": {
+        "welcome": "Hoş Geldiniz",
+        "subtitle": "Hesabınızı oluşturunuz",
+        "name": "Adınızı giriniz",
+        "surname": "Soyadınızı giriniz",
+        "email": "Email adresinizi giriniz",
+        "password": "Şifrenizi giriniz",
+        "confirmPassword": "Şifrenizi tekrar giriniz",
+        "terms": "Kullanım Şartları",
+        "privacy": "Gizlilik Politikasını",
+        "and": "ve",
+        "submit": "Üye Ol",
+        "haveAccount": "Zaten hesabınız var mı? Giriş yap",
+        "agreementText": "<terms>Kullanım Şartları</terms> ve <privacy>Gizlilik Politikası</privacy> okudum, kabul ediyorum."
+    },
+    "termsAndPrivacy": {
+        "termsTitle": "Kullanım Şartları",
+        "terms": [
+            {
+                "title": "1. Taraflar",
+                "content": "Bu kullanım şartları, NextStepCV platformunun tüm kullanıcıları ile hizmeti sunan taraf arasında düzenlenmiştir. NextStepCV'ye erişen her kullanıcı bu şartları okumuş, anlamış ve kabul etmiş sayılır."
+            },
+            {
+                "title": "2. Hizmetin Tanımı",
+                "content": "NextStepCV, kullanıcılara online ortamda hızlı, şık ve profesyonel özgeçmiş (CV) hazırlama hizmeti sunar. Kullanıcılar, kişisel bilgilerini girerek PDF çıktısı alabilir veya platform üzerinde CV'lerini saklayabilirler."
+            },
+            {
+                "title": "3. Hesap Oluşturma",
+                "content": "Kullanıcılar hizmetten yararlanmak için ad, soyad, e-posta ve şifre bilgileriyle hesap oluşturmak zorundadır. Kullanıcı bilgileri doğru ve güncel olmalıdır. Hesap sahibinin dışında bir kişi tarafından kullanılmasına izin verilmemelidir."
+            },
+            {
+                "title": "4. Kullanım Koşulları",
+                "list": [
+                    "Gerçek, doğru ve yasal içerikler üretmekle yükümlüdür.",
+                    "Platformu kötüye kullanamaz, zararlı içerikler paylaşamaz.",
+                    "Diğer kullanıcıların güvenliğini tehdit edemez.",
+                    "Yasa dışı, saldırgan, hakaret içeren veya cinsellik barındıran içerikler oluşturamaz."
+                ]
+            },
+            {
+                "title": "5. Hizmet Sürekliliği",
+                "content": "NextStepCV hizmetleri genellikle kesintisiz şekilde sunulsa da, bakım, güncelleme, sunucu arızası gibi nedenlerle geçici kesintiler yaşanabilir. Platform bu tür kesintilerden doğacak zararlardan sorumlu değildir."
+            },
+            {
+                "title": "6. İçerik Sahipliği",
+                "content": "Oluşturulan özgeçmişler, ilgili kullanıcıya aittir. Ancak platform, kamuya açık hale getirilmeyen içeriklere hiçbir şekilde erişmez ya da kullanmaz. Kullanıcılar, CV’lerini platform üzerinde saklayarak veri işlenmesine rıza göstermiş olur."
+            },
+            {
+                "title": "7. Ücretlendirme",
+                "content": "Platform, şu an için ücretsizdir. Ancak ileride bazı gelişmiş özellikler için ücretli üyelik modelleri uygulanabilir. Böyle bir değişiklik olması durumunda, kullanıcılar önceden bilgilendirilir."
+            },
+            {
+                "title": "8. Üçüncü Taraf Hizmetleri",
+                "content": "NextStepCV, hizmetin sağlanması sırasında bazı üçüncü taraf servis sağlayıcılardan destek alabilir. Bu hizmet sağlayıcılar yalnızca gerekli verilere erişim hakkına sahiptir."
+            },
+            {
+                "title": "9. Hesap İptali",
+                "content": "Kullanıcı, istediği zaman hesabını silebilir. Hesap silindiğinde veriler 30 gün içinde sistemden kalıcı olarak kaldırılır. Platform, ciddi kural ihlalleri durumunda kullanıcı hesabını uyarı vermeksizin askıya alma hakkını saklı tutar."
+            },
+            {
+                "title": "10. Değişiklik Hakkı",
+                "content": "NextStepCV, bu şartları dilediği zaman güncelleme hakkını saklı tutar. Kullanıcılar güncellemeleri platform üzerinden takip etmekle yükümlüdür."
+            },
+            {
+                "title": "11. İletişim",
+                "content": "Soru, öneri veya şikayetleriniz için bize support@nextstepcv.tech adresinden ulaşabilirsiniz."
+            }
+        ]
+    },
+    "privacyTitle": "Gizlilik Politikası",
+    "sections": [
+        {
+            "title": "1. Giriş",
+            "content": "NextStepCV olarak kullanıcı gizliliğini önemsiyoruz. Bu belge, sizinle ilgili hangi bilgileri topladığımızı, neden topladığımızı ve bu bilgileri nasıl işlediğimizi açıklar."
+        },
+        {
+            "title": "2. Toplanan Veriler",
+            "list": [
+                "Ad ve soyad",
+                "E-posta adresi",
+                "Telefon numarası",
+                "Şehir ve ülke",
+                "Eğitim ve iş geçmişi",
+                "Yetenekler, projeler ve özet bilgiler",
+                "Profil fotoğrafı (isteğe bağlı)"
+            ]
+        },
+        {
+            "title": "3. Verilerin İşlenme Amaçları",
+            "list": [
+                "Size CV oluşturma hizmeti sunmak",
+                "Giriş bilgilerinizi doğrulamak",
+                "Destek taleplerinizi yanıtlamak",
+                "Sistem performansını analiz etmek",
+                "Platformu güvenli tutmak",
+                "Hukuki yükümlülükleri yerine getirmek"
+            ]
+        },
+        {
+            "title": "4. Verilerin Saklanma Süresi",
+            "content": "Hesabınız aktif olduğu sürece verileriniz saklanır. Hesabınızı sildiğinizde veya belirli bir süre boyunca platformu kullanmazsanız, verileriniz kalıcı olarak silinir."
+        },
+        {
+            "title": "5. Güvenlik",
+            "content": "NextStepCV, verilerinizi korumak için gerekli tüm fiziksel, teknik ve idari güvenlik önlemlerini alır. Ancak internet üzerinden veri aktarımı tamamen güvenli değildir, bu nedenle mutlak güvenlik garanti edilemez."
+        },
+        {
+            "title": "6. Üçüncü Taraflarla Paylaşım",
+            "content": "Bilgileriniz reklam amaçlı üçüncü taraflara satılmaz. Ancak platform altyapısında yer alan servis sağlayıcılar (örneğin: barındırma hizmeti, görsel işleme servisi, analiz araçları) gibi bazı hizmetlerde sınırlı veri paylaşımı gerçekleşebilir. Bu taraflar yalnızca hizmetin çalışması için gereken bilgilere erişebilir ve gizlilik yükümlülüğü altındadır."
+        },
+        {
+            "title": "7. Kullanıcı Hakları",
+            "list": [
+                "Verilerinize erişme",
+                "Düzeltme talep etme",
+                "Veri silinmesini isteme",
+                "İşleme faaliyetlerine itiraz etme"
+            ]
+        },
+        {
+            "title": "8. Çerezler",
+            "content": "Platformumuz, oturum yönetimi ve kullanıcı deneyimini geliştirmek amacıyla çerezler kullanır. Bu çerezler kişisel bilgi içermez ve sadece anonim analizler için değerlendirilir."
+        },
+        {
+            "title": "9. Yasal Yükümlülükler",
+            "content": "Talep halinde resmi kurumlarla gerekli bilgi paylaşımı yapılabilir. Bu tür durumlar dışında verileriniz üçüncü şahıslara açıklanmaz."
+        },
+        {
+            "title": "10. Politika Değişiklikleri",
+            "content": "Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişiklikler size e-posta yoluyla bildirilecektir."
+        },
+        {
+            "title": "11. İletişim",
+            "content": "Gizliliğinizle ilgili herhangi bir soru veya talep için bizimle support@nextstepcv.tech adresinden iletişime geçebilirsiniz."
+        }
+    ],
+    "modal": {
+        "button": "Kapat"
+    },
+    "contact": {
+        "title": "Bizimle İletişime Geçin",
+        "name": "Adınız",
+        "email": "E-posta",
+        "message": "Mesajınız",
+        "submit": "Gönder",
+        "success": "✅ Mesajınız başarıyla gönderildi.",
+        "error": "❌ Mesaj gönderilirken bir hata oluştu."
+    },
+    "forgotPassword": {
+        "title": "Şifremi Unuttum",
+        "instruction": "E-posta adresinizi girin",
+        "placeholder": "Email adresiniz",
+        "submit": "Gönder",
+        "success": "📩 Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.",
+        "error": "Geçerli bir e-posta adresi giriniz."
+    },
+    "verifyWaiting": {
+        "title": "E-posta Doğrulaması Bekleniyor",
+        "instruction": "Lütfen e-posta adresinizi kontrol edin ve gelen bağlantıya tıklayarak hesabınızı doğrulayın."
+    },
+    "profile": {
+        "title": "Profilim",
+        "uploadLabel": "Fotoğraf Yükle",
+        "uploadErrorSize": "⚠️ Dosya boyutu 1MB'dan büyük olamaz.",
+        "uploadErrorGeneric": "Fotoğraf yüklenirken bir hata oluştu.",
+        "fullname": "Ad Soyad",
+        "titleLabel": "Ünvan",
+        "email": "Email",
+        "download": "CV'yi İndir",
+        "downloading": "Hazırlanıyor...",
+        "createCv": "CV Oluştur",
+        "updatePassword": "Şifre Güncelle"
+    },
+    "updatePassword": {
+        "title": "Şifre Güncelle",
+        "current": "Mevcut şifre",
+        "new": "Yeni şifre",
+        "button": "Güncelle",
+        "success": "✅ Şifreniz başarıyla güncellendi.",
+        "error": "❌ Bir hata oluştu. Lütfen tekrar deneyiniz.",
+        "errors": {
+            "wrongPassword": "❌ Mevcut şifreniz yanlış.",
+            "weakPassword": "❌ Yeni şifre en az 6 karakter olmalıdır.",
+            "tooManyRequests": "❌ Çok fazla deneme yapıldı. Lütfen daha sonra tekrar deneyin."
+        }
+    },
+    "cvPreview": {
+        "title": "CV Önizleme",
+        "back": "Geri Dön",
+        "downloadPdf": "PDF Olarak İndir",
+        "generating": "Hazırlanıyor..."
+    },
+    "loading": "Yükleniyor...",
+    "cvBuilder": {
+        "steps": {
+            "basic": "Temel Bilgiler",
+            "summary": "Özet",
+            "education": "Eğitim",
+            "experience": "Deneyim",
+            "social": "Sosyal Medya",
+            "skills": "Yetenekler",
+            "projects": "Projeler",
+            "template": "Şablon"
+        },
+        "back": "Geri",
+        "next": "İleri",
+        "complete": "Tamamla",
+        "reminder": "🔄 Değişikliklerin kaydolması için \"İleri\" butonuna basmayı unutmayın.",
+        "errors": {
+            "invalidEmail": "Lütfen geçerli bir e-posta adresi girin (örneğin: example@mail.com).",
+            "invalidPhone": "Lütfen geçerli bir telefon numarası girin (örneğin: +905551112233) Alan kodu dahil."
+        }
+    },
+    "basicInfo": {
+        "nameLabel": "Ad Soyad",
+        "namePlaceholder": "Örneğin: Burak Kızılay",
+        "titleLabel": "Ünvan",
+        "titlePlaceholder": "Örneğin: Yazılım Mühendisi",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Mail adresiniz",
+        "emailError": "Lütfen geçerli bir e-posta adresi girin.",
+        "cityLabel": "Ülke/Şehir",
+        "cityPlaceholder": "Örneğin: İstanbul",
+        "phoneLabel": "Telefon",
+        "phonePlaceholder": "Örneğin: +905551112233 (Alan kodu ile birlikte boşluksuz giriniz)",
+        "phoneError": "Lütfen geçerli bir telefon numarası girin. Örnek Format: +905551112233  (Alan kodu ile birlikte boşluksuz giriniz)",
+        "photoLabel": "Fotoğraf Yükle",
+        "photoError": "Dosya boyutu 1MB'dan büyük olamaz.",
+        "showImage": "CV'de profil fotoğrafımı göster"
+    },
+    "stepSummary": {
+        "label": "Kısa Profil / Özet",
+        "placeholder": "Kendinizi birkaç cümle ile tanıtın..."
+    },
+    "education": {
+        "add": "EKLE",
+        "school": "Okul Adı",
+        "department": "Bölüm Adı",
+        "start": "Başlangıç",
+        "end": "Bitiş",
+        "dateStart": "Başlangıç Tarihi",
+        "dateEnd": "Bitiş Tarihi",
+        "day": "Gün",
+        "month": "Ay",
+        "year": "Yıl",
+        "currently": "Halen devam ediyorum",
+        "edit": "Düzenle",
+        "delete": "Sil",
+        "moveUp": "Yukarı Taşı",
+        "moveDown": "Aşağı Taşı",
+        "save": "Kaydet",
+        "cancel": "İptal",
+        "ongoing": "Devam ediyor"
+    },
+    "experience": {
+        "add": "EKLE",
+        "company": "Şirket",
+        "position": "Pozisyon",
+        "start": "Başlangıç",
+        "end": "Bitiş",
+        "dateStart": "Başlangıç Tarihi",
+        "dateEnd": "Bitiş Tarihi",
+        "month": "Ay",
+        "year": "Yıl",
+        "currently": "Halen bu pozisyonda çalışıyorum",
+        "description": "İş Tanımı",
+        "edit": "Düzenle",
+        "delete": "Sil",
+        "moveUp": "Yukarı Taşı",
+        "moveDown": "Aşağı Taşı",
+        "save": "Kaydet",
+        "cancel": "İptal",
+        "ongoing": "Devam ediyor"
+    },
+    "social": {
+        "namePlaceholder": "Link Adı (ör. LinkedIn)",
+        "urlPlaceholder": "Link URL (ör. https://linkedin.com/in/...)",
+        "add": "EKLE",
+        "moveUp": "Yukarı Taşı",
+        "moveDown": "Aşağı Taşı",
+        "delete": "Sil"
+    },
+    "skills": {
+        "title": "Yetenekler",
+        "edit": "Sıralamayı Düzenle",
+        "done": "Sıralamayı Bitir",
+        "placeholder": "ör. React, JavaScript",
+        "addTitle": "Ekle",
+        "delete": "Sil",
+        "moveUp": "Yukarı Taşı",
+        "moveDown": "Aşağı Taşı",
+        "languages": "Diller",
+        "languagePlaceholder": "Dil (ör. İngilizce)",
+        "levelPlaceholder": "Seviye",
+        "addLanguage": "Dil Ekle",
+        "levels": {
+            "select": "Seviye",
+            "native": "Ana Dil"
+        }
+    },
+    "projects": {
+        "titlePlaceholder": "Proje Başlığı",
+        "descPlaceholder": "Proje Açıklaması",
+        "linkPlaceholder": "Proje Linki (isteğe bağlı)",
+        "edit": "Düzenle",
+        "delete": "Sil",
+        "moveUp": "Yukarı Taşı",
+        "moveDown": "Aşağı Taşı",
+        "save": "Kaydet",
+        "cancel": "İptal",
+        "add": "EKLE"
+    },
+    "template": {
+        "title": "Bir CV Şablonu Seçin",
+        "subtitle": "PDF olarak indirilecek tasarımı belirleyin.",
+        "template1": "🧾 Şablon 1",
+        "template2": "🧾 Şablon 2",
+        "template3": "🧾 Şablon 3",
+        "template4": "🧾 Şablon 4",
+        "description": "ATS uyumlu, basit ve etkili bir tasarım.",
+        "comingSoon": "Bu şablon yakında gelecek! Şu anda kullanılamıyor."
+    }
+}

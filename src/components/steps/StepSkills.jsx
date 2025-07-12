@@ -8,11 +8,13 @@ import {
   XCircleIcon,
 } from "@heroicons/react/24/solid";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { useTranslation } from "react-i18next";
 
 const StepSkills = ({ data, setData }) => {
   const [skillInput, setSkillInput] = useState("");
   const [lang, setLang] = useState({ name: "", level: "" });
   const [editMode, setEditMode] = useState(false); // Yeni: Edit modu
+  const { t } = useTranslation();
 
   const addSkill = () => {
     if (!skillInput) return;
@@ -63,12 +65,12 @@ const StepSkills = ({ data, setData }) => {
       {/* Skills */}
       <div>
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-semibold">Yetenekler</h3>
+          <h3 className="text-lg font-semibold">{t("skills.title")}</h3>
           <button
             onClick={() => setEditMode(!editMode)}
             className="text-sm text-white bg-gray-600 px-3 py-1 rounded hover:bg-green-700"
           >
-            {editMode ? "Sıralamayı Bitir" : "Sıralamayı Düzenle"}
+            {editMode ? t("skills.done") : t("skills.edit")}
           </button>
         </div>
 
@@ -77,12 +79,12 @@ const StepSkills = ({ data, setData }) => {
             type="text"
             value={skillInput}
             onChange={(e) => setSkillInput(e.target.value)}
-            placeholder="e.g. React, JavaScript"
+            placeholder={t("skills.placeholder")}
             className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           />
           <button
             onClick={addSkill}
-            title="Ekle"
+            title={t("skills.addTitle")}
             className="bg-green-500 dark:bg-green-600 text-white px-3 py-2 mb-4 rounded hover:bg-green-600 dark:hover:bg-green-700 font-semibold "
           >
             <PlusIcon className="w-5 h-5 inline-block" />
@@ -105,14 +107,13 @@ const StepSkills = ({ data, setData }) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className={`bg-gray-500 dark:bg-gray-600 text-gray-100 px-3 py-1 rounded-full flex items-center justify-between ${
-                          editMode ? "w-full" : ""
-                        }`}
+                        className={`bg-gray-500 dark:bg-gray-600 text-gray-100 px-3 py-1 rounded-full flex items-center justify-between ${editMode ? "w-full" : ""
+                          }`}
                       >
                         <span>{s}</span>
                         <button
                           onClick={() => removeSkill(i)}
-                          title="Sil"
+                          title={t("skills.delete")}
                           className="text-sm ml-1 font-semibold text-red-400 dark:text-red-300"
                         >
                           <XCircleIcon className="w-5 h-5 inline-block" />
@@ -130,14 +131,14 @@ const StepSkills = ({ data, setData }) => {
 
       {/* Languages */}
       <div>
-        <h3 className="text-lg font-semibold mb-2">Dil</h3>
+        <h3 className="text-lg font-semibold mb-2">{t("skills.languages")}</h3>
         <div className="grid md:grid-cols-2 gap-2 mb-3">
           <input
             type="text"
             name="name"
             value={lang.name}
             onChange={(e) => setLang({ ...lang, name: e.target.value })}
-            placeholder="Dil (e.g. English)"
+            placeholder={t("skills.languagePlaceholder")}
             className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           />
           <select
@@ -146,7 +147,7 @@ const StepSkills = ({ data, setData }) => {
             onChange={(e) => setLang({ ...lang, level: e.target.value })}
             className="p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">Seviye</option>
+            <option value="">{t("skills.levels.select")}</option>
             <option value="A1">A1</option>
             <option value="A2">A2</option>
             <option value="B1">B1</option>
@@ -160,7 +161,7 @@ const StepSkills = ({ data, setData }) => {
           onClick={addLang}
           className="border-2 border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 px-4 py-1 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600"
         >
-          Dil Ekle
+          {t("skills.addLanguage")}
         </button>
 
         <div className="mt-3 space-y-2">
@@ -176,18 +177,20 @@ const StepSkills = ({ data, setData }) => {
                 <button
                   onClick={() => moveLangUp(i)}
                   className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
+                  title={t("skills.moveUp")}
                 >
                   <ChevronUpIcon className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => moveLangDown(i)}
                   className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
+                  title={t("skills.moveDown")}
                 >
                   <ChevronDownIcon className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => removeLang(i)}
-                  title="Sil"
+                  title={t("skills.delete")}
                   className="bg-gray-500 hover:bg-green-700 text-white p-1 rounded"
                 >
                   <TrashIcon className="w-4 h-4" />

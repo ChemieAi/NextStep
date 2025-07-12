@@ -6,6 +6,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { PencilIcon } from "@heroicons/react/24/solid";
+import { useTranslation } from "react-i18next";
 
 // Base64 dönüşüm fonksiyonu
 const fileToBase64 = (file) => {
@@ -26,6 +27,7 @@ const StepBasicInfo = ({ data, setData }) => {
   const [phoneError, setPhoneError] = useState("");
   const API_BASE = import.meta.env.VITE_API_URL;
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // localStorage'tan base64 al (ilk yüklenirken)
@@ -44,7 +46,7 @@ const StepBasicInfo = ({ data, setData }) => {
 
     // 1MB sınırı (1MB = 1024 * 1024 byte)
     if (file.size > 1024 * 1024) {
-      setPhotoError("Dosya boyutu 1MB'dan büyük olamaz.");
+      setPhotoError(t("basicInfo.photoError"));
       return;
     }
     setPhotoError(""); // ⬅️ başarılı yüklemeden sonra temizle
@@ -142,7 +144,7 @@ const StepBasicInfo = ({ data, setData }) => {
             <div className="w-full h-full bg-gray-200 flex items-center justify-center text-sm relative dark:bg-gray-700">
               <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-black/30 transition">
                 <UserCircleIcon className="w-14 h-14 text-gray-400" />
-                <span className="text-xs text-gray-600 mt-1 dark:text-gray-300">Fotoğraf Yükle</span>
+                <span className="text-xs text-gray-600 mt-1 dark:text-gray-300">{t("basicInfo.photoLabel")}</span>
                 <input
                   type="file"
                   accept="image/*"
@@ -164,29 +166,29 @@ const StepBasicInfo = ({ data, setData }) => {
 
       {/* Diğer inputlar */}
       <div>
-        <label className="font-medium block mb-1">Ad Soyad</label>
+        <label className="font-medium block mb-1">{t("basicInfo.nameLabel")}</label>
         <input
           type="text"
           name="name"
           value={data.name}
           onChange={handleChange}
-          placeholder="Örneğin: Burak Kızılay"
+          placeholder={t("basicInfo.namePlaceholder")}
           className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
       <div>
-        <label className="font-medium block mb-1">Ünvan</label>
+        <label className="font-medium block mb-1">{t("basicInfo.titleLabel")}</label>
         <input
           type="text"
           name="title"
           value={data.title}
           onChange={handleChange}
-          placeholder="Örneğin: Yazılım Mühendisi"
+          placeholder={t("basicInfo.titlePlaceholder")}
           className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
       <div>
-        <label className="font-medium block mb-1">Email</label>
+        <label className="font-medium block mb-1">{t("basicInfo.emailLabel")}</label>
         <input
           type="email"
           name="email"
@@ -195,12 +197,12 @@ const StepBasicInfo = ({ data, setData }) => {
           onBlur={(e) => {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(e.target.value)) {
-              setEmailError("Lütfen geçerli bir e-posta adresi girin.");
+              setEmailError(t("basicInfo.emailError"));
             } else {
               setEmailError("");
             }
           }}
-          placeholder="Mail adresiniz"
+          placeholder={t("basicInfo.emailPlaceholder")}
           className={`w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white ${emailError ? "border-red-500 animate-shake" : ""
             }`}
         />
@@ -209,18 +211,18 @@ const StepBasicInfo = ({ data, setData }) => {
         )}
       </div>
       <div>
-        <label className="font-medium block mb-1">Ülke/Şehir</label>
+        <label className="font-medium block mb-1">{t("basicInfo.cityLabel")}</label>
         <input
           type="text"
           name="city"
           value={data.city}
           onChange={handleChange}
-          placeholder="Örneğin: İstanbul"
+          placeholder={t("basicInfo.cityPlaceholder")}
           className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
       <div>
-        <label className="font-medium block mb-1">Telefon</label>
+        <label className="font-medium block mb-1">{t("basicInfo.phoneLabel")}</label>
         <input
           type="tel"
           name="phone"
@@ -229,12 +231,12 @@ const StepBasicInfo = ({ data, setData }) => {
           onBlur={(e) => {
             const phoneRegex = /^\+?[1-9]\d{7,14}$/; // + opsiyonel, 8-15 arası hane alan koduyla birlikte
             if (!phoneRegex.test(e.target.value)) {
-              setPhoneError("Lütfen geçerli bir telefon numarası girin. Örnek Format: +905551112233  (Alan kodu ile birlikte boşluksuz giriniz)");
+              setPhoneError(t("basicInfo.phoneError"));
             } else {
               setPhoneError("");
             }
           }}
-          placeholder="Örneğin: +905551112233 (Alan kodu ile birlikte boşluksuz giriniz)"
+          placeholder={t("basicInfo.phonePlaceholder")}
           className={`w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white ${phoneError ? "border-red-500 animate-shake" : ""
             }`}
         />
@@ -257,7 +259,7 @@ const StepBasicInfo = ({ data, setData }) => {
           className="w-6 h-6 accent-green-500"
         />
         <label htmlFor="showProfileImage" className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-          CV'de profil fotoğrafımı göster
+          {t("basicInfo.showImage")}
         </label>
       </div>
     </div>

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
-
+import { useTranslation } from "react-i18next";
 const StepSocial = ({ data, setData }) => {
   const [social, setSocial] = useState({ name: "", url: "" });
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     setSocial({ ...social, [e.target.name]: e.target.value });
@@ -55,21 +56,21 @@ const StepSocial = ({ data, setData }) => {
           <div className="flex gap-1 mb-4">
             <button
               onClick={() => moveUp(index)}
-              title="Yukarı Taşı"
+              title={t("social.moveUp")}
               className="bg-gray-500 hover:bg-green-700 text-white p-2 rounded"
             >
               <ChevronUpIcon className="w-5 h-5 text-gray-100" />
             </button>
             <button
               onClick={() => moveDown(index)}
-              title="Aşağı Taşı"
+              title={t("social.moveDown")}
               className="bg-gray-500 hover:bg-green-700 text-white p-2 rounded"
             >
               <ChevronDownIcon className="w-5 h-5 text-gray-100" />
             </button>
             <button
               onClick={() => handleDelete(index)}
-              title="Sil"
+              title={t("social.delete")}
               className="bg-gray-500 hover:bg-green-700 text-white p-2 rounded"
             >
               <TrashIcon className="w-5 h-5 text-gray-100" />
@@ -85,7 +86,7 @@ const StepSocial = ({ data, setData }) => {
           name="name"
           value={social.name}
           onChange={handleChange}
-          placeholder="Link Adı (e.g. LinkedIn)"
+          placeholder={t("social.namePlaceholder")}
           className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
         <input
@@ -93,7 +94,7 @@ const StepSocial = ({ data, setData }) => {
           name="url"
           value={social.url}
           onChange={handleChange}
-          placeholder="Link URL (e.g. https://linkedin.com/in/burak-kızılay)"
+          placeholder={t("social.urlPlaceholder")}
           className="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
         />
       </div>
@@ -103,7 +104,7 @@ const StepSocial = ({ data, setData }) => {
         onClick={handleAdd}
         className="w-full border-2 border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 py-2 rounded hover:bg-green-100 font-semibold dark:hover:bg-gray-600"
       >
-        EKLE
+        {t("social.add")}
       </button>
     </div >
   );

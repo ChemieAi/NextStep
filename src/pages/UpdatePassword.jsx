@@ -3,12 +3,14 @@ import { auth } from "../firebase";
 import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,9 +22,9 @@ const UpdatePassword = () => {
       await reauthenticateWithCredential(user, credential);
       await updatePassword(user, newPassword);
 
-      setMessage("✅ Şifre başarıyla güncellendi.");
+      setMessage(t("updatePassword.success"));
     } catch (err) {
-      setMessage(`❌ ${err.message}`);
+      setMessage(t("updatePassword.error"));
     }
   };
 
@@ -34,13 +36,13 @@ const UpdatePassword = () => {
         transition={{ duration: 0.4 }}
         className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">Şifre Güncelle</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">{t("updatePassword.title")}</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            placeholder="Mevcut şifre"
+            placeholder={t("updatePassword.current")}
             required
             className="input w-full bg-gray-100 dark:bg-gray-700 text-black dark:text-white"
           />
@@ -48,11 +50,11 @@ const UpdatePassword = () => {
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Yeni şifre"
+            placeholder={t("updatePassword.new")}
             required
             className="input w-full bg-gray-100 dark:bg-gray-700 text-black dark:text-white"
           />
-          <button className="btn w-full bg-green-600 text-white">Güncelle</button>
+          <button className="btn w-full bg-green-600 text-white">{t("updatePassword.button")}</button>
           {message && <p className="text-center mt-3 text-sm text-red-600">{message}</p>}
         </form>
       </motion.div>

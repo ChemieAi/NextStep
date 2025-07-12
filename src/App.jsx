@@ -1,4 +1,5 @@
 import React from "react";
+import "./i18n";
 import AppRouter from "./routes/AppRouter";
 import Navbar from "./components/Navbar";
 import Footer from './components/Footer';

@@ -1,0 +1,363 @@
+{
+    "landing": {
+        "heroTitle": "Easily create your professional ATS-friendly CV",
+        "heroSubtitle": "Create your resume in minutes and attract employers.",
+        "createCv": "Create CV",
+        "whatIsAts": "What is ATS?",
+        "atsInfo": "ATS (Applicant Tracking System) is software used in recruitment processes. Employers automatically scan resumes through these systems. CVs that are incorrectly formatted or missing keywords will not pass. Therefore, applying with a <1>ATS-friendly CV</1> significantly increases your interview chances.",
+        "logout": "Log Out"
+    },
+    "nav": {
+        "home": "Home",
+        "login": "Login",
+        "register": "Register",
+        "profile": "Profile",
+        "theme": "Theme",
+        "lang": "Language",
+        "lang_tr": "Turkish",
+        "lang_en": "English"
+    },
+    "footer": {
+        "brand": "NextStep",
+        "description": "Easily create and manage your resume. Start your career one step ahead.",
+        "links": "Quick Links",
+        "home": "Home",
+        "contact": "Contact",
+        "follow": "Follow Us",
+        "subscribe": "Subscribe to Our Newsletter",
+        "emailPlaceholder": "Your email address",
+        "subscribeBtn": "Subscribe",
+        "rights": "All rights reserved."
+    },
+    "login": {
+        "welcome": "Welcome",
+        "subtitle": "Sign in to your account",
+        "emailPlaceholder": "Enter your email address",
+        "passwordPlaceholder": "Enter your password",
+        "submit": "Sign In",
+        "noAccount": "Don't have an account? Register",
+        "forgotPassword": "Forgot Password?"
+    },
+    "register": {
+        "welcome": "Welcome",
+        "subtitle": "Create your account",
+        "name": "Enter your name",
+        "surname": "Enter your surname",
+        "email": "Enter your email",
+        "password": "Enter your password",
+        "confirmPassword": "Re-enter your password",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "and": "and",
+        "submit": "Register",
+        "haveAccount": "Already have an account? Sign In",
+        "agreementText": "I have read and accept the <terms>Terms of Use</terms> and <privacy>Privacy Policy</privacy>."
+    },
+    "termsAndPrivacy": {
+        "termsTitle": "Terms of Use",
+        "terms": [
+            {
+                "title": "1. Parties",
+                "content": "These terms govern the relationship between the NextStepCV platform and its users. By accessing the platform, you are deemed to have read, understood, and accepted these terms."
+            },
+            {
+                "title": "2. Description of Services",
+                "content": "NextStepCV offers users a fast, stylish, and professional way to create resumes (CVs) online. Users can enter their personal details and either download a PDF or store their CVs on the platform."
+            },
+            {
+                "title": "3. Account Creation",
+                "content": "Users must create an account using their first name, last name, email address, and password. All information must be accurate and up to date. No one else should use the account without the owner's consent."
+            },
+            {
+                "title": "4. Usage Rules",
+                "list": [
+                    "Users must produce real, accurate, and legal content.",
+                    "The platform must not be misused or harmful content shared.",
+                    "Users must not endanger the safety of other users.",
+                    "Content must not be illegal, offensive, or sexual in nature."
+                ]
+            },
+            {
+                "title": "5. Service Continuity",
+                "content": "NextStepCV aims to provide uninterrupted service. However, temporary outages may occur due to maintenance, updates, or server issues. The platform is not liable for any losses during such times."
+            },
+            {
+                "title": "6. Content Ownership",
+                "content": "Resumes created on the platform belong to the respective users. The platform does not access or use private resumes without permission. By saving CVs on the platform, users consent to data processing."
+            },
+            {
+                "title": "7. Pricing",
+                "content": "The platform is currently free. In the future, premium features may be offered for a fee. Users will be notified in advance if any changes occur."
+            },
+            {
+                "title": "8. Third Party Services",
+                "content": "NextStepCV may use third-party service providers (e.g. hosting, analytics) to maintain the platform. These providers only have access to the necessary data."
+            },
+            {
+                "title": "9. Account Deletion",
+                "content": "Users may delete their account at any time. Once deleted, all data will be permanently removed from the system within 30 days. The platform reserves the right to suspend accounts without warning for severe violations."
+            },
+            {
+                "title": "10. Right to Modify",
+                "content": "NextStepCV reserves the right to update these terms at any time. Users are responsible for reviewing updates via the platform."
+            },
+            {
+                "title": "11. Contact",
+                "content": "For questions or complaints, you may reach us at support@nextstepcv.tech."
+            }
+        ]
+    },
+    "privacyTitle": "Privacy Policy",
+    "sections": [
+        {
+            "title": "1. Introduction",
+            "content": "At NextStepCV, we value user privacy. This document explains what data we collect about you, why we collect it, and how we process that data."
+        },
+        {
+            "title": "2. Data Collected",
+            "list": [
+                "Full name",
+                "Email address",
+                "Phone number",
+                "City and country",
+                "Education and work history",
+                "Skills, projects, and summary information",
+                "Profile picture (optional)"
+            ]
+        },
+        {
+            "title": "3. Purposes of Data Processing",
+            "list": [
+                "To provide CV creation services",
+                "To verify your login credentials",
+                "To respond to your support requests",
+                "To analyze system performance",
+                "To ensure platform security",
+                "To fulfill legal obligations"
+            ]
+        },
+        {
+            "title": "4. Data Retention Period",
+            "content": "Your data is retained while your account remains active. If you delete your account or remain inactive for a certain period, your data will be permanently deleted."
+        },
+        {
+            "title": "5. Security",
+            "content": "NextStepCV takes all necessary physical, technical, and administrative measures to protect your data. However, data transmission over the internet is not entirely secure; thus, absolute security cannot be guaranteed."
+        },
+        {
+            "title": "6. Sharing with Third Parties",
+            "content": "Your data is not sold to third parties for advertising. However, some service providers (e.g., hosting, image processing, analytics) may have limited access to your data for operational purposes and are bound by confidentiality obligations."
+        },
+        {
+            "title": "7. User Rights",
+            "list": [
+                "Access your data",
+                "Request correction",
+                "Request data deletion",
+                "Object to data processing"
+            ]
+        },
+        {
+            "title": "8. Cookies",
+            "content": "We use cookies to manage sessions and improve user experience. These cookies do not contain personal information and are used only for anonymous analytics."
+        },
+        {
+            "title": "9. Legal Obligations",
+            "content": "We may share your data with official authorities if legally required. Otherwise, your data will not be disclosed to third parties."
+        },
+        {
+            "title": "10. Policy Changes",
+            "content": "This privacy policy may be updated from time to time. Significant changes will be communicated to you via email."
+        },
+        {
+            "title": "11. Contact",
+            "content": "If you have any questions or requests about your privacy, please contact us at support@nextstepcv.tech."
+        }
+    ],
+    "modal": {
+        "button": "Close"
+    },
+    "contact": {
+        "title": "Get in Touch with Us",
+        "name": "Your Name",
+        "email": "Email Address",
+        "message": "Your Message",
+        "submit": "Send",
+        "success": "✅ Your message has been sent successfully.",
+        "error": "❌ An error occurred while sending your message."
+    },
+    "forgotPassword": {
+        "title": "Forgot Password",
+        "instruction": "Enter your email address",
+        "placeholder": "Your email address",
+        "submit": "Submit",
+        "success": "📩 Password reset link has been sent to your email address.",
+        "error": "Please enter a valid email address."
+    },
+    "verifyWaiting": {
+        "title": "Waiting for Email Verification",
+        "instruction": "Please check your inbox and click the verification link to activate your account."
+    },
+    "profile": {
+        "title": "My Profile",
+        "uploadLabel": "Upload Photo",
+        "uploadErrorSize": "⚠️ File size cannot exceed 1MB.",
+        "uploadErrorGeneric": "An error occurred while uploading the photo.",
+        "fullname": "Full Name",
+        "titleLabel": "Title",
+        "email": "Email",
+        "download": "Download CV",
+        "downloading": "Preparing...",
+        "createCv": "Create CV",
+        "updatePassword": "Update Password"
+    },
+    "updatePassword": {
+        "title": "Update Password",
+        "current": "Current password",
+        "new": "New password",
+        "button": "Update",
+        "success": "✅ Your password has been successfully updated.",
+        "error": "❌ An error occurred. Please try again.",
+        "errors": {
+            "wrongPassword": "❌ The current password is incorrect.",
+            "weakPassword": "❌ The new password must be at least 6 characters.",
+            "tooManyRequests": "❌ Too many attempts. Please try again later."
+        }
+    },
+    "cvPreview": {
+        "title": "CV Preview",
+        "back": "Go Back",
+        "downloadPdf": "Download as PDF",
+        "generating": "Generating..."
+    },
+    "loading": "Loading...",
+    "cvBuilder": {
+        "steps": {
+            "basic": "Basic Info",
+            "summary": "Summary",
+            "education": "Education",
+            "experience": "Experience",
+            "social": "Social Media",
+            "skills": "Skills",
+            "projects": "Projects",
+            "template": "Template"
+        },
+        "back": "Back",
+        "next": "Next",
+        "complete": "Complete",
+        "reminder": "🔄 Don’t forget to click \"Next\" to save your changes.",
+        "errors": {
+            "invalidEmail": "Please enter a valid email address (e.g., example@mail.com).",
+            "invalidPhone": "Please enter a valid phone number including country code (e.g., +905551112233)."
+        }
+    },
+    "basicInfo": {
+        "nameLabel": "Full Name",
+        "namePlaceholder": "e.g., John Doe",
+        "titleLabel": "Title",
+        "titlePlaceholder": "e.g., Software Engineer",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Your email address",
+        "emailError": "Please enter a valid email address.",
+        "cityLabel": "City/Country",
+        "cityPlaceholder": "e.g., Istanbul",
+        "phoneLabel": "Phone",
+        "phonePlaceholder": "e.g., +905551112233 (include country code, no spaces)",
+        "phoneError": "Please enter a valid phone number. Format example: +905551112233 (including country code, no spaces)",
+        "photoLabel": "Upload Photo",
+        "photoError": "⚠️ File size cannot exceed 1MB.",
+        "showImage": "Show profile photo in CV"
+    },
+    "stepSummary": {
+        "label": "Short Profile / Summary",
+        "placeholder": "Introduce yourself in a few sentences..."
+    },
+    "education": {
+        "add": "ADD",
+        "school": "School Name",
+        "department": "Department Name",
+        "start": "Start",
+        "end": "End",
+        "dateStart": "Start Date",
+        "dateEnd": "End Date",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year",
+        "currently": "Currently studying",
+        "edit": "Edit",
+        "delete": "Delete",
+        "moveUp": "Move Up",
+        "moveDown": "Move Down",
+        "save": "Save",
+        "cancel": "Cancel",
+        "ongoing": "Ongoing"
+    },
+    "experience": {
+        "add": "ADD",
+        "company": "Company",
+        "position": "Position",
+        "start": "Start",
+        "end": "End",
+        "dateStart": "Start Date",
+        "dateEnd": "End Date",
+        "month": "Month",
+        "year": "Year",
+        "currently": "Currently working in this position",
+        "description": "Job Description",
+        "edit": "Edit",
+        "delete": "Delete",
+        "moveUp": "Move Up",
+        "moveDown": "Move Down",
+        "save": "Save",
+        "cancel": "Cancel",
+        "ongoing": "Ongoing"
+    },
+    "social": {
+        "namePlaceholder": "Link Name (e.g. LinkedIn)",
+        "urlPlaceholder": "Link URL (e.g. https://linkedin.com/in/...)",
+        "add": "ADD",
+        "moveUp": "Move Up",
+        "moveDown": "Move Down",
+        "delete": "Delete"
+    },
+    "skills": {
+        "title": "Skills",
+        "edit": "Edit Order",
+        "done": "Finish Ordering",
+        "placeholder": "e.g. React, JavaScript",
+        "addTitle": "Add",
+        "delete": "Delete",
+        "moveUp": "Move Up",
+        "moveDown": "Move Down",
+        "languages": "Languages",
+        "languagePlaceholder": "Language (e.g. English)",
+        "levelPlaceholder": "Level",
+        "addLanguage": "Add Language",
+        "levels": {
+            "select": "Level",
+            "native": "Native"
+        }
+    },
+    "projects": {
+        "titlePlaceholder": "Project Title",
+        "descPlaceholder": "Project Description",
+        "linkPlaceholder": "Project Link (optional)",
+        "edit": "Edit",
+        "delete": "Delete",
+        "moveUp": "Move Up",
+        "moveDown": "Move Down",
+        "save": "Save",
+        "cancel": "Cancel",
+        "add": "ADD"
+    },
+    "template": {
+        "title": "Choose a CV Template",
+        "subtitle": "Select the layout that will be downloaded as PDF.",
+        "template1": "🧾 Template 1",
+        "template2": "🧾 Template 2",
+        "template3": "🧾 Template 3",
+        "template4": "🧾 Template 4",
+        "description": "ATS-friendly, simple and effective design.",
+        "comingSoon": "This template is coming soon! Currently unavailable."
+    }
+}
