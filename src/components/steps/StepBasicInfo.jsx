@@ -44,8 +44,8 @@ const StepBasicInfo = ({ data, setData }) => {
     const file = e.target.files[0];
     if (!file || !currentUser) return;
 
-    // 1MB sınırı (1MB = 1024 * 1024 byte)
-    if (file.size > 1024 * 1024) {
+    // 10MB sınırı (10MB = 10 * 1024 * 1024 byte)
+    if (file.size > 10 * 1024 * 1024) {
       setPhotoError(t("basicInfo.photoError"));
       return;
     }
