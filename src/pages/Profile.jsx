@@ -63,7 +63,7 @@ const Profile = () => {
     const file = e.target.files[0];
     if (!file || !currentUser) return;
 
-    if (file.size > 1024 * 1024) {
+    if (file.size > 10 * 1024 * 1024) {
       setErrorMessage(t("profile.uploadErrorSize"));
       return;
     }
