@@ -9,12 +9,51 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 
 // Base64 dönüşüm fonksiyonu
-const fileToBase64 = (file) => {
+const compressImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
+    const img = new window.Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+
+        const maxSize = 500;
+        const scale = Math.min(
+          maxSize / img.width,
+          maxSize / img.height,
+          1
+        );
+
+        canvas.width = Math.max(1, Math.round(img.width * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
+
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx) {
+          throw new Error("Canvas oluşturulamadı");
+        }
+
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        const base64 = canvas.toDataURL("image/jpeg", 0.75);
+
+        resolve(base64);
+      } catch (error) {
+        reject(error);
+      } finally {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Fotoğraf okunamadı"));
+    };
+
+    img.src = objectUrl;
   });
 };
 
@@ -41,68 +80,94 @@ const StepBasicInfo = ({ data, setData }) => {
     setData({ ...data, [e.target.name]: e.target.value });
 
   const handlePhotoUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file || !currentUser) return;
+  const file = e.target.files?.[0];
+  if (!file || !currentUser) return;
 
-    // 10MB sınırı (10MB = 10 * 1024 * 1024 byte)
-    if (file.size > 10 * 1024 * 1024) {
-      setPhotoError(t("basicInfo.photoError"));
-      return;
+  if (file.size > 10 * 1024 * 1024) {
+    setPhotoError(t("basicInfo.photoError"));
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    setPhotoError("Lütfen geçerli bir fotoğraf seçin.");
+    return;
+  }
+
+  setPhotoError("");
+  setUploading(true);
+
+  try {
+    // PDF için küçük Base64 oluştur
+    const compressedBase64 = await compressImageToBase64(file);
+
+    // Orijinal fotoğrafı backend'e yükle
+    const token = await currentUser.getIdToken();
+
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", file);
+
+    const response = await fetch(`${API_BASE}/api/profile-image`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: uploadFormData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Fotoğraf yükleme hatası: ${response.status}`);
     }
-    setPhotoError(""); // ⬅️ başarılı yüklemeden sonra temizle
-    setUploading(true);
 
+    const result = await response.json();
+
+    if (!result.url) {
+      throw new Error("Fotoğraf URL'si alınamadı.");
+    }
+
+    const separator = result.url.includes("?") ? "&" : "?";
+    const cacheBustedUrl =
+      `${result.url}${separator}t=${Date.now()}`;
+
+    // Firestore'a küçük Base64 kaydet
+    const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
+
+    await setDoc(
+      cvRef,
+      {
+        profileImage: cacheBustedUrl,
+        profileImageBase64: compressedBase64,
+        updatedAt: new Date(),
+      },
+      { merge: true }
+    );
+
+    // Context'i güncelle
+    setData((prev) => ({
+      ...prev,
+      profileImage: cacheBustedUrl,
+      profileImageBase64: compressedBase64,
+    }));
+
+    // localStorage opsiyonel; küçük görseli sakla
     try {
-      const token = await currentUser.getIdToken();
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch(`${API_BASE}/api/profile-image`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      const data = await response.json();
-      if (data.url) {
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-          const base64 = reader.result;
-
-          // 🔁 URL’ye cache busting ekleme (sadece görünüm için)
-          const separator = data.url.includes("?") ? "&" : "?";
-          const cacheBustedUrl = `${data.url}${separator}t=${Date.now()}`;
-
-          // 🔄 local state güncelle
-          setData((prev) => ({
-            ...prev,
-            profileImage: cacheBustedUrl,
-            profileImageBase64: base64,
-          }));
-
-          // 🔄 Firestore cv verisini güncelle ki PDF de doğru base64'ü alsın
-          const cvRef = doc(db, "users", currentUser.uid, "cvs", "main");
-          await setDoc(cvRef, {
-            profileImage: cacheBustedUrl,
-            profileImageBase64: base64,
-            updatedAt: new Date(),
-          }, { merge: true });
-
-          // 🔄 localStorage opsiyonel
-          localStorage.setItem("profileImageBase64", base64);
-        };
-
-        reader.readAsDataURL(file);
-      }
-    } catch (error) {
-      console.error("Profil fotoğrafı yüklenemedi ❌", error);
-      alert("Bir hata oluştu. Lütfen tekrar deneyin.");
-    } finally {
-      setUploading(false);
+      localStorage.setItem(
+        "profileImageBase64",
+        compressedBase64
+      );
+    } catch (storageError) {
+      console.warn("localStorage kaydı başarısız:", storageError);
     }
-  };
+
+    console.log("Profil fotoğrafı PDF için hazır.");
+  } catch (error) {
+    console.error("Profil fotoğrafı hatası:", error);
+    setPhotoError(
+      "Fotoğraf kaydedilemedi. Lütfen tekrar deneyin."
+    );
+  } finally {
+    setUploading(false);
+  }
+};
 
 
   return (
